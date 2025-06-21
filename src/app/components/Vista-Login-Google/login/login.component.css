@@ -1,0 +1,75 @@
+.bg-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .card {
+      border-radius: 15px !important;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .form-control-lg {
+      border-radius: 10px;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .form-control-lg:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #dee2e6;
+    }
+
+    .divider-text {
+      background: white;
+      padding: 0 15px;
+      color: #6c757d;
+      font-size: 14px;
+    }
+
+    .text-primary {
+      color: #667eea !important;
+    }
+
+    .btn-outline-secondary {
+      border-color: #e9ecef;
+    }
+
+    .input-group .form-control:focus {
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      .card-body {
+        padding: 2rem !important;
+      }
+    }

@@ -1,0 +1,147 @@
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-gradient">
+      <div class="row w-100">
+        <div class="col-12 col-md-6 col-lg-4 mx-auto">
+          <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-body p-5">
+              <!-- Header -->
+              <div class="text-center mb-4">
+                <h2 class="fw-bold text-primary mb-2">
+                  {{ isLoginMode ? 'Iniciar Sesión' : 'Crear Cuenta' }}
+                </h2>
+                <p class="text-muted">
+                  {{ isLoginMode ? 'Bienvenido de nuevo' : 'Únete a nosotros' }}
+                </p>
+              </div>
+
+              <!-- Google Login Button -->
+              <div class="mb-4">
+                <div id="google-signin-button" class="d-flex justify-content-center"></div>
+              </div>
+
+              <!-- Divider -->
+              <div class="divider mb-4">
+                <span class="divider-text">O continúa con tu email</span>
+              </div>
+
+              <!-- Form -->
+              <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+                <!-- Nombre y Apellido (solo para registro) -->
+                <div class="row" *ngIf="!isLoginMode">
+                  <div class="col-md-6 mb-3">
+                    <label for="firstName" class="form-label">Nombre</label>
+                    <input 
+                      type="text" 
+                      class="form-control form-control-lg"
+                      id="firstName"
+                      formControlName="firstName"
+                      [class.is-invalid]="authForm.get('firstName')?.invalid && authForm.get('firstName')?.touched"
+                      placeholder="Tu nombre">
+                    <div class="invalid-feedback" *ngIf="authForm.get('firstName')?.invalid && authForm.get('firstName')?.touched">
+                      El nombre es requerido
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="lastName" class="form-label">Apellido</label>
+                    <input 
+                      type="text" 
+                      class="form-control form-control-lg"
+                      id="lastName"
+                      formControlName="lastName"
+                      [class.is-invalid]="authForm.get('lastName')?.invalid && authForm.get('lastName')?.touched"
+                      placeholder="Tu apellido">
+                    <div class="invalid-feedback" *ngIf="authForm.get('lastName')?.invalid && authForm.get('lastName')?.touched">
+                      El apellido es requerido
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input 
+                    type="email" 
+                    class="form-control form-control-lg"
+                    id="email"
+                    formControlName="email"
+                    [class.is-invalid]="authForm.get('email')?.invalid && authForm.get('email')?.touched"
+                    placeholder="tu@email.com">
+                  <div class="invalid-feedback" *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched">
+                    <span *ngIf="authForm.get('email')?.errors?.['required']">El email es requerido</span>
+                    <span *ngIf="authForm.get('email')?.errors?.['email']">Ingresa un email válido</span>
+                  </div>
+                </div>
+
+                <!-- Dirección (solo para registro) -->
+                <div class="mb-3" *ngIf="!isLoginMode">
+                  <label for="address" class="form-label">Dirección</label>
+                  <textarea 
+                    class="form-control"
+                    id="address"
+                    formControlName="address"
+                    rows="2"
+                    [class.is-invalid]="authForm.get('address')?.invalid && authForm.get('address')?.touched"
+                    placeholder="Tu dirección completa"></textarea>
+                  <div class="invalid-feedback" *ngIf="authForm.get('address')?.invalid && authForm.get('address')?.touched">
+                    La dirección es requerida
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <div class="input-group">
+                    <input 
+                      [type]="showPassword ? 'text' : 'password'" 
+                      class="form-control form-control-lg"
+                      id="password"
+                      formControlName="password"
+                      [class.is-invalid]="authForm.get('password')?.invalid && authForm.get('password')?.touched"
+                      placeholder="Tu contraseña">
+                    <button 
+                      class="btn btn-outline-secondary" 
+                      type="button"
+                      (click)="togglePasswordVisibility()">
+                      <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                    </button>
+                  </div>
+                  <div class="invalid-feedback" *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched">
+                    <span *ngIf="authForm.get('password')?.errors?.['required']">La contraseña es requerida</span>
+                    <span *ngIf="authForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</span>
+                  </div>
+                </div>
+
+                <!-- Remember me / Forgot password (solo para login) -->
+                <div class="d-flex justify-content-between align-items-center mb-4" *ngIf="isLoginMode">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                      Recordarme
+                    </label>
+                  </div>
+                  <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <!-- Submit Button -->
+                <button 
+                  type="submit" 
+                  class="btn btn-primary btn-lg w-100 mb-3"
+                  [disabled]="authForm.invalid || isLoading">
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                  {{ isLoginMode ? 'Iniciar Sesión' : 'Crear Cuenta' }}
+                </button>
+
+                <!-- Switch Mode -->
+                <div class="text-center">
+                  <p class="mb-0">
+                    {{ isLoginMode ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?' }}
+                    <a href="#" class="text-decoration-none fw-bold" (click)="switchMode($event)">
+                      {{ isLoginMode ? 'Crear una cuenta' : 'Iniciar sesión' }}
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
