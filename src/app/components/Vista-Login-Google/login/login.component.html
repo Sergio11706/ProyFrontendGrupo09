@@ -28,7 +28,7 @@
 
           <!-- Form -->
           <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-            <!-- Nombre y Apellido (solo para registro) -->
+            <!-- Nombre y Apellido -->
             <div class="row" *ngIf="!isLoginMode">
               <div class="col-md-6 mb-3">
                 <label for="firstName" class="form-label">Nombre</label>
@@ -74,7 +74,7 @@
               </div>
             </div>
 
-            <!-- Dirección (solo para registro) -->
+            <!-- Dirección -->
             <div class="mb-3" *ngIf="!isLoginMode">
               <label for="address" class="form-label">Dirección</label>
               <textarea 

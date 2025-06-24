@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loadGoogleScript();
-    // Asegurar que la función de callback esté disponible globalmente
     (window as any).handleCredentialResponse = this.handleCredentialResponse.bind(this);
   }
 
@@ -130,7 +129,7 @@ export class LoginComponent implements OnInit {
 
     try {
       google.accounts.id.initialize({
-        client_id: '774452338062-5dnfov657dj7q9evl9vc1mobaoh4o13p.apps.googleusercontent.com', // ⚠️ IMPORTANTE: Reemplaza con tu Client ID real
+        client_id: '774452338062-5dnfov657dj7q9evl9vc1mobaoh4o13p.apps.googleusercontent.com', 
         callback: this.handleCredentialResponse.bind(this),
         context: this.isLoginMode ? 'signin' : 'signup',
         ux_mode: 'popup',
@@ -161,20 +160,17 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Maneja la respuesta de credenciales de Google después de un inicio de sesión exitoso.
-   * Contiene el token JWT con la información del usuario.
    * @param response El objeto de respuesta de credenciales de Google.
    */
   handleCredentialResponse(response: any): void {
-    // 'ngZone.run' asegura que los cambios y actualizaciones de Angular se detecten.
+    // 'ngZone.run' asegura que los cambios y actualizaciones de Angular se detecten
     this.ngZone.run(() => {
       console.log('Token JWT ID codificado:', response.credential);
       
-      // Decodifica el token JWT para obtener la información del usuario.
+      // Decodifica el token JWT para obtener la información del usuario
       const decodedToken = this.decodeJwtResponse(response.credential);
       console.log('Información de usuario decodificada (JSON):', decodedToken);
       
-      // Llenar el formulario con los datos de Google (opcional)
       if (decodedToken) {
         this.authForm.patchValue({
           firstName: decodedToken.given_name || '',
@@ -182,10 +178,8 @@ export class LoginComponent implements OnInit {
           email: decodedToken.email || ''
         });
 
-        // Ejemplo de cómo acceder a la información:
         alert(`¡Bienvenido, ${decodedToken.name || decodedToken.email}!`);
         
-        // Aquí procesarías el token JWT de Google
         // Consultar por los privilegios y roles del usuario en tu BD
         this.processGoogleUser(decodedToken);
       }
@@ -193,7 +187,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Decodifica un token JWT para extraer su payload (el JSON con la información).
+   * Decodifica un token JWT para extraer su payload 
    */
   private decodeJwtResponse(token: string): any {
     try {
@@ -222,7 +216,6 @@ export class LoginComponent implements OnInit {
     console.log('Procesando usuario de Google:', userInfo);
     
     // Simular consulta a la BD para verificar roles y permisos
-    // En una implementación real, harías una llamada HTTP a tu backend
     const userData = {
       googleId: userInfo.sub,
       email: userInfo.email,
@@ -232,23 +225,5 @@ export class LoginComponent implements OnInit {
       picture: userInfo.picture,
       emailVerified: userInfo.email_verified
     };
-
-    // Aquí harías la consulta a tu BD
-    console.log('Datos a enviar al backend:', userData);
-    
-    // Ejemplo de lo que harías:
-    /*
-    this.authService.googleLogin(userData).subscribe({
-      next: (response) => {
-        // Guardar token, roles, permisos, etc.
-        console.log('Login exitoso:', response);
-        // Redirigir al dashboard o página principal
-      },
-      error: (error) => {
-        console.error('Error en login:', error);
-        alert('Error al iniciar sesión con Google');
-      }
-    });
-    */
   }
 }
