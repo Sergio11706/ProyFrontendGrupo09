@@ -3,6 +3,6 @@ import { LoginComponent } from './components/Vista-Login-Google/login/login.comp
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/Login', pathMatch: 'full' },
     { path: 'Login', component: LoginComponent }
 ];

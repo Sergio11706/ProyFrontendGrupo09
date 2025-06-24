@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 declare const google: any;
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,12 +18,14 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private ngZone: NgZone) {
     this.authForm = this.createForm();
   }
 
   ngOnInit() {
     this.loadGoogleScript();
+    // Asegurar que la función de callback esté disponible globalmente
+    (window as any).handleCredentialResponse = this.handleCredentialResponse.bind(this);
   }
 
   createForm(): FormGroup {
@@ -39,6 +42,10 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     this.isLoginMode = !this.isLoginMode;
     this.updateFormValidators();
+    // Reinicializar Google Sign-In con el nuevo modo
+    setTimeout(() => {
+      this.initializeGoogleSignIn();
+    }, 100);
   }
 
   updateFormValidators() {
@@ -95,7 +102,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loadGoogleScript() {
+  private loadGoogleScript(): void {
+    // Verificar si Google ya está cargado
     if (typeof google !== 'undefined') {
       this.initializeGoogleSignIn();
       return;
@@ -106,33 +114,141 @@ export class LoginComponent implements OnInit {
     script.async = true;
     script.defer = true;
     script.onload = () => {
-      this.initializeGoogleSignIn();
+      // Esperar un momento para que Google se inicialice completamente
+      setTimeout(() => {
+        this.initializeGoogleSignIn();
+      }, 100);
     };
     document.head.appendChild(script);
   }
 
   initializeGoogleSignIn() {
-    google.accounts.id.initialize({
-      client_id: 'TU_GOOGLE_CLIENT_ID_AQUI', // Reemplaza con tu Client ID
-      callback: this.handleGoogleSignIn.bind(this)
-    });
+    if (typeof google === 'undefined') {
+      console.error('Google Sign-In library not loaded');
+      return;
+    }
 
-    google.accounts.id.renderButton(
-      document.getElementById('google-signin-button'),
-      {
-        theme: 'outline',
-        size: 'large',
-        width: '100%',
-        text: this.isLoginMode ? 'signin_with' : 'signup_with',
-        shape: 'rectangular'
+    try {
+      google.accounts.id.initialize({
+        client_id: '774452338062-5dnfov657dj7q9evl9vc1mobaoh4o13p.apps.googleusercontent.com', // ⚠️ IMPORTANTE: Reemplaza con tu Client ID real
+        callback: this.handleCredentialResponse.bind(this),
+        context: this.isLoginMode ? 'signin' : 'signup',
+        ux_mode: 'popup',
+        auto_prompt: false
+      });
+
+      // Limpiar el contenedor antes de renderizar
+      const buttonContainer = document.getElementById('google-signin-button');
+      if (buttonContainer) {
+        buttonContainer.innerHTML = '';
       }
-    );
+
+      google.accounts.id.renderButton(
+        document.getElementById('google-signin-button'),
+        {
+          theme: 'outline',
+          size: 'large',
+          width: 300, // Usar número en lugar de porcentaje
+          text: this.isLoginMode ? 'signin_with' : 'signup_with',
+          shape: 'rectangular',
+          type: 'standard',
+          logo_alignment: 'left'
+        }
+      );
+    } catch (error) {
+      console.error('Error initializing Google Sign-In:', error);
+    }
   }
 
-  handleGoogleSignIn(response: any) {
-    console.log('Google Sign-In response:', response);
-    // Aquí procesarías el token JWT de Google
-    // Decodificar el token y extraer la información del usuario
-    alert('Login con Google exitoso!');
+  /**
+   * Maneja la respuesta de credenciales de Google después de un inicio de sesión exitoso.
+   * Contiene el token JWT con la información del usuario.
+   * @param response El objeto de respuesta de credenciales de Google.
+   */
+  handleCredentialResponse(response: any): void {
+    // 'ngZone.run' asegura que los cambios y actualizaciones de Angular se detecten.
+    this.ngZone.run(() => {
+      console.log('Token JWT ID codificado:', response.credential);
+      
+      // Decodifica el token JWT para obtener la información del usuario.
+      const decodedToken = this.decodeJwtResponse(response.credential);
+      console.log('Información de usuario decodificada (JSON):', decodedToken);
+      
+      // Llenar el formulario con los datos de Google (opcional)
+      if (decodedToken) {
+        this.authForm.patchValue({
+          firstName: decodedToken.given_name || '',
+          lastName: decodedToken.family_name || '',
+          email: decodedToken.email || ''
+        });
+
+        // Ejemplo de cómo acceder a la información:
+        alert(`¡Bienvenido, ${decodedToken.name || decodedToken.email}!`);
+        
+        // Aquí procesarías el token JWT de Google
+        // Consultar por los privilegios y roles del usuario en tu BD
+        this.processGoogleUser(decodedToken);
+      }
+    });
+  }
+
+  /**
+   * Decodifica un token JWT para extraer su payload (el JSON con la información).
+   */
+  private decodeJwtResponse(token: string): any {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error('Error decoding JWT token:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Procesa la información del usuario de Google
+   * Aquí consultarías los privilegios y roles del usuario en tu BD
+   */
+  private processGoogleUser(userInfo: any): void {
+    console.log('Procesando usuario de Google:', userInfo);
+    
+    // Simular consulta a la BD para verificar roles y permisos
+    // En una implementación real, harías una llamada HTTP a tu backend
+    const userData = {
+      googleId: userInfo.sub,
+      email: userInfo.email,
+      name: userInfo.name,
+      firstName: userInfo.given_name,
+      lastName: userInfo.family_name,
+      picture: userInfo.picture,
+      emailVerified: userInfo.email_verified
+    };
+
+    // Aquí harías la consulta a tu BD
+    console.log('Datos a enviar al backend:', userData);
+    
+    // Ejemplo de lo que harías:
+    /*
+    this.authService.googleLogin(userData).subscribe({
+      next: (response) => {
+        // Guardar token, roles, permisos, etc.
+        console.log('Login exitoso:', response);
+        // Redirigir al dashboard o página principal
+      },
+      error: (error) => {
+        console.error('Error en login:', error);
+        alert('Error al iniciar sesión con Google');
+      }
+    });
+    */
   }
 }
