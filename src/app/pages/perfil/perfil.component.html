@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <h3>👤 Mi perfil</h3>
+  <p><strong>Nombre:</strong> Juan Pérez</p>
+  <p><strong>Email:</strong> juan&#64;mail.com</p>
+  <p><strong>Pedidos recientes:</strong></p>
+  <ul>
+    <li *ngFor="let pedido of pedidos">
+      Pedido #{{ pedido.codigoPedido }} - ${{ pedido.total }}
+    </li>
+  </ul>
+</div>
