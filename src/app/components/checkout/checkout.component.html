@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h3>💳 Finalizar compra</h3>
+  <form>
+    <div class="mb-3">
+      <label for="direccion">Dirección de entrega</label>
+      <input id="direccion" class="form-control" [(ngModel)]="direccion" name="direccion">
+    </div>
+    <div class="mb-3">
+      <label for="pago">Método de pago</label>
+      <select id="pago" class="form-select" [(ngModel)]="pago" name="pago">
+        <option value="mercadoPago">MercadoPago</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" (click)="confirmar()">Confirmar pedido</button>
+  </form>
+</div>
