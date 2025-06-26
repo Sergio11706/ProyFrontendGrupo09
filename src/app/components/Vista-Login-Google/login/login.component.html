@@ -21,14 +21,53 @@
             </div>
           </div>
 
-          <!-- Divider -->
-          <div class="divider mb-4">
-            <span class="divider-text">O continúa con tu email</span>
+          <div class="divider">
+            <span class="divider-text">o</span>
           </div>
 
           <!-- Form -->
-          <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-            <!-- Nombre y Apellido -->
+          <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="authForm">
+            
+            <div class="mb-4" *ngIf="!isLoginMode">
+              <label class="form-label fw-bold">Tipo de Usuario</label>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-check">
+                    <input 
+                      class="form-check-input" 
+                      type="radio" 
+                      name="userType" 
+                      id="client"
+                      value="client"
+                      formControlName="userType"
+                      (change)="onUserTypeChange()">
+                    <label class="form-check-label" for="client">
+                      <i class="fas fa-user me-2"></i>Cliente
+                    </label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-check">
+                    <input 
+                      class="form-check-input" 
+                      type="radio" 
+                      name="userType" 
+                      id="delivery"
+                      value="delivery"
+                      formControlName="userType"
+                      (change)="onUserTypeChange()">
+                    <label class="form-check-label" for="delivery">
+                      <i class="fas fa-motorcycle me-2"></i>Repartidor
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="invalid-feedback d-block" *ngIf="authForm.get('userType')?.invalid && authForm.get('userType')?.touched">
+                Selecciona el tipo de usuario
+              </div>
+            </div>
+
+            <!-- Nombre y Apellido (for registration) -->
             <div class="row" *ngIf="!isLoginMode">
               <div class="col-md-6 mb-3">
                 <label for="firstName" class="form-label">Nombre</label>
@@ -55,6 +94,21 @@
                 <div class="invalid-feedback" *ngIf="authForm.get('lastName')?.invalid && authForm.get('lastName')?.touched">
                   El apellido es requerido
                 </div>
+              </div>
+            </div>
+
+            <!-- DNI -->
+            <div class="mb-3" *ngIf="!isLoginMode && selectedUserType === 'delivery'">
+              <label for="dni" class="form-label">DNI</label>
+              <input 
+                type="text" 
+                class="form-control form-control-lg"
+                id="dni"
+                formControlName="dni"
+                [class.is-invalid]="authForm.get('dni')?.invalid && authForm.get('dni')?.touched"
+                placeholder="Tu número de DNI">
+              <div class="invalid-feedback" *ngIf="authForm.get('dni')?.invalid && authForm.get('dni')?.touched">
+                El DNI es requerido
               </div>
             </div>
 
@@ -86,6 +140,42 @@
                 placeholder="Tu dirección completa"></textarea>
               <div class="invalid-feedback" *ngIf="authForm.get('address')?.invalid && authForm.get('address')?.touched">
                 La dirección es requerida
+              </div>
+            </div>
+
+            <!-- Vehicle -->
+            <div class="mb-3" *ngIf="!isLoginMode && selectedUserType === 'delivery'">
+              <label for="vehicle" class="form-label">Vehículo</label>
+              <select 
+                class="form-select form-control-lg"
+                id="vehicle"
+                formControlName="vehicle"
+                [class.is-invalid]="authForm.get('vehicle')?.invalid && authForm.get('vehicle')?.touched"
+                (change)="onVehicleChange()">
+                <option value="">Selecciona tu vehículo</option>
+                <option value="motorcycle">Motocicleta</option>
+                <option value="bicycle">Bicicleta</option>
+                <option value="car">Automóvil</option>
+                <option value="scooter">Scooter</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="authForm.get('vehicle')?.invalid && authForm.get('vehicle')?.touched">
+                Selecciona tu vehículo
+              </div>
+            </div>
+
+            <!-- License Number -->
+            <div class="mb-3 fade-in" *ngIf="!isLoginMode && selectedUserType === 'delivery' && selectedVehicle && selectedVehicle !== 'bicycle'">
+              <label for="licenseNumber" class="form-label">Número de Licencia</label>
+              <input 
+                type="text" 
+                class="form-control form-control-lg"
+                id="licenseNumber"
+                formControlName="licenseNumber"
+                [class.is-invalid]="authForm.get('licenseNumber')?.invalid && authForm.get('licenseNumber')?.touched"
+                placeholder="Tu número de licencia de conducir">
+              <small class="text-muted">Requerido para motocicleta, automóvil y scooter</small>
+              <div class="invalid-feedback" *ngIf="authForm.get('licenseNumber')?.invalid && authForm.get('licenseNumber')?.touched">
+                El número de licencia es requerido
               </div>
             </div>
 
