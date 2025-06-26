@@ -1,0 +1,63 @@
+<div class="container mt-4" *ngIf="!cargando; else cargandoTpl">
+  <h2 class="text-center mb-5">
+    <i class="bi bi-bar-chart"></i> Panel del Administrador
+  </h2>
+
+  <!-- 📦 PEDIDOS -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">📦 Pedidos</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let p of pedidos">
+        <div class="d-flex justify-content-between flex-column flex-md-row">
+          <div>
+            <strong>Cliente:</strong> {{ p.cliente }} <br>
+            <strong>Dirección:</strong> {{ p.direccionEntrega }} <br>
+            <strong>Estado:</strong> <span class="badge bg-warning text-dark">{{ p.estado }}</span> <br>
+            <strong>Fecha:</strong> {{ p.fecha | date:'short' }}
+          </div>
+          <div class="align-self-md-center mt-2 mt-md-0">
+            <span class="badge bg-success fs-6">{{ p.total | currency:'ARS' }}</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- 🧾 FACTURAS -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">🧾 Facturas</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let f of facturas">
+        <div class="d-flex justify-content-between">
+          <div>
+            <strong>Número:</strong> {{ f.numero }}
+          </div>
+          <span class="badge bg-primary">Total: {{ f.total | currency:'ARS' }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 🚚 REPARTIDORES -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">🚚 Repartidores</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let r of repartidores">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ r.nombre }} {{ r.apellido }}</strong> - Usuario: {{ r.username }}
+          </div>
+          <span class="badge bg-success">Activo</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #cargandoTpl>
+  <div class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3">Cargando datos...</p>
+  </div>
+</ng-template>

@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <h3>🛒 Carrito de compras</h3>
+  <ul class="list-group mb-3" *ngIf="items.length > 0; else vacioTpl">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of items">
+      {{ item.nombre }} x{{ item.cantidad }}
+      <span class="badge bg-primary">{{ item.precio * item.cantidad | currency:'ARS' }}</span>
+    </li>
+  </ul>
+  <ng-template #vacioTpl>
+    <p>No hay productos en el carrito.</p>
+  </ng-template>
+  <h4>Total: {{ total | currency:'ARS' }}</h4>
+  <button class="btn btn-success" routerLink="/checkout" [disabled]="items.length === 0">Finalizar pedido</button>
+</div>
