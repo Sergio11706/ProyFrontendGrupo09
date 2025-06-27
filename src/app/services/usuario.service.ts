@@ -10,7 +10,7 @@ export class UsuarioService {
   hostBase: string; 
  
   constructor(private _http:HttpClient) {  
-    this.hostBase = "http://localhost:3000/api/usuario/"; 
+    this.hostBase = "http://localhost:3000/api/usuarios/"; 
   } 
  
   public login(username: string, password: string):Observable<any> { 
