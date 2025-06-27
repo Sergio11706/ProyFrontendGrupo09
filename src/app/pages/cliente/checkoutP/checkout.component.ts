@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarritoService } from '../../services/carrito.service';
+import { CarritoService } from '../../../services/carrito.service';
 
 
 @Component({
