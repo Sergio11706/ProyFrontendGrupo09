@@ -15,6 +15,40 @@
         </div>
       </div>
       
+      <form name="form-register">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userRegister.username" />
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userRegister.password" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Nombre" name="nombre" [(ngModel)]="userRegister.nombre" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Apellido" name="apellido" [(ngModel)]="userRegister.apellido" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="userRegister.email" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Telefono" name="telefono" [(ngModel)]="userRegister.telefono" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Barrio" name="barrio" [(ngModel)]="userRegister.barrio" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Calle" name="calle" [(ngModel)]="userRegister.calle" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Numero de Calle" name="numeroCalle" [(ngModel)]="userRegister.numeroCalle" />
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary w-100" (click)="guardarUsuario()">Registrarse</button>
+        </div>
+        <div class="alert-danger">{{msglogin}}</div>
+      </form>
+
       <div class="text-center">
         <p class="mb-3">¿Ya tienes una cuenta?</p>
         <button class="btn btn-link" (click)="toggleLogin()">Iniciar Sesión</button>
@@ -23,7 +57,7 @@
 
     <div *ngIf="showLogin">
       <h2>Iniciar Sesión</h2>
-      <form name="form">
+      <form name="form-login">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userform.username" />
         </div>

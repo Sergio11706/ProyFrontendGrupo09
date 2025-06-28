@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Usuario } from '../../models/usuario.model';
+import { Cliente, Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgZone } from '@angular/core';
@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   returnUrl!: string; 
   msglogin!: string;
   showLogin: boolean = false;
+
+  userRegister: Cliente = new Cliente();
 
   constructor( 
     private route: ActivatedRoute, 
@@ -126,6 +128,22 @@ export class LoginComponent implements OnInit {
     this.showLogin = !this.showLogin;
     // Forzar la re-renderización del botón de Google
     setTimeout(() => this.initializeGoogleSignIn(), 100);
+  }
+
+  guardarUsuario(): void {
+    this.userRegister.estado = true;
+    this.userRegister.activo = true;
+    this.userRegister.tipoUsuario = 'Cliente';
+    this.userService.guardarUsuario(this.userRegister)
+      .subscribe((result: any) => {
+        console.log(result);
+        this.msglogin = "Usuario guardado exitosamente.";
+      },
+      error => {
+        alert("Error de conexion");
+        console.log("error en conexion");
+        console.log(error);
+      });
   }
 
 }

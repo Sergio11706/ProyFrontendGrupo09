@@ -15,17 +15,17 @@ export class Usuario {
 
 export class Administrador extends Usuario {
   constructor(
-    _id: string,
-    username: string,
-    password: string,
-    nombre: string,
-    apellido: string,
-    estado: boolean,
-    email: string,
-    telefono: string,
-    activo: boolean,
-    permisos: number,
-    ultimaModificacion: string
+    _id?: string,
+    username?: string,
+    password?: string,
+    nombre?: string,
+    apellido?: string,
+    estado?: boolean,
+    email?: string,
+    telefono?: string,
+    activo?: boolean,
+    public permisos?: number,
+    public ultimaModificacion?: string
   ) {
     super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Administrador');
   }
@@ -34,19 +34,19 @@ export class Administrador extends Usuario {
 
 export class Cliente extends Usuario {
   constructor(
-    _id: string,
-    username: string,
-    password: string,
-    nombre: string,
-    apellido: string,
-    estado: boolean,
-    email: string,
-    telefono: string,
-    activo: boolean,
-    barrio: string,
-    calle: string,
-    numeroCalle: number,
-    descuento: number
+    _id?: string,
+    username?: string,
+    password?: string,
+    nombre?: string,
+    apellido?: string,
+    estado?: boolean,
+    email?: string,
+    telefono?: string,
+    activo?: boolean,
+    public barrio?: string,
+    public calle?: string,
+    public numeroCalle?: number,
+    public descuento?: number
   ) {
     super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Cliente');
   }
@@ -54,21 +54,21 @@ export class Cliente extends Usuario {
 
 export class Repartidor extends Usuario {
   constructor(
-    _id: string,
-    username: string,
-    password: string,
-    nombre: string,
-    apellido: string,
-    estado: boolean,
-    email: string,
-    telefono: string,
-    activo: boolean,
-    documento: string,
-    numeroLicencia: string,
-    domicilio: string,
-    vehiculo: string,
-    zonaAsignada: string,
-    rating: number
+    _id?: string,
+    username?: string,
+    password?: string,
+    nombre?: string,
+    apellido?: string,
+    estado?: boolean,
+    email?: string,
+    telefono?: string,
+    activo?: boolean,
+    public documento?: string,
+    public numeroLicencia?: string,
+    public domicilio?: string,
+    public vehiculo?: string,
+    public zonaAsignada?: string,
+    public rating?: number
   ) {
     super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Repartidor');
   }
