@@ -41,13 +41,16 @@ export class LoginComponent implements OnInit {
         .subscribe((result: any) => { 
           console.log(result);
               var user = result; 
-              if (user.status == 1){ 
-                //guardamos el user en cookies en el cliente 
-                sessionStorage.setItem("user", user.username); 
-                sessionStorage.setItem("userid", user.userid); 
- 
-                //redirigimos a home o a pagina que llamo 
-                this.router.navigateByUrl(this.returnUrl); 
+              if (user.status == 1){
+                if(user.estado == 'aprobado'){
+                  //guardamos el user en cookies en el cliente 
+                  sessionStorage.setItem("user", user.username); 
+                  sessionStorage.setItem("userid", user.userid); 
+                  //redirigimos a home o a pagina que llamo 
+                  this.router.navigateByUrl(this.returnUrl); 
+                }else{
+                  this.msglogin="Tu solicitud está pendiente de aprobación.";
+                } 
               } else { 
                 //usuario no encontrado  muestro mensaje en la vista 
                 this.msglogin="Credenciales incorrectas.."; 
@@ -139,8 +142,7 @@ export class LoginComponent implements OnInit {
   }
 
   guardarUsuario(): void {
-    this.userRegister.estado = true;
-    this.userRegister.activo = true;
+    this.userRegister.estado = 'aprobado';
     this.userRegister.tipoUsuario = 'Cliente';
     this.userService.guardarUsuario(this.userRegister)
       .subscribe((result: any) => {

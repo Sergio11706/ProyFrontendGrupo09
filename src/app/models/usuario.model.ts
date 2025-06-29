@@ -5,10 +5,9 @@ export class Usuario {
     public password?: string,
     public nombre?: string,
     public apellido?: string,
-    public estado?: boolean,
+    public estado?: 'aprobado' | 'pendiente' | 'rechazado',
     public email?: string,
     public telefono?: string,
-    public activo?: boolean,
     public tipoUsuario?: 'Administrador' | 'Cliente' | 'Repartidor'
   ) {}
 }
@@ -20,14 +19,13 @@ export class Administrador extends Usuario {
     password?: string,
     nombre?: string,
     apellido?: string,
-    estado?: boolean,
+    estado?: 'aprobado' | 'pendiente' | 'rechazado',
     email?: string,
     telefono?: string,
-    activo?: boolean,
     public permisos?: number,
     public ultimaModificacion?: string
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Administrador');
+    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Administrador');
   }
 }
 
@@ -39,16 +37,15 @@ export class Cliente extends Usuario {
     password?: string,
     nombre?: string,
     apellido?: string,
-    estado?: boolean,
+    estado?: 'aprobado' | 'pendiente' | 'rechazado',
     email?: string,
     telefono?: string,
-    activo?: boolean,
     public barrio?: string,
     public calle?: string,
     public numeroCalle?: number,
     public descuento?: number
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Cliente');
+    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Cliente');
   }
 }
 
@@ -59,17 +56,17 @@ export class Repartidor extends Usuario {
     password?: string,
     nombre?: string,
     apellido?: string,
-    estado?: boolean,
+    estado?: 'aprobado' | 'pendiente' | 'rechazado',
     email?: string,
     telefono?: string,
-    activo?: boolean,
     public documento?: string,
     public numeroLicencia?: string,
     public domicilio?: string,
     public vehiculo?: string,
-    public zonaAsignada?: string,
-    public rating?: number
+    public zonaTrabajo?: string,
+    public rating?: number,
+    public activo?: boolean
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Repartidor');
+    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Repartidor');
   }
 }
