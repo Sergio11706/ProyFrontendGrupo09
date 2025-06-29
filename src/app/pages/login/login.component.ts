@@ -10,6 +10,7 @@ declare const google: any;
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -18,9 +19,9 @@ export class LoginComponent implements OnInit {
   userform: Usuario = new Usuario();  
   returnUrl!: string; 
   msglogin!: string;
-  showLogin: boolean = false;
-
+  showLogin: boolean = true; 
   userRegister: Cliente = new Cliente();
+  decodedToken: any;
 
   constructor( 
     private route: ActivatedRoute, 
@@ -60,7 +61,6 @@ export class LoginComponent implements OnInit {
   } 
 
   private loadGoogleScript(): void { 
-    // Verificar si ya está cargado
     if ((window as any).google?.accounts) {
       this.initializeGoogleSignIn();
       return;
@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
     script.async = true; 
     script.defer = true; 
     script.onload = () => {
-      // Pequeño retraso para asegurar que la API esté disponible
       setTimeout(() => this.initializeGoogleSignIn(), 100);
     };
     document.head.appendChild(script); 
@@ -88,7 +87,6 @@ export class LoginComponent implements OnInit {
       callback: this.handleCredentialResponse.bind(this)
     });
 
-    // Renderizar botón si está en la página
     const button = document.querySelector('.g_id_signin');
     if (button) {
       (window as any).google.accounts.id.renderButton(button, {
@@ -106,11 +104,18 @@ export class LoginComponent implements OnInit {
     this.ngZone.run(() => { 
       console.log('Token JWT ID codificado:', response.credential); 
  
-      const decodedToken = this.decodeJwtResponse(response.credential); 
-      console.log('Información de usuario decodificada (JSON):', decodedToken); 
- 
-      alert(`¡Bienvenido, ${decodedToken.name || decodedToken.email}!`); 
- 
+      this.decodedToken = this.decodeJwtResponse(response.credential); 
+      console.log('Información de usuario decodificada (JSON):', this.decodedToken); 
+
+      if (this.showLogin) {
+        alert(`¡Bienvenido, ${this.decodedToken.name || this.decodedToken.email}!`);
+      } else {
+        this.userRegister.nombre = this.decodedToken.given_name || '';
+        this.userRegister.apellido = this.decodedToken.family_name || '';
+        this.userRegister.email = this.decodedToken.email || '';
+        
+        this.msglogin = 'Datos de Google cargados. Por favor complete los campos restantes.';
+      }
     }); 
   } 
 
@@ -126,8 +131,11 @@ export class LoginComponent implements OnInit {
 
   toggleLogin() {
     this.showLogin = !this.showLogin;
-    // Forzar la re-renderización del botón de Google
-    setTimeout(() => this.initializeGoogleSignIn(), 100);
+    this.msglogin = '';
+  
+    if (!this.showLogin) {
+      setTimeout(() => this.initializeGoogleSignIn(), 200);
+    }
   }
 
   guardarUsuario(): void {

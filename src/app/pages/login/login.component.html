@@ -1,5 +1,28 @@
 <div class="login-container">
   <div class="login-box">
+    <!-- Vista de Login (mostrada por defecto) -->
+    <div *ngIf="showLogin">
+      <h2>Iniciar Sesión</h2>
+      <form name="form-login">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userform.username" />
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userform.password" />
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary w-100" (click)="login()">Ingresar</button>
+        </div>
+        <div class="alert-danger">{{msglogin}}</div>
+      </form>
+
+      <div class="text-center mt-3">
+        <p class="mb-2">¿No tienes una cuenta?</p>
+        <button class="btn btn-link" (click)="toggleLogin()">Regístrate aquí</button>
+      </div>
+    </div>
+
+    <!-- Vista de Registro -->
     <div *ngIf="!showLogin">
       <h2>Registro</h2>
       
@@ -29,10 +52,10 @@
           <input type="text" class="form-control" placeholder="Apellido" name="apellido" [(ngModel)]="userRegister.apellido" />
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="userRegister.email" />
+          <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="userRegister.email" />
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Telefono" name="telefono" [(ngModel)]="userRegister.telefono" />
+          <input type="text" class="form-control" placeholder="Teléfono" name="telefono" [(ngModel)]="userRegister.telefono" />
         </div>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Barrio" name="barrio" [(ngModel)]="userRegister.barrio" />
@@ -41,7 +64,7 @@
           <input type="text" class="form-control" placeholder="Calle" name="calle" [(ngModel)]="userRegister.calle" />
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Numero de Calle" name="numeroCalle" [(ngModel)]="userRegister.numeroCalle" />
+          <input type="text" class="form-control" placeholder="Número de Calle" name="numeroCalle" [(ngModel)]="userRegister.numeroCalle" />
         </div>
         <div class="form-group">
           <button type="button" class="btn btn-primary w-100" (click)="guardarUsuario()">Registrarse</button>
@@ -52,39 +75,6 @@
       <div class="text-center">
         <p class="mb-3">¿Ya tienes una cuenta?</p>
         <button class="btn btn-link" (click)="toggleLogin()">Iniciar Sesión</button>
-      </div>
-    </div>
-
-    <div *ngIf="showLogin">
-      <h2>Iniciar Sesión</h2>
-      <form name="form-login">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userform.username" />
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userform.password" />
-        </div>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary w-100" (click)="login()">Ingresar</button>
-        </div>
-        <div class="alert-danger">{{msglogin}}</div>
-      </form>
-      
-      <!-- Botón de Google en la vista de login -->
-      <div class="text-center my-3">
-        <div class="g_id_signin" 
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="outline"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left">
-        </div>
-      </div>
-      
-      <div class="text-center">
-        <p class="mb-3">¿No tienes cuenta?</p>
-        <button class="btn btn-link" (click)="toggleLogin()">Registrarse</button>
       </div>
     </div>
   </div>
