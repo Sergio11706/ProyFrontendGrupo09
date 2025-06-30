@@ -6,6 +6,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-lista-repartidores',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './lista-repartidores.component.html',
   styleUrl: './lista-repartidores.component.css'

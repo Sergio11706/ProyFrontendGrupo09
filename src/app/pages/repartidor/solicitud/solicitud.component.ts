@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitud',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './solicitud.component.html',
   styleUrls: ['./solicitud.component.css']
