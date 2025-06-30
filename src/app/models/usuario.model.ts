@@ -61,7 +61,6 @@ export class Repartidor extends Usuario {
     telefono?: string,
     public documento?: string,
     public numeroLicencia?: string,
-    public domicilio?: string,
     public vehiculo?: string,
     public zonaTrabajo?: string,
     public rating?: number,

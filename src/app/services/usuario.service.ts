@@ -65,5 +65,9 @@ export class UsuarioService {
   public aceptarSolicitud(id: string): Observable<any> {
     return this._http.get(this.hostBase + 'aprobarSolicitud/' + id);
   }
+
+  public rechazarSolicitud(id: string): Observable<any> {
+    return this._http.get(this.hostBase + 'rechazarSolicitud/' + id);
+  }
 }   
 

@@ -24,7 +24,7 @@
         <td>{{ repartidor.zonaTrabajo }}</td>
         <td>
             <button class="btn btn-primary" (click)="aprobarSolicitud(repartidor._id!)">Aprobar</button>
-          <button class="btn btn-danger">Rechazar</button>
+          <button class="btn btn-danger" (click)="rechazarSolicitud(repartidor._id!)">Rechazar</button>
         </td>
       </tr>
     </tbody>

@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
                   //redirigimos a home o a pagina que llamo 
                   this.router.navigateByUrl(this.returnUrl); 
                 }else{
-                  this.msglogin="Tu solicitud está pendiente de aprobación.";
+                  if(user.estado == 'pendiente') this.msglogin="Tu solicitud está pendiente de aprobación.";
+                  else this.msglogin="Tu solicitud ha sido rechazada.";
                 } 
               } else { 
                 //usuario no encontrado  muestro mensaje en la vista 

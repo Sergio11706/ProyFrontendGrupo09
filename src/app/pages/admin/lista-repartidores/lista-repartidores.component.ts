@@ -29,4 +29,9 @@ export class ListaRepartidoresComponent implements OnInit {
     });
   }
 
+  rechazarSolicitud(id: string) {
+    this.usuarioService.rechazarSolicitud(id).subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 }
