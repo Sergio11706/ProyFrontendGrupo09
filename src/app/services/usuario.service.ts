@@ -58,5 +58,12 @@ export class UsuarioService {
     return this._http.post(this.hostBase, body, httpOption); 
   }
  
+  public getRepartidores(): Observable<any> {
+    return this._http.get(this.hostBase + 'repartidores');
+  }
+
+  public aceptarSolicitud(id: string): Observable<any> {
+    return this._http.get(this.hostBase + 'aprobarSolicitud/' + id);
+  }
 }   
 

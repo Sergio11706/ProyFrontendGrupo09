@@ -5,6 +5,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CheckoutComponent } from './pages/cliente/checkoutP/checkout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SolicitudComponent } from './pages/repartidor/solicitud/solicitud.component';
+import { ListaRepartidoresComponent } from './pages/admin/lista-repartidores/lista-repartidores.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'productos', component: ProductosComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'solicitud', component: SolicitudComponent }
+  { path: 'solicitud', component: SolicitudComponent },
+  { path: 'lista-repartidores', component: ListaRepartidoresComponent }
 ];
