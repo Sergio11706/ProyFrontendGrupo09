@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>Lista de Repartidores</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Documento</th>
+        <th>Número de Licencia</th>
+        <th>Email</th>
+        <th>Vehículo</th>
+        <th>Zona de Trabajo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let repartidor of repartidores">
+        <td>{{ repartidor.nombre }}</td>
+        <td>{{ repartidor.apellido }}</td>
+        <td>{{ repartidor.documento }}</td>
+        <td>{{ repartidor.numeroLicencia }}</td>
+        <td>{{ repartidor.email }}</td>
+        <td>{{ repartidor.vehiculo }}</td>
+        <td>{{ repartidor.zonaTrabajo }}</td>
+        <td>
+            <button class="btn btn-primary" (click)="aprobarSolicitud(repartidor._id!)">Aprobar</button>
+          <button class="btn btn-danger" (click)="rechazarSolicitud(repartidor._id!)">Rechazar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

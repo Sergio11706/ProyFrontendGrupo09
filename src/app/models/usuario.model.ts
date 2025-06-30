@@ -5,71 +5,67 @@ export class Usuario {
     public password?: string,
     public nombre?: string,
     public apellido?: string,
-    public estado?: boolean,
+    public estado?: 'aprobado' | 'pendiente' | 'rechazado',
     public email?: string,
     public telefono?: string,
-    public activo?: boolean,
     public tipoUsuario?: 'Administrador' | 'Cliente' | 'Repartidor'
   ) {}
 }
 
 export class Administrador extends Usuario {
   constructor(
-    _id: string,
-    username: string,
-    password: string,
-    nombre: string,
-    apellido: string,
-    estado: boolean,
-    email: string,
-    telefono: string,
-    activo: boolean,
-    permisos: number,
-    ultimaModificacion: string
+    _id?: string,
+    username?: string,
+    password?: string,
+    nombre?: string,
+    apellido?: string,
+    estado?: 'aprobado' | 'pendiente' | 'rechazado',
+    email?: string,
+    telefono?: string,
+    public permisos?: number,
+    public ultimaModificacion?: string
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Administrador');
+    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Administrador');
   }
 }
 
 
 export class Cliente extends Usuario {
   constructor(
-    _id: string,
-    username: string,
-    password: string,
-    nombre: string,
-    apellido: string,
-    estado: boolean,
-    email: string,
-    telefono: string,
-    activo: boolean,
-    barrio: string,
-    calle: string,
-    numeroCalle: number,
-    descuento: number
+    _id?: string,
+    username?: string,
+    password?: string,
+    nombre?: string,
+    apellido?: string,
+    estado?: 'aprobado' | 'pendiente' | 'rechazado',
+    email?: string,
+    telefono?: string,
+    public barrio?: string,
+    public calle?: string,
+    public numeroCalle?: number,
+    public descuento?: number
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Cliente');
+    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Cliente');
   }
 }
 
 export class Repartidor extends Usuario {
   constructor(
-    _id: string,
-    username: string,
-    password: string,
-    nombre: string,
-    apellido: string,
-    estado: boolean,
-    email: string,
-    telefono: string,
-    activo: boolean,
-    documento: string,
-    numeroLicencia: string,
-    domicilio: string,
-    vehiculo: string,
-    zonaAsignada: string,
-    rating: number
+    _id?: string,
+    username?: string,
+    password?: string,
+    nombre?: string,
+    apellido?: string,
+    estado?: 'aprobado' | 'pendiente' | 'rechazado',
+    email?: string,
+    telefono?: string,
+    public documento?: string,
+    public numeroLicencia?: string,
+    public vehiculo?: string,
+    public zonaTrabajo?: string,
+    public rating?: number,
+    public activo?: boolean
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, activo, 'Repartidor');
+    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Repartidor');
   }
 }

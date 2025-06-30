@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { Injectable } from '@angular/core'; 
 import { Observable } from 'rxjs'; 
+import { Cliente } from '../models/usuario.model';
  
 @Injectable({ 
   providedIn: 'root' 
@@ -45,7 +46,28 @@ export class UsuarioService {
   public idLogged(){ 
     var id = sessionStorage.getItem("userid"); 
     return id; 
-  } 
+  }
+  
+  public guardarUsuario(cliente: Cliente): Observable<any> {
+    const httpOption = { 
+      headers: new HttpHeaders({  
+        'Content-Type':  'application/json' 
+      })  
+    }  
+    let body = JSON.stringify(cliente); 
+    return this._http.post(this.hostBase, body, httpOption); 
+  }
  
+  public getRepartidores(): Observable<any> {
+    return this._http.get(this.hostBase + 'repartidores');
+  }
+
+  public aceptarSolicitud(id: string): Observable<any> {
+    return this._http.get(this.hostBase + 'aprobarSolicitud/' + id);
+  }
+
+  public rechazarSolicitud(id: string): Observable<any> {
+    return this._http.get(this.hostBase + 'rechazarSolicitud/' + id);
+  }
 }   
 
