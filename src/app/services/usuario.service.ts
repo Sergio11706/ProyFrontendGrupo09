@@ -27,6 +27,7 @@ export class UsuarioService {
   public logout() { 
     sessionStorage.removeItem("user"); 
     sessionStorage.removeItem("userid"); 
+    sessionStorage.removeItem("token");
   } 
 
   public userLoggedIn(){ 
@@ -68,6 +69,13 @@ export class UsuarioService {
 
   public rechazarSolicitud(id: string): Observable<any> {
     return this._http.get(this.hostBase + 'rechazarSolicitud/' + id);
+  }
+
+  public getToken(){
+    if (sessionStorage.getItem("token")!= null){ 
+      return sessionStorage.getItem("token")!; 
+    }
+    else return "";      
   }
 }   
 
