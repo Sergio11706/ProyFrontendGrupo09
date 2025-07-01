@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tp-webservice-6379": {
+    "proyfrontendgrupo09": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/tp-webservice-6379",
+            "outputPath": "dist/proyfrontendgrupo09",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tp-webservice-6379:build:production"
+              "buildTarget": "proyfrontendgrupo09:build:production"
             },
             "development": {
-              "buildTarget": "tp-webservice-6379:build:development"
+              "buildTarget": "proyfrontendgrupo09:build:development"
             }
           },
           "defaultConfiguration": "development"
