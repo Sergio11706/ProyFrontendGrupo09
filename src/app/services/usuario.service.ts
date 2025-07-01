@@ -11,7 +11,7 @@ export class UsuarioService {
   hostBase: string; 
  
   constructor(private _http:HttpClient) {  
-    this.hostBase = "http://localhost:3000/api/usuarios/"; 
+    this.hostBase = "https://grupo09.onrender.com/api/usuarios/"; 
   } 
  
   public login(username: string, password: string):Observable<any> { 
@@ -60,15 +60,33 @@ export class UsuarioService {
   }
  
   public getRepartidores(): Observable<any> {
-    return this._http.get(this.hostBase + 'repartidores');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get(this.hostBase + 'repartidores', httpOptions);
   }
 
   public aceptarSolicitud(id: string): Observable<any> {
-    return this._http.get(this.hostBase + 'aprobarSolicitud/' + id);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get(this.hostBase + 'aprobarSolicitud/' + id, httpOptions);
   }
 
   public rechazarSolicitud(id: string): Observable<any> {
-    return this._http.get(this.hostBase + 'rechazarSolicitud/' + id);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get(this.hostBase + 'rechazarSolicitud/' + id, httpOptions);
   }
 
   public getToken(){

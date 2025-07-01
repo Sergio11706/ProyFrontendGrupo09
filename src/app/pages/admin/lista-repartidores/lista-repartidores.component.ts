@@ -20,7 +20,6 @@ export class ListaRepartidoresComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioService.getRepartidores().subscribe((result: any) => {
       this.repartidores = result.filter((r: any) => r.estado === 'pendiente');
-      console.log(this.repartidores);
     });
   }
 
