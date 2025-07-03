@@ -36,34 +36,32 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home'; 
   } 
  
-  login() { 
-    this.userService.login(this.userform.username!, this.userform.password!) 
-        .subscribe((result: any) => { 
-          console.log(result);
-              var user = result; 
-              if (user.status == 1){
-                if(user.estado == 'aprobado'){
-                  //guardamos el user en cookies en el cliente 
-                  sessionStorage.setItem("token", user.token); 
-                  sessionStorage.setItem("user", user.username); 
-                  sessionStorage.setItem("userid", user.userid); 
-                  //redirigimos a home o a pagina que llamo 
-                  this.router.navigateByUrl(this.returnUrl); 
-                }else{
-                  if(user.estado == 'pendiente') this.msglogin="Tu solicitud está pendiente de aprobación.";
-                  else this.msglogin="Tu solicitud ha sido rechazada.";
-                } 
-              } else { 
-                //usuario no encontrado  muestro mensaje en la vista 
-                this.msglogin="Credenciales incorrectas.."; 
-              } 
-        }, 
-        error => { 
-          alert("Error de conexion"); 
-          console.log("error en conexion"); 
-          console.log(error); 
-      }); 
-  } 
+  login() {
+    this.userService.login(this.userform.username!, this.userform.password!)
+      .subscribe((result: any) => {
+        console.log(result);
+
+        if (result.status === 1 && result._id && result.estado) {
+          if (result.estado === 'aprobado') {
+            sessionStorage.setItem("token", result.token);
+            sessionStorage.setItem("user", result.username);
+            sessionStorage.setItem("userid", result._id);
+            sessionStorage.setItem("tipoUsuario", result.tipoUsuario || '');
+            this.router.navigateByUrl(this.returnUrl);
+          } else {
+            this.msglogin = result.estado === 'pendiente'
+              ? "Tu solicitud está pendiente de aprobación."
+              : "Tu solicitud ha sido rechazada.";
+          }
+        } else {
+          this.msglogin = "Credenciales incorrectas.";
+        }
+      },
+      error => {
+        alert("Error de conexión");
+        console.log("Error en conexión", error);
+      });
+  }
 
   private loadGoogleScript(): void { 
     if ((window as any).google?.accounts) {

@@ -89,6 +89,36 @@ export class UsuarioService {
     return this._http.get(this.hostBase + 'rechazarSolicitud/' + id, httpOptions);
   }
 
+  public obtenerUsuarios(): Observable<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get<any[]>(this.hostBase, httpOptions);
+  }
+
+  public eliminarUsuario(id: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.delete(this.hostBase + id, httpOptions);
+  }
+
+  public modificarUsuario(id: string, datos: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.put(this.hostBase + id, JSON.stringify(datos), httpOptions);
+  }
+
   public getToken(){
     if (sessionStorage.getItem("token")!= null){ 
       return sessionStorage.getItem("token")!; 

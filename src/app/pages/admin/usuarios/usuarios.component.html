@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2>Lista de Usuarios</h2>
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of usuarios">
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.apellido }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.tipoUsuario }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" (click)="editarUsuario(u)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(u._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Modal de Edición -->
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <form (ngSubmit)="guardarEdicion()">
+            <div class="modal-header">
+            <h5 class="modal-title" id="editarModalLabel">Editar Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" class="form-control" [(ngModel)]="usuarioEditado.nombre" name="nombre">
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" id="apellido" class="form-control" [(ngModel)]="usuarioEditado.apellido" name="apellido">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="usuarioEditado.email" name="email">
+            </div>
+            <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <input type="text" id="rol" class="form-control" [value]="usuarioEditado.tipoUsuario" disabled>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>
