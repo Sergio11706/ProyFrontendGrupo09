@@ -7,7 +7,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { SolicitudComponent } from './pages/repartidor/solicitud/solicitud.component';
 import { ListaRepartidoresComponent } from './pages/admin/lista-repartidores/lista-repartidores.component';
 import { CrearAdminComponent } from './pages/admin/crear-admin/crear-admin/crear-admin.component';
-
+import { UsuariosComponent } from './pages/admin/usuarios/usuarios.component';
+import { GestionCargaComponent } from './pages/admin/gestion-carga/gestion-carga.component';
+import { PedidosRepartidorComponent } from './pages/repartidor/pedidos-repartidor/pedidos-repartidor.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -18,5 +20,8 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'solicitud', component: SolicitudComponent },
   { path: 'lista-repartidores', component: ListaRepartidoresComponent },
-  { path: 'crear-admin', component: CrearAdminComponent }
+  { path: 'crear-admin', component: CrearAdminComponent },
+  { path: 'admin-usuarios', component: UsuariosComponent },
+  { path: 'admin-gestion-carga', component: GestionCargaComponent },
+  { path: 'pedidos-repartidor', component: PedidosRepartidorComponent }
 ];

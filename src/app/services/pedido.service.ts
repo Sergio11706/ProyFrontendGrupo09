@@ -16,4 +16,11 @@ export class PedidoService {
   getPedidos(): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(this.baseUrl);
   }
+  tomarPedido(idPedido: string, idRepartidor: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/tomar/${idPedido}`, { repartidor: idRepartidor });
+  }
+
+  eliminarPedido(pedidoId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${pedidoId}`);
+  }
 }

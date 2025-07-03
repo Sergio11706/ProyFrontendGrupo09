@@ -1,9 +1,16 @@
+import { Repartidor } from './usuario.model';
+import { Producto } from './producto.model';
+
 export interface Pedido {
   _id?: string;
-  codigoPedido: number;
-  nombre: string;
-  fecha: Date;
+  cliente: string;
+  productos: {
+    producto: Producto | string;
+    cantidad: number;
+  }[];
+  repartidor?: Repartidor | string;
   direccionEntrega: string;
-  productos: any[];
   total: number;
+  estado: 'pendiente' | 'preparando' | 'en camino' | 'entregado';
+  fecha?: Date;
 }

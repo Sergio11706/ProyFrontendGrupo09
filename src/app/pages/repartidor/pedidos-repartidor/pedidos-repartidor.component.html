@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h3>Pedidos disponibles para entregar</h3>
+
+  <div *ngFor="let pedido of pedidos" class="card my-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">📍 Dirección: {{ pedido.direccionEntrega }}</h5>
+      <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+      <p *ngIf="pedido.cliente">
+        <strong>Cliente:</strong> {{ pedido.cliente.nombre }} {{ pedido.cliente.apellido }}
+      </p>
+      <p *ngIf="pedido.cliente?.telefono">
+        <strong>Teléfono:</strong> {{ pedido.cliente.telefono }}
+      </p>
+
+      <h6>🛒 Productos:</h6>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let item of pedido.productos">
+          {{ item.producto.nombre }} - {{ item.cantidad }} x ${{ item.producto.precioUnitario?.toFixed(2) }} = 
+          <strong>${{ (item.cantidad * item.producto.precioUnitario).toFixed(2) }}</strong>
+        </li>
+      </ul>
+
+      <!-- Mostrar recargo -->
+      <p class="mt-2" *ngIf="calcularRecargo(pedido) > 0">
+        <strong>Recargo por envío:</strong> ${{ calcularRecargo(pedido) }}
+      </p>
+
+      <!-- Total final -->
+      <p class="mt-3"><strong>Total:</strong> ${{ pedido.total?.toFixed(2) }}</p>
+
+      <div *ngIf="!pedido.repartidor">
+        <button class="btn btn-success" (click)="tomarPedido(pedido._id)">Tomar pedido</button>
+      </div>
+
+      <div *ngIf="pedido.repartidor && pedido.repartidor._id === repartidorId">
+        <button class="btn btn-danger" (click)="finalizarPedido(pedido._id)">Finalizar</button>
+      </div>
+    </div>
+  </div>
+</div>
