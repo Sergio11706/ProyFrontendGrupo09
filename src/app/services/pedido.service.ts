@@ -5,7 +5,7 @@ import { Pedido } from '../models/pedido.model';
 
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
-  private baseUrl = 'https://grupo09.onrender.com/api/pedidos/';
+  private baseUrl = 'http://localhost:3000/api/pedidos/';
 
   constructor(private http: HttpClient) {}
 
@@ -22,13 +22,7 @@ export class PedidoService {
   }
 
   public getPedidos(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.getToken()
-      })
-    };
-    return this.http.get(this.baseUrl, httpOptions);
+    return this.http.get(this.baseUrl);
   }
   
   public tomarPedido(idPedido: string, idRepartidor: string): Observable<any> {

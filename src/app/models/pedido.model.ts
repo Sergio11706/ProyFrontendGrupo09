@@ -12,4 +12,5 @@ export interface Pedido {
   imagen?: string;
   estado?: 'pendiente' | 'preparando' | 'en camino' | 'entregado';
   fecha?: Date;
+  muestra?: boolean;
 }

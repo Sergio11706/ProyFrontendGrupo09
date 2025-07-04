@@ -20,7 +20,8 @@ export class GestionCargaComponent implements OnInit {
     nombre: "",
     imagen: "",
     productos: [],
-    total: 0
+    total: 0,
+    muestra: true,
   };
   ingrediente: Ingrediente = new Ingrediente();
   bebida: Bebida = new Bebida();
@@ -71,7 +72,6 @@ export class GestionCargaComponent implements OnInit {
   }
 
   crearPedido(): void {
-    this.pedido.estado = 'pendiente';
     this.pedido.total = this.calcularTotal();
     this.pedidoService.crearPedido(this.pedido).subscribe((result: any) => {
       alert("Pedido creado exitosamente");

@@ -5,7 +5,7 @@
     <div class="container">
       <h1 class="display-4 fw-bold text-primary">¡Sabores que enamoran de la cocina argentina! 🇦🇷</h1>
       <p class="lead">Disfrutá de los auténticos sabores de Argentina, preparados con pasión y los mejores ingredientes.</p>
-      <button class="btn btn-primary btn-lg mt-3">Hacé tu pedido ahora</button>
+      <button class="btn btn-primary btn-lg mt-3" (click)="realizarPedido()">Hacé tu pedido ahora</button>
     </div>
   </section>
 
@@ -14,14 +14,14 @@
     <h2 class="mb-4">Pedidos Recientes</h2>
     <div class="row">
       <div class="col-md-6 col-lg-4 mb-4" *ngFor="let pedido of pedidos">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm" *ngIf="pedido.muestra">
           <div class="card-body">
+            <img src="{{pedido.imagen}}" class="card-img-top" alt="{{pedido.nombre}}">
             <h5 class="card-title">{{pedido.nombre}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Estado: {{pedido.estado}}</h6>
             <p class="card-text">
-              <strong>Fecha:</strong> {{pedido.fecha | date:'medium'}}<br>
-              <strong>Total:</strong> ${{pedido.total}}
+              <strong>Precio:</strong> ${{pedido.total}}
             </p>
+            <button class="btn btn-primary">Pedir</button>
           </div>
         </div>
       </div>
