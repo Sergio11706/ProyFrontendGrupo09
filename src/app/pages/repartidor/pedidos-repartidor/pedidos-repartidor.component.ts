@@ -28,7 +28,7 @@ export class PedidosRepartidorComponent implements OnInit {
   cargarPedidos(): void {
     this.pedidoService.getPedidos().subscribe({
       next: (data) => {
-        this.pedidos = data.filter(p => {
+        this.pedidos = data.filter((p: any) => {
           const idRepartidor = typeof p.repartidor === 'string' ? p.repartidor : p.repartidor?._id;
           return !idRepartidor || idRepartidor === this.repartidorId;
         });

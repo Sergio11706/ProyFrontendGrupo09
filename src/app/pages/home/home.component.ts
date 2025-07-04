@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductoCardComponent } from '../../components/producto-card/producto-card.component';
+import { PedidoService } from '../../services/pedido.service';
+import { Pedido } from '../../models/pedido.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ProductoCardComponent],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  productos: any[] = [
-    { nombre: 'Hamburguesa', descripcion: 'Carne, queso, lechuga', precio: 1500, imagen: 'assets/burger.jpg' },
-    { nombre: 'Pizza', descripcion: 'Muzzarella con orégano', precio: 2000, imagen: 'assets/pizza.jpg' }
-  ];
 
-  ngOnInit(): void {}
+  pedidos: Pedido[] = [];
+
+  constructor(
+    private pedidoService: PedidoService) { }
+
+  ngOnInit(): void {
+    this.pedidoService.getPedidos().subscribe(result => {
+      this.pedidos = result;
+    });
+  }
 }
