@@ -24,16 +24,6 @@ export class PedidoService {
   public getPedidos(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
-  
-  public tomarPedido(idPedido: string, idRepartidor: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.getToken()
-      })
-    };
-    return this.http.put(this.baseUrl + 'tomar/' + idPedido, { repartidor: idRepartidor }, httpOptions);
-  }
 
   public eliminarPedido(pedidoId: string): Observable<any> {
     const httpOptions = {
@@ -43,6 +33,20 @@ export class PedidoService {
       })
     };
     return this.http.delete(this.baseUrl + pedidoId, httpOptions);
+  }
+
+  tomarPedido(pedidoId: string, repartidorId: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.get(this.baseUrl + pedidoId, httpOptions);
+  }
+
+  public calcularTotal(pedido: Pedido): number {
+    return pedido.productos!.reduce((total, producto) => total + (producto.precioUnitario || 0), 0);
   }
 
   private getToken(): string {

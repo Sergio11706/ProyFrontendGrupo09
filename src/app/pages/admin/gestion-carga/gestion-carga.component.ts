@@ -74,11 +74,11 @@ export class GestionCargaComponent implements OnInit {
   crearPedido(): void {
     this.pedido.total = this.calcularTotal();
     this.pedidoService.crearPedido(this.pedido).subscribe((result: any) => {
-      alert("Pedido creado exitosamente");
+      alert("Pedido realizado exitosamente");
     });
   }
 
   calcularTotal(): number {
-    return this.pedido.productos!.reduce((total, producto) => total + (producto.precioUnitario || 0), 0);
+    return this.pedidoService.calcularTotal(this.pedido);
   }
 }
