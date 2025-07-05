@@ -15,6 +15,14 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   pedidos: Pedido[] = [];
+  pedido: Pedido = {
+    nombre: "",
+    imagen: "",
+    productos: [],
+    total: 0,
+    muestra: false,
+    estado: 'preparando'
+  };
 
   constructor(
     private usuarioService: UsuarioService,
@@ -30,7 +38,7 @@ export class HomeComponent implements OnInit {
 
   realizarPedido(){
     if(this.usuarioService.userLoggedIn()){
-      this.router.navigate(['/:id']);
+      this.router.navigate(['/pedir']);
     }else{
       this.router.navigate(['/login']);
     }

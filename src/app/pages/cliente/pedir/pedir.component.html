@@ -1,0 +1,87 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Selecciona los ingredientes de tu comida y pídela YA</h1>
+  
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+      <select class="form-select" (change)="ingredienteInicial($event)">
+        <option value="" selected>Selecciona tu comida</option>
+        <option [value]="'Milanesa'">Sanguche de Milanesa</option>
+        <option [value]="'Choclo'">Humita</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Imagen de pan superior -->
+  <div class="row justify-content-center mb-0">
+    <div class="col-md-6 text-center">
+      <img 
+        src="https://img.freepik.com/vector-premium/icono-pan-hamburguesa-nuez-vector-dibujos-animados-hamburguesa-queso-carne-res-comida_98402-79643.jpg" 
+        alt="Pan superior" 
+        class="img-fluid"
+        style="max-height: 100px;"
+      >
+    </div>
+  </div>
+
+  <!-- Contenido del sándwich -->
+  <div class="row justify-content-center bg-light py-4 mb-0" style="min-height: 200px;">
+    <div class="col-md-6 text-center">
+      <div *ngFor="let producto of productoSeleccionados" class="d-inline-block mx-2">
+        <img 
+          [src]="producto.imagen" 
+          [alt]="producto.nombre" 
+          class="img-fluid"
+          style="max-height: 100px; margin: 10px 0;"
+        >
+        <p>{{ producto.nombre }}</p>
+      </div>
+      <div *ngIf="productoSeleccionados.length === 0" class="py-5">
+        <p class="text-muted">No hay ingredientes seleccionados</p>
+      </div>
+      <div class="mt-3">
+        <button class="btn btn-primary me-2" (click)="abrirModal()">
+          <i class="bi bi-plus-circle"></i> Agregar Ingrediente
+        </button>
+        <button class="btn btn-danger" (click)="eliminarUltimoIngrediente()" [disabled]="productoSeleccionados.length === 0">
+          <i class="bi bi-dash-circle"></i> Quitar Último
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Imagen de pan inferior -->
+  <div class="row justify-content-center mt-0">
+    <div class="col-md-6 text-center">
+      <img 
+        src="https://img.freepik.com/vector-premium/icono-pan-hamburguesa-nuez-vector-dibujos-animados-hamburguesa-queso-carne-res-comida_98402-79643.jpg" 
+        alt="Pan inferior" 
+        class="img-fluid"
+        style="max-height: 100px; transform: rotate(180deg);"
+      >
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="modalVisible" class="modal" style="display: block; background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Ingrediente</h5>
+        <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+      </div>
+      <div class="modal-body">
+        <select class="form-select mb-3" [(ngModel)]="ingrediente">
+          <option value="">Selecciona un ingrediente</option>
+          <option *ngFor="let producto of productos" [value]="producto.nombre">
+            {{ producto.nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="agregarIngrediente(ingrediente)">Agregar</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
