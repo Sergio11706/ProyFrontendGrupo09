@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PedidoService } from '../../../services/pedido.service';
 import { FormsModule } from '@angular/forms';
+import { Pedido } from '../../../models/pedido.model';
+import { Cliente, Repartidor } from '../../../models/usuario.model';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-pedidos-repartidor',
@@ -10,67 +13,77 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './pedidos-repartidor.component.html'
 })
 export class PedidosRepartidorComponent implements OnInit {
-  pedidos: any[] = [];
+  
+  pedidos: Pedido [] = [];
+  clientes: Cliente [] = [];
+  repartidores: Repartidor [] = [];
+  pedidoTomado: boolean = false;
   repartidorId: string = '';
 
-  constructor(private pedidoService: PedidoService) {}
+
+  constructor(
+    private pedidoService: PedidoService,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit(): void {
-    const id = sessionStorage.getItem("userid");
-    if (!id) {
-      alert("Error: No se encontró el ID del repartidor en sesión.");
-      return;
-    }
-    this.repartidorId = id;
     this.cargarPedidos();
+    this.repartidorId = this.usuarioService.idLogged()!;
   }
 
   cargarPedidos(): void {
-    this.pedidoService.getPedidos().subscribe({
-      next: (data) => {
-        this.pedidos = data.filter(p => {
-          const idRepartidor = typeof p.repartidor === 'string' ? p.repartidor : p.repartidor?._id;
-          return !idRepartidor || idRepartidor === this.repartidorId;
-        });
-      },
-      error: () => {
-        alert('Error al cargar los pedidos.');
-      }
+    this.pedidoService.getPedidos().subscribe(result => {
+      this.pedidos = result;
+      this.pedidos.forEach(pedido => {
+        if(pedido.cliente && typeof pedido.cliente !== 'string'){
+          this.clientes.push(pedido.cliente);
+        }
+        else{
+          alert("No se encontro el cliente");
+          return;
+        }
+        if(pedido.repartidor && typeof pedido.repartidor !== 'string'){
+          this.repartidores.push(pedido.repartidor);
+        }
+        else{
+          alert("No se encontro el repartidor");
+          return;
+        }
+      });
     });
   }
 
-  tomarPedido(pedidoId: string): void {
+  tomarPedido(index: number): void {
+    const pedidoId = this.pedidos[index]._id;
+    if (!pedidoId) {
+      alert('Error: ID del pedido no definido.');
+      return;
+    }
     if (!this.repartidorId) {
       alert('Error: ID del repartidor no definido.');
       return;
     }
 
-    this.pedidoService.tomarPedido(pedidoId, this.repartidorId).subscribe({
-      next: () => {
+    const pedidoModificado = new Pedido();
+    pedidoModificado.repartidor = this.repartidorId;
+    pedidoModificado.estado = 'en camino';
+    
+    this.pedidoService.modificarPedido(pedidoId, pedidoModificado).subscribe(result => {
+      try {
         alert('Pedido tomado correctamente.');
+        this.pedidoTomado = true;
         this.cargarPedidos();
-      },
-      error: () => {
+      } catch (error) {
         alert('Error al tomar el pedido.');
       }
     });
   }
 
-  calcularRecargo(pedido: any): number {
-    if (!pedido || !pedido.productos || !Array.isArray(pedido.productos)) return 0;
-
-    const subtotal = pedido.productos.reduce((sum: number, item: any) => {
-      const precioUnitario = item.producto?.precioUnitario ?? 0;
-      const cantidad = item.cantidad ?? 0;
-      return sum + (precioUnitario * cantidad);
-    }, 0);
-
-    const total = pedido.total ?? 0;
-    const recargo = total - subtotal;
-    return parseFloat(recargo.toFixed(2));
-  }
-
-  finalizarPedido(pedidoId: string): void {
+  finalizarPedido(pedidoId: string | undefined): void {
+    if (!pedidoId) {
+      alert('Error: ID del pedido no definido.');
+      return;
+    }
     if (confirm('¿Finalizar y eliminar el pedido?')) {
       this.pedidoService.eliminarPedido(pedidoId).subscribe({
         next: () => {

@@ -4,58 +4,51 @@
     <div class="row g-3">
       <div class="col-md-6">
         <label>Nombre</label>
-        <input class="form-control" [(ngModel)]="nuevoProducto.nombre" name="nombre" required />
+        <input class="form-control" [(ngModel)]="bebida.nombre" [(ngModel)]="ingrediente.nombre" name="nombre" required />
       </div>
       <div class="col-md-6">
         <label>Unidad de medida</label>
-        <input class="form-control" [(ngModel)]="nuevoProducto.unidadMedida" name="unidadMedida" required />
+        <input class="form-control" [(ngModel)]="bebida.unidadMedida" [(ngModel)]="ingrediente.unidadMedida" name="unidadMedida" required />
       </div>
       <div class="col-md-6">
         <label>Stock</label>
-        <input type="number" class="form-control" [(ngModel)]="nuevoProducto.stock" name="stock" required />
+        <input type="number" class="form-control" [(ngModel)]="bebida.stock" [(ngModel)]="ingrediente.stock" name="stock" required />
       </div>
       <div class="col-md-6">
         <label>Precio unitario</label>
-        <input type="number" class="form-control" [(ngModel)]="nuevoProducto.precioUnitario" name="precioUnitario" required />
+        <input type="number" class="form-control" [(ngModel)]="bebida.precioUnitario" [(ngModel)]="ingrediente.precioUnitario" name="precioUnitario" required />
       </div>
       <div class="col-md-6">
         <label>Vencimiento</label>
-        <input type="date" class="form-control" [(ngModel)]="nuevoProducto.vencimiento" name="vencimiento" required />
+        <input type="date" class="form-control" [(ngModel)]="bebida.vencimiento" [(ngModel)]="ingrediente.vencimiento" name="vencimiento" required />
       </div>
       <div class="col-md-6">
-        <label>Disponible</label>
-        <select class="form-select" [(ngModel)]="nuevoProducto.disponible" name="disponible">
-          <option [value]="true">Sí</option>
-          <option [value]="false">No</option>
-        </select>
+        <label>Imagen</label>
+        <input class="form-control" [(ngModel)]="bebida.imagen" [(ngModel)]="ingrediente.imagen" name="imagen" />
       </div>
       <div class="col-md-6">
         <label>Tipo de producto</label>
-        <select class="form-select" [(ngModel)]="nuevoProducto.tipoProducto" name="tipoProducto">
-          <option value="Producto">Producto</option>
+        <select class="form-select" [(ngModel)]="tipoProducto" name="tipoProducto">
+          <option value="">Seleccionar tipo de producto</option>
           <option value="Bebida">Bebida</option>
           <option value="Ingrediente">Ingrediente</option>
         </select>
       </div>
 
       <!-- Solo si es bebida -->
-      <div class="col-md-6" *ngIf="nuevoProducto.tipoProducto === 'Bebida'">
+      <div class="col-md-6" *ngIf="tipoProducto === 'Bebida'">
         <label>Volumen (ml)</label>
-        <input type="number" class="form-control" [(ngModel)]="nuevoProducto.volumen" name="volumen" />
-      </div>
-      <div class="col-md-6" *ngIf="nuevoProducto.tipoProducto === 'Bebida'">
+        <input type="number" class="form-control" [(ngModel)]="bebida.volumen" name="volumen" />
         <label>Tipo de bebida</label>
-        <input class="form-control" [(ngModel)]="nuevoProducto.tipoBebida" name="tipoBebida" />
+        <input class="form-control" [(ngModel)]="bebida.tipoBebida" name="tipoBebida" />
       </div>
 
       <!-- Solo si es ingrediente -->
-      <div class="col-md-6" *ngIf="nuevoProducto.tipoProducto === 'Ingrediente'">
+      <div class="col-md-6" *ngIf="tipoProducto === 'Ingrediente'">
         <label>Categoría</label>
-        <input class="form-control" [(ngModel)]="nuevoProducto.categoria" name="categoria" />
-      </div>
-      <div class="col-md-6" *ngIf="nuevoProducto.tipoProducto === 'Ingrediente'">
+        <input class="form-control" [(ngModel)]="ingrediente.categoria" name="categoria" />
         <label>Proveedor</label>
-        <input class="form-control" [(ngModel)]="nuevoProducto.proveedor" name="proveedor" />
+        <input class="form-control" [(ngModel)]="ingrediente.proveedor" name="proveedor" />
       </div>
     </div>
 
@@ -69,51 +62,33 @@
   <hr>
     <h3>Cargar Pedido Pre-Cargado</h3>
       <form (ngSubmit)="crearPedido()" #pedidoForm="ngForm">
-        <!-- Cliente -->
         <div class="mb-3">
-          <label>Cliente</label>
-          <select class="form-select" [(ngModel)]="nuevoPedido.cliente" name="cliente" required>
-            <option *ngFor="let c of clientes" [value]="c._id">{{ c.nombre }} ({{ c.email }})</option>
+          <label>Nombre</label>
+          <input class="form-control"  type="text" [(ngModel)]="pedido.nombre" name="nombre" required />
+        </div>
+
+        <div class="mb-3">
+          <label>Imagen</label>
+          <input class="form-control" type="text" [(ngModel)]="pedido.imagen" name="imagen" required />
+        </div>
+        
+        <div class="mb-3">
+          <select class="form-select" [(ngModel)]="cantidad" name="cantidad" required (change)="actualizarCantidad()">
+            <option value="">Seleccionar cantidad</option>
+            <option *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]" [value]="n">{{ n }}</option>
           </select>
         </div>
 
-        <!-- Dirección -->
         <div class="mb-3">
-          <label>Dirección de entrega</label>
-          <input type="text" class="form-control" [(ngModel)]="nuevoPedido.direccionEntrega" name="direccionEntrega" required>
+          <ng-container *ngFor="let index of arrayAuxiliar; let i = index">
+            <select class="form-select" [(ngModel)]="pedido.productos![i]" [name]="'producto' + index" required>
+              <option value="">Seleccionar producto</option>
+              <option *ngFor="let producto of productos" [ngValue]="producto">{{ producto.nombre }}</option>
+            </select>
+          </ng-container>
         </div>
 
-        <!-- Productos -->
-        <div class="mb-3">
-          <label>Productos</label>
-          <div *ngFor="let p of productos">
-            <input type="checkbox" [value]="p._id" (change)="toggleProductoSeleccionado(p._id, $event)"> {{ p.nombre }} (Stock: {{ p.stock }}, ${{ p.precio }})
-            <input
-              type="number"
-              min="1"
-              [max]="p.stock || 1"
-              [ngModel]="cantidades[p._id]"
-              (ngModelChange)="onCantidadChange(p._id, $event)"
-              [disabled]="!productosSeleccionados.includes(p._id)"
-              name="cantidad{{p._id}}"
-              placeholder="Cantidad"
-              class="form-control d-inline-block w-25 ms-2"
-            />
-          </div>
-        </div>
 
-        <!-- Recargo por envío -->
-        <div class="mb-3">
-          <label>Recargo por envío</label>
-          <input type="number" class="form-control" [(ngModel)]="nuevoPedido.recargo" name="recargo" min="0" />
-        </div>
-
-        <!-- Total automático -->
-        <div class="mb-3">
-          <label>Total estimado</label>
-          <input type="number" class="form-control" [value]="calcularTotal()" disabled>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Crear Pedido</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!pedidoForm.form.valid">Crear Pedido</button>
       </form>
 </div>

@@ -119,6 +119,16 @@ export class UsuarioService {
     return this._http.put(this.hostBase + id, JSON.stringify(datos), httpOptions);
   }
 
+  public getCliente(id: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get(this.hostBase + 'cliente/' + id, httpOptions);
+  }
+
   public getToken(){
     if (sessionStorage.getItem("token")!= null){ 
       return sessionStorage.getItem("token")!; 
