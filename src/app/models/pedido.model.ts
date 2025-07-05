@@ -1,16 +1,19 @@
-import { Repartidor } from './usuario.model';
 import { Producto } from './producto.model';
+import { Cliente } from './usuario.model';
+import { Repartidor } from './usuario.model';
 
-export interface Pedido {
-  _id?: string;	
-  nombre?: string;
-  cliente?: string;
-  productos?: Producto[];
-  repartidor?: Repartidor | string;
-  direccionEntrega?: string;
-  total?: number;
-  imagen?: string;
-  estado?: 'pendiente' | 'preparando' | 'en camino' | 'entregado';
-  fecha?: Date;
-  muestra?: boolean;
+export class Pedido {
+  constructor(
+    public _id?: string,
+    public nombre?: string,
+    public cliente?: Cliente | string,
+    public productos?: Producto[],
+    public repartidor?: Repartidor | string,
+    public direccionEntrega?: string,
+    public total?: number,
+    public imagen?: string,
+    public estado?: 'listo' | 'preparando' | 'en camino' | 'entregado',
+    public fecha?: Date,
+    public muestra?: boolean
+  ) {}
 }

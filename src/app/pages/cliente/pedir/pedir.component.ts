@@ -70,15 +70,12 @@ export class PedirComponent implements OnInit {
 
     const id = this.usuarioService.idLogged();
     if (id) {
-      this.usuarioService.getCliente(id).subscribe(result => {
-        pedido.cliente = result;
-      });
+      pedido.cliente = id;
     }
     else {
       alert("No se encontro el cliente");
       return;
     }
-
     pedido.total = this.pedidoService.calcularTotal(pedido);
     
     this.pedidoService.crearPedido(pedido).subscribe(result => {
