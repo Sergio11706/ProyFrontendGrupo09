@@ -16,9 +16,9 @@ export class PedidosRepartidorComponent implements OnInit {
   
   pedidos: Pedido [] = [];
   clientes: Cliente [] = [];
-  repartidores: Repartidor [] = [];
+  idrepartidores : string [] = [];
   pedidoTomado: boolean = false;
-  repartidorId: string = '';
+  idrepartidor: string | undefined;
 
 
   constructor(
@@ -27,29 +27,35 @@ export class PedidosRepartidorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.idrepartidor = this.usuarioService.idLogged()!;
     this.cargarPedidos();
-    this.repartidorId = this.usuarioService.idLogged()!;
   }
 
   cargarPedidos(): void {
     this.pedidoService.getPedidos().subscribe(result => {
-      this.pedidos = result;
-      this.pedidos.forEach(pedido => {
-        if(pedido.cliente && typeof pedido.cliente !== 'string'){
-          this.clientes.push(pedido.cliente);
+
+      const nuevosPedidos: Pedido[] = [];
+      const nuevosClientes: Cliente[] = [];
+  
+      result.forEach((pedido: Pedido) => {
+        if (pedido.cliente && typeof pedido.cliente !== 'string') {
+          nuevosClientes.push(pedido.cliente);
+        } 
+        else {
+          nuevosClientes.push({});
         }
-        else{
-          alert("No se encontro el cliente");
-          return;
+        if (pedido.repartidor !== undefined && typeof pedido.repartidor !== 'string') {
+          this.idrepartidores.push(pedido.repartidor._id!);
         }
-        if(pedido.repartidor && typeof pedido.repartidor !== 'string'){
-          this.repartidores.push(pedido.repartidor);
+        else {
+          this.idrepartidores.push("-1");
         }
-        else{
-          alert("No se encontro el repartidor");
-          return;
-        }
+  
+        nuevosPedidos.push(pedido);
       });
+  
+      this.pedidos = nuevosPedidos;
+      this.clientes = nuevosClientes;
     });
   }
 
@@ -59,13 +65,13 @@ export class PedidosRepartidorComponent implements OnInit {
       alert('Error: ID del pedido no definido.');
       return;
     }
-    if (!this.repartidorId) {
+    if (!this.idrepartidor) {
       alert('Error: ID del repartidor no definido.');
       return;
     }
 
     const pedidoModificado = new Pedido();
-    pedidoModificado.repartidor = this.repartidorId;
+    pedidoModificado.repartidor = this.idrepartidor;
     pedidoModificado.estado = 'en camino';
     
     this.pedidoService.modificarPedido(pedidoId, pedidoModificado).subscribe(result => {
