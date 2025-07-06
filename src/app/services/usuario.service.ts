@@ -42,7 +42,12 @@ export class UsuarioService {
   public userLogged(){ 
     var usuario = sessionStorage.getItem("user"); 
     return usuario; 
-  } 
+  }
+  
+  public tipoUsuario(){ 
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario"); 
+    return tipoUsuario; 
+  }
  
   public idLogged(){ 
     var id = sessionStorage.getItem("userid"); 
@@ -62,7 +67,6 @@ export class UsuarioService {
   public getRepartidores(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.getToken()
       })
     };
@@ -72,7 +76,6 @@ export class UsuarioService {
   public aceptarSolicitud(id: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.getToken()
       })
     };
@@ -82,7 +85,6 @@ export class UsuarioService {
   public rechazarSolicitud(id: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.getToken()
       })
     };
@@ -92,7 +94,6 @@ export class UsuarioService {
   public obtenerUsuarios(): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.getToken()
       })
     };
@@ -122,11 +123,29 @@ export class UsuarioService {
   public getCliente(id: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.getToken()
       })
     };
     return this._http.get(this.hostBase + 'cliente/' + id, httpOptions);
+  }
+
+
+  public getAdministrador(id: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get(this.hostBase + 'administrador/' + id, httpOptions);
+  }
+
+  public getRepartidor(id: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.get(this.hostBase + 'repartidor/' + id, httpOptions);
   }
 
   public getUsuariosPorMes(): Observable<any> {
