@@ -11,6 +11,7 @@ import { UsuariosComponent } from './pages/admin/usuarios/usuarios.component';
 import { GestionCargaComponent } from './pages/admin/gestion-carga/gestion-carga.component';
 import { PedidosRepartidorComponent } from './pages/repartidor/pedidos-repartidor/pedidos-repartidor.component';
 import { PedirComponent } from './pages/cliente/pedir/pedir.component';
+import { ListaPedidosComponent } from './pages/admin/lista-pedidos/lista-pedidos.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -25,5 +26,6 @@ export const routes: Routes = [
   { path: 'admin-usuarios', component: UsuariosComponent },
   { path: 'admin-gestion-carga', component: GestionCargaComponent },
   { path: 'pedidos-repartidor', component: PedidosRepartidorComponent },
-  { path: 'pedir', component: PedirComponent }
+  { path: 'pedir', component: PedirComponent },
+  { path: 'lista-pedidos', component: ListaPedidosComponent }
 ];

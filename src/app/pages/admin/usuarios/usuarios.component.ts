@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 declare var bootstrap: any;
+declare var $: any;
 
 @Component({
   selector: 'app-usuarios',
@@ -25,6 +26,9 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.obtenerUsuarios().subscribe({
       next: (data) => {
         this.usuarios = Array.isArray(data) ? data : [];
+        setTimeout(() => {
+          $('#tablaUsuarios').DataTable();
+        }, 0);
       },
       error: (err) => console.error('Error cargando usuarios:', err)
     });

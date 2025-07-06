@@ -4,11 +4,12 @@ import { PedidoService } from '../../services/pedido.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { Pedido } from '../../models/pedido.model';
 import { Router } from '@angular/router';
+import { GraficoComponent } from "../../components/grafico/grafico.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, GraficoComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
