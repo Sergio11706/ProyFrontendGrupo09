@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2>Lista de Pedidos</h2>
+    <table class="table" id="tablaPedidos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pedido of pedidos">
+                <ng-container *ngIf="pedido.estado === 'preparando'">
+                <td>{{ pedido.nombre }}</td>
+                <td>{{ pedido.estado }}</td>
+                <td>
+                    <button class="btn btn-primary" (click)="modificarPedido(pedido._id!)">Pedido Listo</button>
+                </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>
