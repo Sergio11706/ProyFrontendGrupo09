@@ -58,6 +58,24 @@ export class UsuarioService {
     let body = JSON.stringify(cliente); 
     return this._http.post(this.hostBase, body, httpOption); 
   }
+
+  public getUsuarioActual(): any {
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      try {
+        return JSON.parse(userData);
+      } catch (e) {
+        console.error("Error al parsear usuario desde sessionStorage", e);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  rolLogged(): string {
+    const user = JSON.parse(localStorage.getItem('usuario') || '{}');
+    return user.rol || '';
+  }
  
   public getRepartidores(): Observable<any> {
     const httpOptions = {
