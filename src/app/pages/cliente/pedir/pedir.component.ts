@@ -80,6 +80,7 @@ export class PedirComponent implements OnInit {
     
     this.pedidoService.crearPedido(pedido).subscribe(result => {
       alert("Pedido creado exitosamente");
+      this.productoSeleccionados = [];
     });
   }
 

@@ -1,6 +1,5 @@
 <div class="container mt-4">
   <h3>Pedidos disponibles para entregar</h3>
-
   <div *ngFor="let info of pedidoInfo" class="card my-3 shadow-sm">
     <ng-container *ngIf="
       info.pedido.estado === 'listo' ||
@@ -32,5 +31,6 @@
         </div>
       </div>
     </ng-container>
+
   </div>
 </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Repartidor } from '../../../models/usuario.model';
 import { UsuarioService } from '../../../services/usuario.service';
+declare var $: any;
 
 @Component({
   selector: 'app-lista-repartidores',
@@ -14,15 +15,20 @@ import { UsuarioService } from '../../../services/usuario.service';
 export class ListaRepartidoresComponent implements OnInit {
 
   repartidores: Repartidor[] = [];
+  
 
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.usuarioService.getRepartidores().subscribe((result: any) => {
       this.repartidores = result.filter((r: any) => r.estado === 'pendiente');
+  
+      setTimeout(() => {
+        $('#tablaRepartidores').DataTable();
+      }, 0);
     });
   }
-
+  
   aprobarSolicitud(id: string) {
     this.usuarioService.aceptarSolicitud(id).subscribe(() => {
       this.ngOnInit();
