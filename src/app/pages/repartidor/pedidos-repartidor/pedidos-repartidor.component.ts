@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PedidoService } from '../../../services/pedido.service';
 import { FormsModule } from '@angular/forms';
+import { PedidoService } from '../../../services/pedido.service';
+import { UsuarioService } from '../../../services/usuario.service';
 import { Pedido } from '../../../models/pedido.model';
 import { Cliente, Repartidor } from '../../../models/usuario.model';
-import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-pedidos-repartidor',
@@ -13,13 +13,15 @@ import { UsuarioService } from '../../../services/usuario.service';
   templateUrl: './pedidos-repartidor.component.html'
 })
 export class PedidosRepartidorComponent implements OnInit {
-  
-  pedidos: Pedido [] = [];
-  clientes: Cliente [] = [];
-  idrepartidores : string [] = [];
-  pedidoTomado: boolean = false;
-  idrepartidor: string | undefined;
 
+  pedidoInfo: {
+    pedido: Pedido,
+    cliente: Cliente,
+    repartidor?: Repartidor
+  }[] = [];
+
+  repartidorId: string = '';
+  pedidoTomado: boolean = false;
 
   constructor(
     private pedidoService: PedidoService,
@@ -27,59 +29,46 @@ export class PedidosRepartidorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.idrepartidor = this.usuarioService.idLogged()!;
+    this.repartidorId = this.usuarioService.idLogged()!;
     this.cargarPedidos();
   }
 
   cargarPedidos(): void {
     this.pedidoService.getPedidos().subscribe(result => {
+      this.pedidoInfo = [];
 
-      const nuevosPedidos: Pedido[] = [];
-      const nuevosClientes: Cliente[] = [];
-  
       result.forEach((pedido: Pedido) => {
-        if (pedido.cliente && typeof pedido.cliente !== 'string') {
-          nuevosClientes.push(pedido.cliente);
-        } 
-        else {
-          nuevosClientes.push({});
+        if (!pedido.cliente || typeof pedido.cliente === 'string') return;
+
+        const cliente = pedido.cliente;
+        let repartidor: Repartidor | undefined;
+
+        if (pedido.repartidor && typeof pedido.repartidor !== 'string') {
+          repartidor = pedido.repartidor;
         }
-        if (pedido.repartidor !== undefined && typeof pedido.repartidor !== 'string') {
-          this.idrepartidores.push(pedido.repartidor._id!);
-        }
-        else {
-          this.idrepartidores.push("-1");
-        }
-  
-        nuevosPedidos.push(pedido);
+
+        this.pedidoInfo.push({ pedido, cliente, repartidor });
       });
-  
-      this.pedidos = nuevosPedidos;
-      this.clientes = nuevosClientes;
     });
   }
 
-  tomarPedido(index: number): void {
-    const pedidoId = this.pedidos[index]._id;
-    if (!pedidoId) {
-      alert('Error: ID del pedido no definido.');
-      return;
-    }
-    if (!this.idrepartidor) {
-      alert('Error: ID del repartidor no definido.');
+  tomarPedido(pedidoId: string | undefined): void {
+    if (!pedidoId || !this.repartidorId) {
+      alert('Error: faltan datos del pedido o repartidor.');
       return;
     }
 
     const pedidoModificado = new Pedido();
-    pedidoModificado.repartidor = this.idrepartidor;
+    pedidoModificado.repartidor = this.repartidorId;
     pedidoModificado.estado = 'en camino';
-    
-    this.pedidoService.modificarPedido(pedidoId, pedidoModificado).subscribe(result => {
-      try {
+
+    this.pedidoService.modificarPedido(pedidoId, pedidoModificado).subscribe({
+      next: () => {
         alert('Pedido tomado correctamente.');
         this.pedidoTomado = true;
         this.cargarPedidos();
-      } catch (error) {
+      },
+      error: () => {
         alert('Error al tomar el pedido.');
       }
     });
@@ -90,6 +79,7 @@ export class PedidosRepartidorComponent implements OnInit {
       alert('Error: ID del pedido no definido.');
       return;
     }
+
     if (confirm('¿Finalizar y eliminar el pedido?')) {
       this.pedidoService.eliminarPedido(pedidoId).subscribe({
         next: () => {
