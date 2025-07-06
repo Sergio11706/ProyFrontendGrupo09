@@ -13,6 +13,7 @@ import { PedidosRepartidorComponent } from './pages/repartidor/pedidos-repartido
 import { PedirComponent } from './pages/cliente/pedir/pedir.component';
 import { ListaPedidosComponent } from './pages/admin/lista-pedidos/lista-pedidos.component';
 
+
 export const routes: Routes = [
   { path: '', component: HomeComponent }, 
   { path: 'home', component: HomeComponent }, 

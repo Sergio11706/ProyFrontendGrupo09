@@ -1,34 +1,75 @@
-<div class="container mt-4">
-
-  <!-- Sección del eslogan -->
-  <section class="hero-section text-center py-5 bg-light mb-5">
-    <div class="container">
-      <h1 class="display-4 fw-bold text-primary">¡Sabores que enamoran de la cocina argentina! 🇦🇷</h1>
-      <p class="lead">Disfrutá de los auténticos sabores de Argentina, preparados con pasión y los mejores ingredientes.</p>
-      <button class="btn btn-primary btn-lg mt-3" (click)="realizarPedido()">Hacé tu pedido ahora</button>
+<div class="container my-5">
+  <!-- HERO -->
+  <div class="home-hero position-relative text-center text-white mb-5 rounded-4 overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+         alt="Hamburguesa fondo"
+         class="home-hero-bg">
+    <div class="home-hero-overlay"></div>
+    <div class="home-hero-content position-absolute top-50 start-50 translate-middle w-100">
+      <h1 class="display-3 fw-bold mb-3 text-shadow">Restaurante <span class="brand-gradient">El Buen Sabor</span></h1>
+      <p class="fs-4 mb-3 text-shadow">El mejor lugar para pedir hamburguesas online.</p>
+      <p class="lead mb-4 text-shadow">Ingredientes frescos, recetas únicas y un sabor que te hará volver por más.<br>¿Qué esperás para probar la mejor hamburguesa de la ciudad?</p>
+      <a class="btn btn-lg btn-hero pulse" (click)="irAPedir()" role="button">🍔 Pedir Ahora</a>
     </div>
-  </section>
+  </div>
 
-
-  <app-grafico></app-grafico>
-
-  <!-- Sección de pedidos recientes -->
-  <div class="container">
-    <h2 class="mb-4">Pedidos Recientes</h2>
-    <div class="row">
-      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let pedido of pedidos">
-        <div class="card h-100 shadow-sm" *ngIf="pedido.muestra">
-          <div class="card-body">
-            <img src="{{pedido.imagen}}" class="card-img-top" alt="{{pedido.nombre}}">
-            <h5 class="card-title">{{pedido.nombre}}</h5>
-            <p class="card-text">
-              <strong>Precio:</strong> ${{pedido.total}}
-            </p>
-            <button class="btn btn-primary">Pedir</button>
-          </div>
+  <!-- Estadísticas -->
+  <div class="row text-center mb-5">
+    <div class="col-md-6 col-lg-4 mx-auto">
+      <div class="card shadow stat-card border-0">
+        <div class="card-body">
+          <i class="bi bi-people-fill display-4 stat-icon"></i>
+          <h5 class="card-title mt-3 fw-bold" style="color:#222; text-shadow:0 2px 8px #fff;">Nuevos Clientes</h5>
+          <p class="card-text display-5 fw-bold contador-negro">{{ usuariosRegistrados | number:'1.0-0' }}</p>
+          <p class="card-text"><small class="text-muted">registrados en la última semana</small></p>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Características -->
+  <div class="row text-center my-5 py-4">
+    <div class="col-12">
+      <h2 class="mb-5 section-title">¿Por qué somos tu mejor opción?</h2>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="feature-card h-100">
+        <h5 class="mt-3">Ingredientes de Calidad</h5>
+        <p>Seleccionamos los ingredientes más frescos para garantizar un sabor auténtico en cada hamburguesa.</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="feature-card h-100">
+        <h5 class="mt-3">Entrega Rápida</h5>
+        <p>Tu hamburguesa, caliente y deliciosa, en la puerta de tu casa en tiempo récord.</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="feature-card h-100">
+        <h5 class="mt-3">Sabor Inigualable</h5>
+        <p>Nuestras recetas secretas y la pasión por las hamburguesas nos hacen simplemente irresistibles.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonios -->
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <h2 class="text-center mb-4 section-title">Lo que dicen nuestros clientes</h2>
+      <div id="carouselTestimonios" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let t of testimonios; let i = index" [class.active]="i === 0">
+            <div class="card text-center shadow testimonial-card border-0">
+              <div class="card-body">
+                <p class="card-text fst-italic">"{{ t.texto }}"</p>
+                <footer class="blockquote-footer mt-2">{{ t.autor }} <cite title="Source Title">en {{ t.ciudad }}</cite></footer>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,41 +1,158 @@
+/* Contenedor general centrado con fondo */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-  padding: 20px;
+  min-height: 100vh;
+  background: #222;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Fondo con imagen desenfocada */
+.login-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1606755962773-90f2214f3c94?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px) brightness(0.6);
+  z-index: 1;
+}
+
+/* Overlay con color en degradado */
+.login-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(24,90,157,0.32) 0%, rgba(255,126,95,0.22) 100%);
+  z-index: 2;
+}
+
+/* Caja de login */
 .login-box {
+  position: relative;
+  z-index: 3;
   width: 100%;
-  max-width: 400px;
-  padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  max-width: 420px;
+  padding: 35px;
+  border-radius: 1.5rem;
+  background: #ffffffee;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+  backdrop-filter: blur(2px);
 }
 
+/* Título */
+.login-box h2 {
+  font-weight: 800;
+  color: #ff7e5f;
+  text-align: center;
+  margin-bottom: 25px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* Inputs */
+.form-control {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+.form-control:focus {
+  border-color: #43cea2;
+  box-shadow: 0 0 0 0.2rem rgba(67, 206, 162, 0.25);
+}
+
+/* Grupo */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
+/* Botón principal */
 .btn-primary {
-  width: 100%;
-  padding: 10px;
+  background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 100%);
+  border: none;
+  border-radius: 0.6rem;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  box-shadow: 0 4px 16px rgba(255,126,95,0.25);
+  transition: transform 0.2s;
+}
+.btn-primary:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #feb47b 0%, #ff7e5f 100%);
+}
+
+/* Botón tipo link */
+.btn-link {
+  background: none;
+  border: none;
+  color: #185a9d;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.btn-link:hover {
+  color: #ff7e5f;
+  text-decoration: none;
+}
+
+/* Mensaje de error */
+.alert-danger {
+  color: red;
+  text-align: center;
   margin-top: 10px;
 }
 
-.btn-link {
-  width: 100%;
-  text-align: center;
-  display: block;
-  margin-top: 15px;
-  color: #007bff;
-  text-decoration: none;
-  cursor: pointer;
+/* Google botón alineado */
+.g_id_signin {
+  margin: 0 auto;
 }
 
-.btn-link:hover {
-  text-decoration: underline;
+/* Responsive */
+@media (max-width: 576px) {
+  .login-box {
+    padding: 25px 20px;
+  }
+}
+/* Íconos dentro del input */
+.input-with-icon {
+  position: relative;
+}
+.input-with-icon i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 1.1rem;
+}
+.input-with-icon input {
+  padding-left: 2.2rem;
+}
+
+/* Gradiente de texto */
+.brand-gradient-text {
+  background: linear-gradient(90deg, #ff7e5f 0%, #43cea2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animación entrada */
+.animate-fade-in {
+  animation: fadeInUp 0.7s ease-out;
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

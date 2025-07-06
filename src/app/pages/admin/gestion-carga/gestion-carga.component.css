@@ -1,0 +1,70 @@
+/* Estilo principal para la vista de gestión de carga */
+body {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+h3 {
+  color: #343a40;
+  margin-bottom: 25px;
+  border-left: 5px solid #007bff;
+  padding-left: 10px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input.form-control,
+select.form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+}
+
+input.form-control:focus,
+select.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.btn-success,
+.btn-primary {
+  border-radius: 30px;
+  padding: 10px 25px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+
+hr {
+  border-top: 2px dashed #dee2e6;
+  margin: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}

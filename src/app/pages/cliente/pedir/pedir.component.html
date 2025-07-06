@@ -1,76 +1,79 @@
-<div class="container mt-4">
-  <h1 class="text-center mb-4">Selecciona los ingredientes de tu comida y pídela YA</h1>
-  
+<div class="container pedir-hero mt-4 mb-5 rounded-4 shadow">
+  <h1 class="text-center display-5 fw-bold mb-2 pedir-title">🍔 ¡Armá tu pedido!</h1>
+  <p class="lead text-center pedir-lead mb-0">
+    Elegí tus ingredientes favoritos y creá la hamburguesa perfecta.<br>
+    <span class="pedir-highlight">¡Fácil, rápido y delicioso!</span>
+  </p>
+</div>
+
+<div class="container pedir-main">
   <div class="row justify-content-center mb-4">
     <div class="col-md-6">
-      <select class="form-select" (change)="ingredienteInicial($event)">
-        <option value="" selected>Selecciona tu comida</option>
+      <select class="form-select pedir-select" (change)="ingredienteInicial($event)">
+        <option value="" selected>Selecciona tu comida base</option>
         <option [value]="'Milanesa'">Sanguche de Milanesa</option>
         <option [value]="'Choclo'">Humita</option>
       </select>
     </div>
   </div>
 
-  <!-- Imagen de pan superior -->
-  <div class="row justify-content-center mb-0">
+  <div class="row justify-content-center">
     <div class="col-md-6 text-center">
+      <!-- Pan superior decorativo -->
       <img 
         src="https://img.freepik.com/vector-premium/icono-pan-hamburguesa-nuez-vector-dibujos-animados-hamburguesa-queso-carne-res-comida_98402-79643.jpg" 
         alt="Pan superior" 
-        class="img-fluid"
-        style="max-height: 100px;"
+        class="img-pan mb-2"
+        style="max-width: 120px;"
       >
-    </div>
-  </div>
 
-  <!-- Contenido del sándwich -->
-  <div class="row justify-content-center bg-light py-4 mb-0" style="min-height: 200px;">
-    <div class="col-md-6 text-center">
-      <div *ngFor="let producto of productoSeleccionados" class="d-inline-block mx-2">
-        <img 
-          [src]="producto.imagen" 
-          [alt]="producto.nombre" 
-          class="img-fluid"
-          style="max-height: 100px; margin: 10px 0;"
-        >
-        <p>{{ producto.nombre }}</p>
+      <!-- Ingredientes apilados como cards -->
+      <div class="ingredientes-stack my-3">
+        <div *ngIf="productoSeleccionados.length === 0" class="py-5">
+          <p class="text-muted">No hay ingredientes seleccionados</p>
+        </div>
+        <div *ngFor="let producto of productoSeleccionados; let i = index" class="ingrediente-card shadow-sm animate__animated animate__fadeInDown">
+          <img [src]="producto.imagen" [alt]="producto.nombre" class="ingrediente-img">
+          <span class="ingrediente-nombre-card">{{ producto.nombre }}</span>
+          <button class="btn btn-sm btn-outline-danger ms-2" (click)="eliminarUltimoIngrediente()">
+            <i class="bi bi-x-circle"></i>
+          </button>
+        </div>
       </div>
-      <div *ngIf="productoSeleccionados.length === 0" class="py-5">
-        <p class="text-muted">No hay ingredientes seleccionados</p>
-      </div>
-      <div class="mt-3">
-        <button class="btn btn-primary me-2" [disabled]="agregarDisabled" (click)="abrirModal()">
-          <i class="bi bi-plus-circle"></i> Agregar Ingrediente
-        </button>
-        <button class="btn btn-danger" (click)="eliminarUltimoIngrediente()" [disabled]="productoSeleccionados.length === 0">
-          <i class="bi bi-dash-circle"></i> Quitar Último
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Imagen de pan inferior -->
-  <div class="row justify-content-center mt-0">
-    <div class="col-md-6 text-center">
+      <!-- Pan inferior decorativo -->
       <img 
         src="https://img.freepik.com/vector-premium/icono-pan-hamburguesa-nuez-vector-dibujos-animados-hamburguesa-queso-carne-res-comida_98402-79643.jpg" 
         alt="Pan inferior" 
-        class="img-fluid"
-        style="max-height: 100px; transform: rotate(180deg);"
+        class="img-pan mt-2"
+        style="max-width: 120px; transform: rotate(180deg);"
       >
-    </div>
-  </div>
-  <div class="row justify-content-center mt-0">
-    <div class="col-md-6 text-center">
-      <button class="btn btn-primary" [disabled]="pedidoDisable" (click)="realizarPedido()">
-        <i class="bi bi-cart-plus"></i> Realizar Pedido
-      </button>
+
+      <div class="mt-4 d-flex justify-content-center flex-wrap gap-2">
+        <button class="btn btn-success" [disabled]="agregarDisabled" (click)="abrirModal()">
+          <i class="bi bi-plus-circle"></i> Agregar Ingrediente
+        </button>
+        <button class="btn btn-outline-danger" (click)="eliminarUltimoIngrediente()" [disabled]="productoSeleccionados.length === 0">
+          <i class="bi bi-dash-circle"></i> Quitar Último
+        </button>
+      </div>
+      <div class="mt-4">
+        <button class="btn btn-lg btn-pedir w-100" [disabled]="pedidoDisable" (click)="realizarPedido()">
+          <i class="bi bi-cart-plus"></i> Confirmar Pedido
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="pedir-info text-center mt-5">
+  <h5>¿Sabías?</h5>
+  <p>¡Cada hamburguesa se prepara al momento y llega caliente a tu puerta!<br>
+    Si tenés dudas, nuestro equipo está listo para ayudarte.</p>
+</div>
+
 <!-- Modal -->
-<div *ngIf="modalVisible" class="modal" style="display: block; background-color: rgba(0,0,0,0.5);">
+<div *ngIf="modalVisible" class="modal" style="display: block; background-color: rgba(0,0,0,0.5); z-index: 1050;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -86,9 +89,117 @@
         </select>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="agregarIngrediente(ingrediente)">Agregar</button>
+        <button type="button" class="btn btn-success" (click)="agregarIngrediente(ingrediente)">Agregar</button>
         <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Estilos mejorados -->
+<style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+.pedir-hero {
+  background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 1.5rem;
+  padding: 2.5rem 1rem 2rem 1rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 24px rgba(255,126,95,0.10);
+}
+.pedir-title {
+  color: #ff7e5f;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+.pedir-lead {
+  color: #185a9d;
+  font-weight: 500;
+}
+.pedir-highlight {
+  background: linear-gradient(90deg, #43cea2 0%, #ff7e5f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+.pedir-main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.pedir-select {
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  border: 1.5px solid #ff7e5f;
+}
+.img-pan {
+  filter: drop-shadow(0 4px 16px #ffecd2);
+}
+.ingredientes-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 120px;
+  gap: 10px;
+}
+.ingrediente-card {
+  background: linear-gradient(90deg, #fff 60%, #f8ffae 100%);
+  border-radius: 1.2rem;
+  padding: 10px 18px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  min-width: 220px;
+  max-width: 340px;
+  box-shadow: 0 2px 8px rgba(24,90,157,0.08);
+  border: 1.5px solid #e3e8ee;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.ingrediente-card:hover {
+  box-shadow: 0 8px 24px rgba(255,126,95,0.13);
+  transform: scale(1.03);
+}
+.ingrediente-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  margin-right: 12px;
+  background: #fff;
+  border: 1.5px solid #ffecd2;
+}
+.ingrediente-nombre-card {
+  font-size: 1.08rem;
+  color: #185a9d;
+  font-weight: 600;
+  flex: 1 1 auto;
+}
+.btn-pedir {
+  background: linear-gradient(90deg, #43cea2 0%, #ff7e5f 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 4px 24px rgba(67,206,162,0.13);
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+}
+.btn-pedir:hover, .btn-pedir:focus {
+  background: linear-gradient(90deg, #ff7e5f 0%, #43cea2 100%);
+  transform: scale(1.03);
+}
+.pedir-info {
+  background: #e3f0ff;
+  border-radius: 18px;
+  padding: 24px 16px 18px 16px;
+  margin: 0 auto 32px auto;
+  max-width: 700px;
+  color: #185a9d;
+  box-shadow: 0 2px 12px rgba(24,90,157,0.07);
+}
+@media (max-width: 991px) {
+  .pedir-hero { padding: 1.5rem 0.5rem; }
+  .pedir-main { padding: 0 0.5rem; }
+  .ingrediente-card { min-width: 160px; max-width: 98vw; }
+}
+</style>

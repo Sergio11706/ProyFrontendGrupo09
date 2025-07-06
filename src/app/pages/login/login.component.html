@@ -1,13 +1,15 @@
 <div class="login-container">
-  <div class="login-box">
-    <!-- Vista de Login (mostrada por defecto) -->
+  <div class="login-box animate-fade-in">
+    <!-- LOGIN -->
     <div *ngIf="showLogin">
-      <h2>Iniciar Sesión</h2>
+      <h2 class="text-center brand-gradient-text">Iniciar Sesión</h2>
       <form name="form-login">
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-fill"></i>
           <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userform.username" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-lock-fill"></i>
           <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userform.password" />
         </div>
         <div class="form-group">
@@ -16,19 +18,19 @@
         <div class="alert-danger">{{msglogin}}</div>
       </form>
 
-      <div class="text-center mt-3">
+      <div class="text-center mt-4">
         <p class="mb-2">¿No tienes una cuenta?</p>
         <button class="btn btn-link" (click)="toggleLogin()">Regístrate aquí</button>
       </div>
     </div>
 
-    <!-- Vista de Registro -->
+    <!-- REGISTRO -->
     <div *ngIf="!showLogin">
-      <h2>Registro</h2>
-      
-      <!-- Botón de Google en la vista de registro -->
+      <h2 class="text-center brand-gradient-text">Registro</h2>
+
+      <!-- Botón de Google -->
       <div class="text-center my-3">
-        <div class="g_id_signin" 
+        <div class="g_id_signin"
              data-type="standard"
              data-shape="rectangular"
              data-theme="outline"
@@ -37,33 +39,42 @@
              data-logo_alignment="left">
         </div>
       </div>
-      
+
       <form name="form-register">
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-fill"></i>
           <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userRegister.username" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-lock-fill"></i>
           <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userRegister.password" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
           <input type="text" class="form-control" placeholder="Nombre" name="nombre" [(ngModel)]="userRegister.nombre" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
           <input type="text" class="form-control" placeholder="Apellido" name="apellido" [(ngModel)]="userRegister.apellido" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-envelope-fill"></i>
           <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="userRegister.email" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-telephone-fill"></i>
           <input type="text" class="form-control" placeholder="Teléfono" name="telefono" [(ngModel)]="userRegister.telefono" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-geo-alt-fill"></i>
           <input type="text" class="form-control" placeholder="Barrio" name="barrio" [(ngModel)]="userRegister.barrio" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-signpost-split-fill"></i>
           <input type="text" class="form-control" placeholder="Calle" name="calle" [(ngModel)]="userRegister.calle" />
         </div>
-        <div class="form-group">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-123"></i>
           <input type="text" class="form-control" placeholder="Número de Calle" name="numeroCalle" [(ngModel)]="userRegister.numeroCalle" />
         </div>
         <div class="form-group">
@@ -72,8 +83,8 @@
         <div class="alert-danger">{{msglogin}}</div>
       </form>
 
-      <div class="text-center">
-        <p class="mb-3">¿Ya tienes una cuenta?</p>
+      <div class="text-center mt-4">
+        <p class="mb-2">¿Ya tienes una cuenta?</p>
         <button class="btn btn-link" (click)="toggleLogin()">Iniciar Sesión</button>
       </div>
     </div>

@@ -1,46 +1,46 @@
-<div class="container mt-4">
-  <h3>Pedidos disponibles para entregar</h3>
+<div class="container my-5 pedidos-container">
+  <h2 class="text-center mb-4 brand-gradient-text">Pedidos Disponibles para Entregar</h2>
 
-  <div *ngFor="let pedido of pedidos; let i = index" class="card my-3 shadow-sm">
+  <div *ngFor="let pedido of pedidos; let i = index" class="card pedido-card shadow-sm mb-4">
 
-    <!-- Mostrar pedidos disponibles (listos y sin repartidor) -->
+    <!-- Pedidos disponibles -->
     <ng-container *ngIf="pedido.estado === 'listo' && !pedido.repartidor">
       <div class="card-body">
-        <h5 class="card-title">📍 Dirección: </h5>
-        <p><strong>Barrio:</strong> {{ clientes[i].barrio }}</p>
-        <p><strong>Calle:</strong> {{ clientes[i].calle }}</p>
-        <p><strong>Número:</strong> {{ clientes[i].numeroCalle }}</p>
+        <h5 class="card-title"><i class="bi bi-box-seam"></i> Pedido Disponible</h5>
+        <hr>
+        <p><strong>📍 Barrio:</strong> {{ clientes[i].barrio }}</p>
+        <p><strong>Calle:</strong> {{ clientes[i].calle }} {{ clientes[i].numeroCalle }}</p>
         <p><strong>Estado:</strong> {{ pedido.estado }}</p>
 
-        <h5 class="card-title">Cliente: {{ clientes[i].nombre }} {{ clientes[i].apellido }}</h5>
-        <p><strong>Teléfono:</strong> {{ clientes[i].telefono }}</p>
-        <p><strong>Orden:</strong> {{ pedido.nombre }}</p>
+        <h6 class="mt-3"><strong>👤 Cliente:</strong> {{ clientes[i].nombre }} {{ clientes[i].apellido }}</h6>
+        <p><strong>📞 Teléfono:</strong> {{ clientes[i].telefono }}</p>
+        <p><strong>🍔 Orden:</strong> {{ pedido.nombre }}</p>
 
-        <p class="mt-3"><strong>Total:</strong> ${{ pedido.total!.toFixed(2) }}</p>
-        <p><strong>Propina Estimada:</strong> ${{ (pedido.total! * 0.15).toFixed(2) }}</p>
+        <p class="mt-3 fw-bold"><strong>Total:</strong> ${{ pedido.total!.toFixed(2) }}</p>
+        <p><strong>💰 Propina Estimada:</strong> ${{ (pedido.total! * 0.15).toFixed(2) }}</p>
 
-        <button class="btn btn-success" (click)="tomarPedido(i)">Tomar pedido</button>
+        <button class="btn btn-success w-100 mt-3" (click)="tomarPedido(i)">Tomar pedido</button>
       </div>
     </ng-container>
 
-    <!-- Mostrar pedidos ya tomados por el repartidor logueado -->
+    <!-- Pedidos asignados al repartidor actual -->
     <ng-container *ngIf="idrepartidores[i] === idrepartidor">
-        <div class="card-body">
-          <h5 class="card-title">📍 Dirección: </h5>
-          <p><strong>Barrio:</strong> {{ clientes[i].barrio }}</p>
-          <p><strong>Calle:</strong> {{ clientes[i].calle }}</p>
-          <p><strong>Número:</strong> {{ clientes[i].numeroCalle }}</p>
-          <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+      <div class="card-body bg-light">
+        <h5 class="card-title"><i class="bi bi-person-check"></i> Mi Pedido</h5>
+        <hr>
+        <p><strong>📍 Barrio:</strong> {{ clientes[i].barrio }}</p>
+        <p><strong>Calle:</strong> {{ clientes[i].calle }} {{ clientes[i].numeroCalle }}</p>
+        <p><strong>Estado:</strong> {{ pedido.estado }}</p>
 
-          <h5 class="card-title">Cliente: {{ clientes[i].nombre }} {{ clientes[i].apellido }}</h5>
-          <p><strong>Teléfono:</strong> {{ clientes[i].telefono }}</p>
-          <p><strong>Orden:</strong> {{ pedido.nombre }}</p>
+        <h6 class="mt-3"><strong>👤 Cliente:</strong> {{ clientes[i].nombre }} {{ clientes[i].apellido }}</h6>
+        <p><strong>📞 Teléfono:</strong> {{ clientes[i].telefono }}</p>
+        <p><strong>🍔 Orden:</strong> {{ pedido.nombre }}</p>
 
-          <p class="mt-3"><strong>Total:</strong> ${{ pedido.total!.toFixed(2) }}</p>
-          <p><strong>Propina Estimada:</strong> ${{ (pedido.total! * 0.15).toFixed(2) }}</p>
+        <p class="mt-3 fw-bold"><strong>Total:</strong> ${{ pedido.total!.toFixed(2) }}</p>
+        <p><strong>💰 Propina Estimada:</strong> ${{ (pedido.total! * 0.15).toFixed(2) }}</p>
 
-          <button class="btn btn-danger" (click)="finalizarPedido(pedido._id)">Finalizar</button>
-        </div>
+        <button class="btn btn-danger w-100 mt-3" (click)="finalizarPedido(pedido._id)">Finalizar</button>
+      </div>
     </ng-container>
 
   </div>

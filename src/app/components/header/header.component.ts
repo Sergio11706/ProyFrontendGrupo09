@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLink } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
@@ -11,9 +11,15 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isScrolled = false;
+
   constructor(public usuarioService: UsuarioService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 20;
   }
 
   logout() {

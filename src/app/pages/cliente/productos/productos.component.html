@@ -1,8 +1,23 @@
-<div class="container mt-4">
-  <h2>🛍 Todos los productos</h2>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let producto of productos">
+<div class="productos-hero text-center mb-5 p-4 rounded-4 shadow">
+  <h1 class="display-5 fw-bold mb-2 productos-title">🍔 Todos los productos</h1>
+  <p class="lead mb-0 productos-lead">
+    Descubrí nuestra variedad de hamburguesas y agregá tus favoritas al carrito.<br />
+    <span class="productos-highlight">¡Calidad, sabor y rapidez en cada pedido!</span>
+  </p>
+</div>
+
+<div class="container">
+  <div class="row productos-list justify-content-center">
+    <div class="col-xl-3 col-lg-4 col-md-6 mb-4" *ngFor="let producto of productos">
       <app-producto-card [producto]="producto"></app-producto-card>
     </div>
   </div>
+</div>
+
+<div class="productos-info text-center mt-5 mx-auto">
+  <h5>¿Sabías?</h5>
+  <p>
+    ¡Nuestras hamburguesas se preparan al momento y solo usamos ingredientes frescos!<br />
+    Aprovechá las promos y sumá puntos con cada compra.
+  </p>
 </div>

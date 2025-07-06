@@ -1,0 +1,33 @@
+.card-header {
+  background: linear-gradient(135deg, #7534a4, #3e1f78);
+  color: white;
+}
+
+.card-body {
+  background-color: #f9f9f9;
+}
+
+.btn-primary {
+  background-color: #7534a4;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #5c2b86;
+}
+
+.alert {
+  font-size: 0.95rem;
+}
+/* Fondo general de la página */
+body {
+  background: linear-gradient(to right, #e9e4f0, #f4f4f9);
+  min-height: 100vh;
+}
+
+/* Asegura que el contenedor no quede pegado arriba */
+.container {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}

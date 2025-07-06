@@ -1,0 +1,107 @@
+
+
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+.pedir-hero {
+  background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 1.5rem;
+  padding: 2.5rem 1rem 2rem 1rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 24px rgba(255,126,95,0.10);
+}
+.pedir-title {
+  color: #ff7e5f;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+.pedir-lead {
+  color: #185a9d;
+  font-weight: 500;
+}
+.pedir-highlight {
+  background: linear-gradient(90deg, #43cea2 0%, #ff7e5f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+.pedir-main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.pedir-select {
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  border: 1.5px solid #ff7e5f;
+}
+.img-pan {
+  filter: drop-shadow(0 4px 16px #ffecd2);
+}
+.ingredientes-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 120px;
+  gap: 10px;
+}
+.ingrediente-card {
+  background: linear-gradient(90deg, #fff 60%, #f8ffae 100%);
+  border-radius: 1.2rem;
+  padding: 10px 18px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  min-width: 220px;
+  max-width: 340px;
+  box-shadow: 0 2px 8px rgba(24,90,157,0.08);
+  border: 1.5px solid #e3e8ee;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.ingrediente-card:hover {
+  box-shadow: 0 8px 24px rgba(255,126,95,0.13);
+  transform: scale(1.03);
+}
+.ingrediente-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  margin-right: 12px;
+  background: #fff;
+  border: 1.5px solid #ffecd2;
+}
+.ingrediente-nombre-card {
+  font-size: 1.08rem;
+  color: #185a9d;
+  font-weight: 600;
+  flex: 1 1 auto;
+}
+.btn-pedir {
+  background: linear-gradient(90deg, #43cea2 0%, #ff7e5f 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 4px 24px rgba(67,206,162,0.13);
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+}
+.btn-pedir:hover, .btn-pedir:focus {
+  background: linear-gradient(90deg, #ff7e5f 0%, #43cea2 100%);
+  transform: scale(1.03);
+}
+.pedir-info {
+  background: #e3f0ff;
+  border-radius: 18px;
+  padding: 24px 16px 18px 16px;
+  margin: 0 auto 32px auto;
+  max-width: 700px;
+  color: #185a9d;
+  box-shadow: 0 2px 12px rgba(24,90,157,0.07);
+}
+@media (max-width: 991px) {
+  .pedir-hero { padding: 1.5rem 0.5rem; }
+  .pedir-main { padding: 0 0.5rem; }
+  .ingrediente-card { min-width: 160px; max-width: 98vw; }
+}
