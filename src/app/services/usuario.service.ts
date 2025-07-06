@@ -48,6 +48,23 @@ export class UsuarioService {
     var tipoUsuario = sessionStorage.getItem("tipoUsuario"); 
     return tipoUsuario; 
   }
+
+  public getTipoUsuario(): string {
+    const tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    if (!tipoUsuario) return '';
+    
+    const tipoNormalizado = tipoUsuario.toLowerCase();
+    
+    if (tipoNormalizado === 'cliente' || tipoNormalizado === 'client') {
+      return 'Cliente';
+    } else if (tipoNormalizado === 'administrador' || tipoNormalizado === 'admin' || tipoNormalizado === 'administrator') {
+      return 'Administrador';
+    } else if (tipoNormalizado === 'repartidor' || tipoNormalizado === 'delivery' || tipoNormalizado === 'driver') {
+      return 'Repartidor';
+    }
+    
+    return tipoUsuario;
+  }
  
   public idLogged(){ 
     var id = sessionStorage.getItem("userid"); 
