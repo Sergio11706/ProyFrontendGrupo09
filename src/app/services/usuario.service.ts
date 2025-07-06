@@ -11,7 +11,7 @@ export class UsuarioService {
   hostBase: string; 
  
   constructor(private _http:HttpClient) {  
-    this.hostBase = "https://grupo09.onrender.com/api/usuarios/"; 
+    this.hostBase = "http://localhost:3000/api/usuarios/"; 
   } 
  
   public login(username: string, password: string):Observable<any> { 
@@ -127,6 +127,10 @@ export class UsuarioService {
       })
     };
     return this._http.get(this.hostBase + 'cliente/' + id, httpOptions);
+  }
+
+  public getUsuariosPorMes(): Observable<any> {
+    return this._http.get(this.hostBase + 'usuariosPorMes');
   }
 
   public getToken(){
