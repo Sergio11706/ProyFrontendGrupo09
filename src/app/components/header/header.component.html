@@ -1,35 +1,111 @@
-<nav class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top" [ngClass]="{ 'navbar-scrolled': isScrolled }">
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/']">🍔 Mi Restaurante</a>
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navMain">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/home']">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/productos']">Productos</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/checkout']">Carrito</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/perfil']">Perfil</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/solicitud']">Solicitud</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/lista-repartidores']">Repartidores</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/crear-admin']">Vista</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/admin-usuarios']">Usuarios</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/admin-gestion-carga']">Carga</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/pedidos-repartidor']">Mis Entregas</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/lista-pedidos']">Pedidos</a></li>
-      </ul>
+      <ul class="navbar-nav me-auto">
+        <!-- Menú para usuarios no registrados -->
+        <ng-container *ngIf="!usuarioService.userLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/productos']">Productos</a>
+          </li>
+        </ng-container>
 
-      <div class="d-flex align-items-center">
-        <a class="nav-link text-light" *ngIf="!usuarioService.userLoggedIn()" [routerLink]="['login']">
-          Iniciar Sesión
+        <!-- Menú para clientes -->
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.getTipoUsuario() === 'Cliente'">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/productos']">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/checkout']">Carrito</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/perfil']">Perfil</a>
+          </li>
+        </ng-container>
+
+        <!-- Menú para repartidores -->
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.getTipoUsuario() === 'Repartidor'">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/productos']">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/checkout']">Carrito</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Mis Entregas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/lista-pedidos']">Lista de Pedidos</a>
+          </li>
+        </ng-container>
+
+        <!-- Menú para administradores -->
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.getTipoUsuario() === 'Administrador'">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/productos']">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/checkout']">Carrito</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/perfil']">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/solicitud']">Solicitud</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/lista-repartidores']">Lista de Repartidores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/crear-admin']">Vista</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin-usuarios']">Usuarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin-gestion-carga']">Carga de Productos y Pedidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Mis Entregas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/lista-pedidos']">Lista de Pedidos</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+    
+    <!-- Sección de perfil y logout a la derecha -->
+    <div class="navbar-nav ms-auto">
+      <ng-container *ngIf="!usuarioService.userLoggedIn()">
+        <a class="nav-link" [routerLink]="['/login']">Iniciar Sesión</a>
+      </ng-container>
+      <ng-container *ngIf="usuarioService.userLoggedIn()">
+        <span class="navbar-text me-3">
+          {{usuarioService.userLogged()}}
+        </span>
+        <a class="nav-link me-2" [routerLink]="['/perfil']">
+          Perfil
         </a>
-        <a class="nav-link text-warning" *ngIf="usuarioService.userLoggedIn()" [routerLink]="['login']" (click)="logout()">
-          {{usuarioService.userLogged()}} (Salir)
-        </a>
-      </div>
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">
+          Cerrar Sesión
+        </button>
+      </ng-container>
     </div>
   </div>
 </nav>
