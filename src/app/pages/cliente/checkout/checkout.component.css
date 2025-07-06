@@ -1,0 +1,42 @@
+.checkout-card {
+  background-color: #fff;
+  border-radius: 1.5rem;
+  border: 1.5px solid #e3e8ee;
+  box-shadow: 0 6px 20px rgba(255,126,95,0.12);
+}
+
+.input-estetico {
+  border-radius: 0.8rem;
+  border: 1.5px solid #ddd;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-estetico:focus {
+  border-color: #ff7e5f;
+  box-shadow: 0 0 0 0.2rem rgba(255,126,95,0.2);
+  outline: none;
+}
+
+.section-title {
+  font-weight: 800;
+  color: #ff7e5f;
+  letter-spacing: 1px;
+}
+
+.btn-hero-sm {
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 16px rgba(24, 90, 157, 0.25);
+}
+
+.btn-hero-sm:hover {
+  background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+  transform: scale(1.05);
+}

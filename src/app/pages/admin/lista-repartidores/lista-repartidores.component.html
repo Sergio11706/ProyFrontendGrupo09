@@ -1,32 +1,35 @@
-<div class="container mt-4">
-  <h2>Lista de Repartidores</h2>
-  <table id="tablaRepartidores" class="table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Documento</th>
-        <th>Número de Licencia</th>
-        <th>Email</th>
-        <th>Vehículo</th>
-        <th>Zona de Trabajo</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let repartidor of repartidores">
-        <td>{{ repartidor.nombre }}</td>
-        <td>{{ repartidor.apellido }}</td>
-        <td>{{ repartidor.documento }}</td>
-        <td>{{ repartidor.numeroLicencia }}</td>
-        <td>{{ repartidor.email }}</td>
-        <td>{{ repartidor.vehiculo }}</td>
-        <td>{{ repartidor.zonaTrabajo }}</td>
-        <td>
-            <button class="btn btn-primary" (click)="aprobarSolicitud(repartidor._id!)">Aprobar</button>
-          <button class="btn btn-danger" (click)="rechazarSolicitud(repartidor._id!)">Rechazar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container mt-5 mb-4">
+  <h2 class="text-center mb-4">📋 Lista de Repartidores Pendientes</h2>
+
+  <div class="table-responsive shadow-sm rounded">
+    <table id="tablaRepartidores" class="table table-bordered table-hover align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Documento</th>
+          <th>N° Licencia</th>
+          <th>Email</th>
+          <th>Vehículo</th>
+          <th>Zona de Trabajo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let repartidor of repartidores">
+          <td>{{ repartidor.nombre }}</td>
+          <td>{{ repartidor.apellido }}</td>
+          <td>{{ repartidor.documento }}</td>
+          <td>{{ repartidor.numeroLicencia }}</td>
+          <td>{{ repartidor.email }}</td>
+          <td>{{ repartidor.vehiculo }}</td>
+          <td>{{ repartidor.zonaTrabajo }}</td>
+          <td class="text-center">
+            <button class="btn btn-success btn-sm me-1" (click)="aprobarSolicitud(repartidor._id!)">✅ Aprobar</button>
+            <button class="btn btn-danger btn-sm" (click)="rechazarSolicitud(repartidor._id!)">❌ Rechazar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

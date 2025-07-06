@@ -1,0 +1,51 @@
+/* Estilo de cabecera de tabla */
+.bg-gradient-header {
+  background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 100%);
+}
+
+/* Estilo para botones "listo" */
+.btn-hero-sm {
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 16px rgba(24, 90, 157, 0.25);
+}
+.btn-hero-sm:hover {
+  background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+  transform: scale(1.05);
+}
+
+/* Estilo general de la tabla */
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table thead th {
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.table tbody td {
+  border: none;
+  padding: 1rem;
+  vertical-align: middle;
+  background-color: #fff;
+}
+
+/* Responsive y estética general */
+.table-responsive {
+  background-color: #f9f9f9;
+  border-radius: 1.5rem;
+}
+
+.section-title {
+  font-weight: 800;
+  color: #ff7e5f;
+  letter-spacing: 1px;
+}

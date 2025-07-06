@@ -1,23 +1,31 @@
-<div class="container mt-4">
-    <h2>Lista de Pedidos</h2>
-    <table class="table" id="tablaPedidos">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let pedido of pedidos">
-                <ng-container *ngIf="pedido.estado === 'preparando'">
-                <td>{{ pedido.nombre }}</td>
-                <td>{{ pedido.estado }}</td>
-                <td>
-                    <button class="btn btn-primary" (click)="modificarPedido(pedido._id!)">Pedido Listo</button>
-                </td>
-                </ng-container>
-            </tr>
-        </tbody>
+<div class="container my-5">
+  <h2 class="mb-4 section-title text-center">📦 Lista de Pedidos</h2>
+  <div class="table-responsive rounded-4 shadow overflow-hidden">
+    <table class="table align-middle mb-0 bg-white" id="tablaPedidos">
+      <thead class="bg-gradient-header text-white">
+        <tr>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <ng-container *ngIf="pedido.estado === 'preparando'">
+            <td class="fw-bold">{{ pedido.nombre }}</td>
+            <td>
+              <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm">
+                {{ pedido.estado }}
+              </span>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-hero-sm" (click)="modificarPedido(pedido._id!)">
+                ✅ Pedido Listo
+              </button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
     </table>
+  </div>
 </div>

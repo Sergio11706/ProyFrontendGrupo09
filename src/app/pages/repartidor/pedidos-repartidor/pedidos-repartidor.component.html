@@ -1,36 +1,42 @@
-<div class="container mt-4">
-  <h3>Pedidos disponibles para entregar</h3>
-  <div *ngFor="let info of pedidoInfo" class="card my-3 shadow-sm">
+<div class="container my-5 pedidos-container">
+  <h2 class="text-center mb-4 brand-gradient-text">Pedidos Disponibles para Entregar</h2>
+
+  <div *ngFor="let info of pedidoInfo" class="card pedido-card shadow-sm mb-4">
     <ng-container *ngIf="
       info.pedido.estado === 'listo' ||
       (info.pedido.estado === 'en camino' && info.repartidor?._id === repartidorId)
     ">
+      <div class="card-body" [ngClass]="{ 'bg-light': info.pedido.estado === 'en camino' && info.repartidor?._id === repartidorId }">
+        <h5 class="card-title">
+          <i class="bi" [ngClass]="{
+            'bi-box-seam': info.pedido.estado === 'listo' && !info.repartidor,
+            'bi-person-check': info.pedido.estado === 'en camino' && info.repartidor?._id === repartidorId
+          }"></i>
+          {{ info.pedido.estado === 'listo' && !info.repartidor ? 'Pedido Disponible' : 'Mi Pedido' }}
+        </h5>
+        <hr>
 
-      <div class="card-body">
-        <h5 class="card-title">📍 Dirección:</h5>
-        <p><strong>Barrio:</strong> {{ info.cliente.barrio }}</p>
-        <p><strong>Calle:</strong> {{ info.cliente.calle }}</p>
-        <p><strong>Número:</strong> {{ info.cliente.numeroCalle }}</p>
+        <p><strong>📍 Barrio:</strong> {{ info.cliente.barrio }}</p>
+        <p><strong>Calle:</strong> {{ info.cliente.calle }} {{ info.cliente.numeroCalle }}</p>
         <p><strong>Estado:</strong> {{ info.pedido.estado }}</p>
 
-        <h5 class="card-title">Cliente: {{ info.cliente.nombre }} {{ info.cliente.apellido }}</h5>
-        <p><strong>Teléfono:</strong> {{ info.cliente.telefono }}</p>
-        <p><strong>Orden:</strong> {{ info.pedido.nombre }}</p>
+        <h6 class="mt-3"><strong>👤 Cliente:</strong> {{ info.cliente.nombre }} {{ info.cliente.apellido }}</h6>
+        <p><strong>📞 Teléfono:</strong> {{ info.cliente.telefono }}</p>
+        <p><strong>🍔 Orden:</strong> {{ info.pedido.nombre }}</p>
 
-        <p class="mt-3"><strong>Total:</strong> ${{ info.pedido.total!.toFixed(2) }}</p>
-        <p><strong>Propina Estimada:</strong> ${{ (info.pedido.total! * 0.15).toFixed(2) }}</p>
+        <p class="mt-3 fw-bold"><strong>Total:</strong> ${{ info.pedido.total!.toFixed(2) }}</p>
+        <p><strong>💰 Propina Estimada:</strong> ${{ (info.pedido.total! * 0.15).toFixed(2) }}</p>
 
         <!-- Botón para tomar el pedido -->
         <div *ngIf="!info.repartidor">
-          <button class="btn btn-success" (click)="tomarPedido(info.pedido._id)">Tomar pedido</button>
+          <button class="btn btn-success w-100 mt-3" (click)="tomarPedido(info.pedido._id)">Tomar pedido</button>
         </div>
 
         <!-- Botón para finalizar si el pedido ya fue tomado por este repartidor -->
         <div *ngIf="info.pedido.estado === 'en camino' && info.repartidor?._id === repartidorId">
-          <button class="btn btn-danger" (click)="finalizarPedido(info.pedido._id)">Finalizar pedido</button>
+          <button class="btn btn-danger w-100 mt-3" (click)="finalizarPedido(info.pedido._id)">Finalizar</button>
         </div>
       </div>
     </ng-container>
-
   </div>
 </div>

@@ -1,0 +1,28 @@
+.pedidos-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pedido-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #eee;
+}
+
+.pedido-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.brand-gradient-text {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.card-title i {
+  margin-right: 6px;
+  color: #ff7e5f;
+}

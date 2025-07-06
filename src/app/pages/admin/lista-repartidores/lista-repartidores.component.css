@@ -1,0 +1,50 @@
+/* Fondo y separación general */
+.container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabla con bordes y separación visual */
+.table {
+  margin-top: 20px;
+}
+
+/* Hover en filas */
+.table-hover tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Centrar y dar color a títulos */
+h2 {
+  color: #7534a4;
+  font-weight: bold;
+}
+
+/* Botones */
+.btn-success,
+.btn-danger {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: #28a745cc;
+}
+
+.btn-danger:hover {
+  background-color: #dc3545cc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  td, th {
+    font-size: 0.9rem;
+  }
+}

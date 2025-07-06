@@ -1,75 +1,78 @@
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h2>Crear nuevo administrador</h2>
-    </div>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0 rounded">
+        <div class="card-header bg-dark text-white text-center">
+          <h3 class="mb-0">🛠 Crear Nuevo Administrador</h3>
+        </div>
 
-    <div class="card-body">
-        <form (ngSubmit)="crearAdministrador()" #adminForm="ngForm">
+        <div class="card-body bg-light">
+          <form (ngSubmit)="crearAdministrador()" #adminForm="ngForm">
 
-            <div class="form-group">
-                <label for="username">Nombre de Usuario</label>
-                <input type="text" id="username" name="username" class="form-control" [(ngModel)]="admin.username" required>
+            <div class="mb-3">
+              <label for="username" class="form-label">Nombre de Usuario</label>
+              <input type="text" id="username" name="username" class="form-control" [(ngModel)]="admin.username" required>
             </div>
 
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="admin.nombre" required>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="admin.nombre" required>
             </div>
 
-            <div class="form-group">
-                <label for="apellido">Apellido</label>
-                <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="admin.apellido" required>
+            <div class="mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="admin.apellido" required>
             </div>
 
-            <div class="form-group mt-2">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="admin.email" required>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" id="email" name="email" class="form-control" [(ngModel)]="admin.email" required>
             </div>
 
-            <div class="form-group mt-2">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" class="form-control"[(ngModel)]="admin.password" required>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" id="password" name="password" class="form-control" [(ngModel)]="admin.password" required>
             </div>
 
-            <div class="form-group">
-                <label for="estado">Estado</label>
-                <input type="text" id="estado" name="estado" class="form-control" [(ngModel)]="admin.estado" required>
+            <div class="mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="admin.telefono" required>
             </div>
 
-            <div class="form-group">
-                <label for="telefono">Telefono</label>
-                <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="admin.telefono" required>
+            <div class="mb-3">
+              <label for="estado" class="form-label">Estado</label>
+              <input type="text" id="estado" name="estado" class="form-control" [(ngModel)]="admin.estado" required>
             </div>
 
-            <div class="form-group">
-                <label for="permisos">Permisos</label>
-                <input type="text" id="permisos" name="permisos" class="form-control" [(ngModel)]="admin.permisos" required>
+            <div class="mb-3">
+              <label for="permisos" class="form-label">Permisos</label>
+              <input type="text" id="permisos" name="permisos" class="form-control" [(ngModel)]="admin.permisos" required>
             </div>
 
-            <div class="form-group mt-2">
-                <label for="rango">Rango</label>
-                <select id="rango" name="rango" class="form-control" [(ngModel)]="admin.ultimaModificacion" required>
-                    <option *ngFor="let rango of rangosDisponibles" [value]="rango">
-                        {{ rango }}
-                    </option>
-                </select>
+            <div class="mb-4">
+              <label for="rango" class="form-label">Rango</label>
+              <select id="rango" name="rango" class="form-select" [(ngModel)]="admin.ultimaModificacion" required>
+                <option *ngFor="let rango of rangosDisponibles" [value]="rango">
+                  {{ rango }}
+                </option>
+              </select>
             </div>
 
-            <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary" [disabled]="!adminForm.form.valid">
-                    Crear Administrador
-                </button>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary" [disabled]="!adminForm.form.valid">
+                Crear Administrador
+              </button>
             </div>
+          </form>
 
-        </form>
-
-        <div *ngIf="mensaje" class="alert alert-success mt-3">
+          <div *ngIf="mensaje" class="alert alert-success mt-3">
             {{ mensaje }}
-        </div>
-        <div *ngIf="error" class="alert alert-danger mt-3">
+          </div>
+          <div *ngIf="error" class="alert alert-danger mt-3">
             {{ error }}
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

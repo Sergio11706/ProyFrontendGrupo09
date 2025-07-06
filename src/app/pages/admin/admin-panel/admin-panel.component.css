@@ -1,0 +1,106 @@
+/* Fondo general */
+body {
+  background: linear-gradient(to right, #f5f7fa, #e4e9f0);
+  min-height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Título */
+h2 {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #4c2873;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 i {
+  margin-right: 10px;
+}
+
+/* Tarjetas */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background: white;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Encabezado de tarjeta */
+.card-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  background-color: #4c2873 !important;
+  color: white !important;
+}
+
+/* Ítems dentro de las listas */
+.list-group-item {
+  padding: 15px 20px;
+  border: none;
+  border-bottom: 1px solid #eee;
+  background-color: #fdfdfd;
+  transition: background-color 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: #f2f2f2;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+/* Badges */
+.badge {
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+/* Spinner de carga */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* ChartJS canvas */
+.chart-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.6rem;
+  }
+  .chart-container {
+    padding: 15px;
+  }
+}

@@ -1,65 +1,65 @@
-<div class="solicitud-container">
-  <div class="solicitud-box">
-    <h2>Solicitud para ser Repartidor</h2>
-    
-    <form #repartidorForm="ngForm">
-      <fieldset>
-        <legend>Datos de Acceso</legend>
-        <div class="solicitud-form-group">
-          <input class="form-control" type="text" placeholder="Usuario" [(ngModel)]="repartidor.username" name="username" required>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <input class="form-control" type="password" placeholder="Contraseña" [(ngModel)]="repartidor.password" name="password" required>
-        </div>
-      </fieldset>
+<div class="solicitud-fondo position-relative">
+  <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=80" alt="Fondo hamburguesas" class="solicitud-bg-img">
+  <div class="solicitud-overlay"></div>
 
-      <fieldset>
-        <legend>Información Personal</legend>
-        <div class="solicitud-form-group">
-          <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="repartidor.nombre" name="nombre" required>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="repartidor.apellido" name="apellido" required>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <input class="form-control" type="email" placeholder="Email" [(ngModel)]="repartidor.email" name="email" required>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <input class="form-control" type="tel" placeholder="Telefono" [(ngModel)]="repartidor.telefono" name="telefono" required>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <input class="form-control" type="text" placeholder="Documento" [(ngModel)]="repartidor.documento" name="documento" required>
-        </div>
-      </fieldset>
+  <div class="solicitud-container position-relative">
+    <div class="solicitud-box">
+      <h2 class="text-center mb-4 brand-gradient-text">Solicitud para ser Repartidor</h2>
 
-      <fieldset>
-        <legend>Información de Reparto</legend>
-        <div class="solicitud-form-group">
-          <input class="form-control" type="text" placeholder="Numero de Licencia" [(ngModel)]="repartidor.numeroLicencia" name="numeroLicencia" required>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <select class="form-control" [(ngModel)]="repartidor.vehiculo" name="vehiculo" required>
-            <option value="moto">Moto</option>
-            <option value="bicicleta">Bicicleta</option>
-            <option value="auto">Auto</option>
-          </select>
-        </div>
-        
-        <div class="solicitud-form-group">
-          <input class="form-control" type="text" placeholder="Zona de Trabajo" [(ngModel)]="repartidor.zonaTrabajo" name="zonaTrabajo" required>
-        </div>
-      </fieldset>
+      <form #repartidorForm="ngForm">
+        <fieldset class="mb-4">
+          <legend class="section-title">Datos de Acceso</legend>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="text" placeholder="Usuario" [(ngModel)]="repartidor.username" name="username" required>
+          </div>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="password" placeholder="Contraseña" [(ngModel)]="repartidor.password" name="password" required>
+          </div>
+        </fieldset>
 
-      <div class="solicitud-btn-primary">
-        <button type="button" (click)="solicitarTrabajo()" [disabled]="!repartidorForm.form.valid">
-          Enviar Solicitud
-        </button>
-      </div>
-    </form>
+        <fieldset class="mb-4">
+          <legend class="section-title">Información Personal</legend>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="repartidor.nombre" name="nombre" required>
+          </div>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="repartidor.apellido" name="apellido" required>
+          </div>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="email" placeholder="Email" [(ngModel)]="repartidor.email" name="email" required>
+          </div>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="tel" placeholder="Teléfono" [(ngModel)]="repartidor.telefono" name="telefono" required>
+          </div>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="text" placeholder="Documento" [(ngModel)]="repartidor.documento" name="documento" required>
+          </div>
+        </fieldset>
+
+        <fieldset class="mb-4">
+          <legend class="section-title">Información de Reparto</legend>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="text" placeholder="Número de Licencia" [(ngModel)]="repartidor.numeroLicencia" name="numeroLicencia" required>
+          </div>
+          <div class="solicitud-form-group">
+            <select class="form-control" [(ngModel)]="repartidor.vehiculo" name="vehiculo" required>
+              <option value="" disabled selected>Selecciona un vehículo</option>
+              <option value="moto">Moto</option>
+              <option value="bicicleta">Bicicleta</option>
+              <option value="auto">Auto</option>
+            </select>
+          </div>
+          <div class="solicitud-form-group">
+            <input class="form-control" type="text" placeholder="Zona de Trabajo" [(ngModel)]="repartidor.zonaTrabajo" name="zonaTrabajo" required>
+          </div>
+        </fieldset>
+
+        <div class="text-center">
+          <button type="button" class="btn btn-hero w-100" (click)="solicitarTrabajo()" [disabled]="!repartidorForm.form.valid">
+            🚲 Enviar Solicitud
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
