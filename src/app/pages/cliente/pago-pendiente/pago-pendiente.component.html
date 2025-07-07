@@ -1,9 +1,58 @@
-<div class="container mt-4">
-  <h3>⏳ Pago Pendiente</h3>
-  <p>Tu pago está siendo procesado. Te notificaremos cuando se complete.</p>
-  
-  <div class="mt-3">
-    <button class="btn btn-warning me-2" (click)="intentarNuevamente()">Intentar Nuevamente</button>
-    <button class="btn btn-secondary" (click)="volverAHome()">Volver al Inicio</button>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow p-5 rounded-4 pending-card text-center">
+        <div class="pending-icon mb-4">
+          ⏳
+        </div>
+        
+        <h2 class="pending-title mb-4">Pago en Proceso</h2>
+        
+        <div class="pending-message mb-4">
+          <p class="lead">Tu pago está siendo procesado.</p>
+          <p>Esto puede tomar unos minutos. Te notificaremos cuando se complete.</p>
+        </div>
+
+        <div class="status-info mb-4">
+          <div class="alert alert-info" role="alert">
+            <h6>📋 Estado del Pago</h6>
+            <p class="mb-0">
+              Tu pedido está siendo verificado por nuestro sistema de pagos.
+              <br>
+              <strong>No cierres esta página</strong> hasta recibir confirmación.
+            </p>
+          </div>
+        </div>
+
+        <div class="what-happens mb-4">
+          <h6>🔄 ¿Qué está pasando?</h6>
+          <div class="row text-start">
+            <div class="col-md-6">
+              <ul>
+                <li>Verificación de fondos</li>
+                <li>Validación de datos</li>
+                <li>Procesamiento del pago</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul>
+                <li>Confirmación bancaria</li>
+                <li>Generación del pedido</li>
+                <li>Notificación de éxito</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary btn-lg me-3" (click)="volverAlCarrito()">
+            🛒 Volver al Carrito
+          </button>
+          <button class="btn btn-outline-secondary btn-lg" (click)="volverAProductos()">
+            🍔 Ver Productos
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div> 

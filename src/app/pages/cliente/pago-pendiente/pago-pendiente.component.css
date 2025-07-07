@@ -1,0 +1,108 @@
+.pending-card {
+  background: linear-gradient(135deg, #fff 0%, #f0f8ff 100%);
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 123, 255, 0.1);
+}
+
+.pending-icon {
+  font-size: 4rem;
+  animation: pulse 2s infinite;
+}
+
+.pending-title {
+  color: #007bff;
+  font-weight: 800;
+  font-size: 2.5rem;
+}
+
+.pending-message {
+  color: #6c757d;
+}
+
+.status-info .alert {
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #1565c0;
+}
+
+.what-happens {
+  text-align: left;
+}
+
+.what-happens h6 {
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.what-happens ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.what-happens li {
+  padding: 6px 0;
+  position: relative;
+  padding-left: 25px;
+  color: #6c757d;
+}
+
+.what-happens li::before {
+  content: "→";
+  color: #007bff;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.actions {
+  margin-top: 40px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #007bff);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .pending-title {
+    font-size: 2rem;
+  }
+  
+  .pending-icon {
+    font-size: 3rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+} 
