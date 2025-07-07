@@ -40,53 +40,163 @@
         </div>
       </div>
 
-      <form name="form-register">
+      <form name="form-register" #registerForm="ngForm">
         <div class="form-group input-with-icon">
           <i class="bi bi-person-fill"></i>
-          <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="userRegister.username" />
+          <input type="text" class="form-control" placeholder="Usuario" name="username"
+                 [(ngModel)]="userRegister.username"
+                 required minlength="3" maxlength="20" pattern="^[a-zA-Z0-9_]+$"
+                 #username="ngModel" />
+          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger small mt-1">
+            <div *ngIf="username.errors?.['required']">El nombre de usuario es requerido</div>
+            <div *ngIf="username.errors?.['minlength']">Debe tener al menos 3 caracteres</div>
+            <div *ngIf="username.errors?.['maxlength']">No puede tener más de 20 caracteres</div>
+            <div *ngIf="username.errors?.['pattern']">Solo letras, números y guiones bajos</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-lock-fill"></i>
-          <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userRegister.password" />
+          <input type="password" class="form-control" placeholder="Contraseña" name="password"
+                 [(ngModel)]="userRegister.password"
+                 required minlength="8" maxlength="100"
+                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                 #password="ngModel" />
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger small mt-1">
+            <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
+            <div *ngIf="password.errors?.['minlength']">Debe tener al menos 8 caracteres</div>
+            <div *ngIf="password.errors?.['maxlength']">No puede tener más de 100 caracteres</div>
+            <div *ngIf="password.errors?.['pattern']">Debe incluir mayúscula, minúscula, número y símbolo</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-person-badge-fill"></i>
-          <input type="text" class="form-control" placeholder="Nombre" name="nombre" [(ngModel)]="userRegister.nombre" />
+          <input type="text" class="form-control" placeholder="Nombre" name="nombre"
+                 [(ngModel)]="userRegister.nombre"
+                 required minlength="2" maxlength="50" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"
+                 #nombre="ngModel" />
+          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger small mt-1">
+            <div *ngIf="nombre.errors?.['required']">El nombre es requerido</div>
+            <div *ngIf="nombre.errors?.['minlength']">Debe tener al menos 2 caracteres</div>
+            <div *ngIf="nombre.errors?.['maxlength']">No puede tener más de 50 caracteres</div>
+            <div *ngIf="nombre.errors?.['pattern']">Solo letras y espacios</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-person-badge-fill"></i>
-          <input type="text" class="form-control" placeholder="Apellido" name="apellido" [(ngModel)]="userRegister.apellido" />
+          <input type="text" class="form-control" placeholder="Apellido" name="apellido"
+                 [(ngModel)]="userRegister.apellido"
+                 required minlength="2" maxlength="50" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"
+                 #apellido="ngModel" />
+          <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="text-danger small mt-1">
+            <div *ngIf="apellido.errors?.['required']">El apellido es requerido</div>
+            <div *ngIf="apellido.errors?.['minlength']">Debe tener al menos 2 caracteres</div>
+            <div *ngIf="apellido.errors?.['maxlength']">No puede tener más de 50 caracteres</div>
+            <div *ngIf="apellido.errors?.['pattern']">Solo letras y espacios</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-envelope-fill"></i>
-          <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="userRegister.email" />
+          <input type="email" class="form-control" placeholder="Email" name="email"
+                 [(ngModel)]="userRegister.email"
+                 required email
+                 #email="ngModel" />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small mt-1">
+            <div *ngIf="email.errors?.['required']">El correo es requerido</div>
+            <div *ngIf="email.errors?.['email']">Formato de correo inválido</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-telephone-fill"></i>
-          <input type="text" class="form-control" placeholder="Teléfono" name="telefono" [(ngModel)]="userRegister.telefono" />
+          <input type="text" class="form-control" placeholder="Teléfono" name="telefono"
+                 [(ngModel)]="userRegister.telefono"
+                 required pattern="^[0-9]{10}$" maxlength="10"
+                 #telefono="ngModel" />
+          <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="text-danger small mt-1">
+            <div *ngIf="telefono.errors?.['required']">El teléfono es requerido</div>
+            <div *ngIf="telefono.errors?.['pattern']">Debe tener exactamente 10 dígitos</div>
+          </div>
         </div>
-        <div class="form-group input-with-icon">
+      
+        <div class="form-group select-with-icon">
           <i class="bi bi-geo-alt-fill"></i>
-          <input type="text" class="form-control" placeholder="Barrio" name="barrio" [(ngModel)]="userRegister.barrio" />
+          <select class="form-control" name="barrio" [(ngModel)]="userRegister.barrio" required #barrio="ngModel">
+            <option value="" disabled selected>Seleccione un barrio</option>
+            <option value="centro">Centro</option>
+            <option value="alto_comedero">Alto Comedero</option>
+            <option value="ciudad_de_nieva">Ciudad de Nieva</option>
+            <option value="cuyaya">Cuyaya</option>
+            <option value="gorriti">Gorriti</option>
+            <option value="san_pedrito">San Pedrito</option>
+            <option value="chijra">Chijra</option>
+            <option value="los_perales">Los Perales</option>
+            <option value="coronel_arias">Coronel Arias</option>
+            <option value="malvinas_argentinas">Malvinas Argentinas</option>
+            <option value="el_chingo">El Chingo</option>
+            <option value="mariano_moreno">Mariano Moreno</option>
+            <option value="campo_verde">Campo Verde</option>
+            <option value="san_franisco_de_alava">San Francisco de Álava</option>
+            <option value="12_de_octubre">12 de Octubre</option>
+            <option value="lujan">Luján</option>
+            <option value="san_martin">San Martín</option>
+            <option value="belgrano">Belgrano</option>
+            <option value="santa_rosa">Santa Rosa</option>
+            <option value="tupac_amaru">Tupac Amaru</option>
+            <option value="las_lomas">Las Lomas</option>
+            <option value="bajo_la_vina">Bajo La Viña</option>
+            <option value="almirante_brown">Almirante Brown</option>
+            <option value="los_huaicos">Los Huaicos</option>
+            <option value="la_vina">La Viña</option>
+            <option value="san_isidro">San Isidro</option>
+            <option value="san_guillermo">San Guillermo</option>
+            <option value="san_cayetano">San Cayetano</option>
+            <option value="tupac_amaru">Tupac Amaru</option>
+            <option value="las_lomas">Las Lomas</option>
+            <option value="bajo_la_vina">Bajo La Viña</option> 
+            <option value="almirante_brown">Almirante Brown</option>
+            <option value="los_huaicos">Los Huaicos</option>
+            <option value="la_vina">La Viña</option>
+            <option value="san_isidro">San Isidro</option> 
+            <option value="san_guillermo">San Guillermo</option>
+            <option value="san_cayetano">San Cayetano</option>
+          </select>
+          <div *ngIf="barrio.invalid && (barrio.dirty || barrio.touched)" class="text-danger small mt-1">
+            <div *ngIf="barrio.errors?.['required']">El barrio es requerido</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-signpost-split-fill"></i>
-          <input type="text" class="form-control" placeholder="Calle" name="calle" [(ngModel)]="userRegister.calle" />
+          <input type="text" class="form-control" placeholder="Calle" name="calle"
+                 [(ngModel)]="userRegister.calle" required #calle="ngModel" />
+          <div *ngIf="calle.invalid && (calle.dirty || calle.touched)" class="text-danger small mt-1">
+            <div *ngIf="calle.errors?.['required']">La calle es requerida</div>
+          </div>
         </div>
+      
         <div class="form-group input-with-icon">
           <i class="bi bi-123"></i>
-          <input type="text" class="form-control" placeholder="Número de Calle" name="numeroCalle" [(ngModel)]="userRegister.numeroCalle" />
+          <input type="text" class="form-control" placeholder="Número de Calle" name="numeroCalle"
+                 [(ngModel)]="userRegister.numeroCalle" required pattern="^[0-9]+$"
+                 #numeroCalle="ngModel" />
+          <div *ngIf="numeroCalle.invalid && (numeroCalle.dirty || numeroCalle.touched)" class="text-danger small mt-1">
+            <div *ngIf="numeroCalle.errors?.['required']">El número es requerido</div>
+            <div *ngIf="numeroCalle.errors?.['pattern']">Debe contener solo números</div>
+          </div>
         </div>
+      
         <div class="form-group">
-          <button type="button" class="btn btn-primary w-100" (click)="guardarUsuario()">Registrarse</button>
+          <button type="button" class="btn btn-primary w-100" [disabled]="!registerForm.form.valid" (click)="guardarUsuario()">
+            Registrarse
+          </button>
         </div>
+      
         <div class="alert-danger">{{msglogin}}</div>
-      </form>
-
-      <div class="text-center mt-4">
-        <p class="mb-2">¿Ya tienes una cuenta?</p>
-        <button class="btn btn-link" (click)="toggleLogin()">Iniciar Sesión</button>
-      </div>
+      </form>      
     </div>
   </div>
 </div>

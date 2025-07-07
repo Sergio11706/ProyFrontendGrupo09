@@ -43,13 +43,8 @@ export class UsuarioService {
     var usuario = sessionStorage.getItem("user"); 
     return usuario; 
   }
-  
-  public tipoUsuario(){ 
-    var tipoUsuario = sessionStorage.getItem("tipoUsuario"); 
-    return tipoUsuario; 
-  }
 
-  public getTipoUsuario(): string {
+  public tipoUsuario(): string {
     const tipoUsuario = sessionStorage.getItem("tipoUsuario");
     if (!tipoUsuario) return '';
     
@@ -81,22 +76,9 @@ export class UsuarioService {
     return this._http.post(this.hostBase, body, httpOption); 
   }
 
-  public getUsuarioActual(): any {
-    const userData = sessionStorage.getItem("user");
-    if (userData) {
-      try {
-        return JSON.parse(userData);
-      } catch (e) {
-        console.error("Error al parsear usuario desde sessionStorage", e);
-        return null;
-      }
-    }
-    return null;
-  }
-
-  rolLogged(): string {
-    const user = JSON.parse(localStorage.getItem('usuario') || '{}');
-    return user.rol || '';
+  public getpermisos(): number {
+    const permisos = sessionStorage.getItem("permisos");
+    return Number(permisos);
   }
  
   public getRepartidores(): Observable<any> {

@@ -124,13 +124,26 @@
 }
 .input-with-icon i {
   position: absolute;
-  top: 50%;
+  top: 15%;
   left: 12px;
-  transform: translateY(-50%);
   color: #999;
   font-size: 1.1rem;
 }
 .input-with-icon input {
+  padding-left: 2.2rem;
+}
+
+.select-with-icon {
+  position: relative;
+}
+.select-with-icon i {
+  position: absolute;
+  top: 15%;
+  left: 12px;
+  color: #999;
+  font-size: 1.1rem;
+}
+.select-with-icon select {
   padding-left: 2.2rem;
 }
 

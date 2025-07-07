@@ -5,25 +5,31 @@
       <thead class="bg-gradient-header text-white">
         <tr>
           <th>Nombre</th>
+          <th>Ingredientes</th>
+          <th>Total</th>
           <th>Estado</th>
           <th class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let pedido of pedidos">
-          <ng-container *ngIf="pedido.estado === 'preparando'">
-            <td class="fw-bold">{{ pedido.nombre }}</td>
-            <td>
-              <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm">
-                {{ pedido.estado }}
-              </span>
-            </td>
-            <td class="text-center">
-              <button class="btn btn-hero-sm" (click)="modificarPedido(pedido._id!)">
-                ✅ Pedido Listo
-              </button>
-            </td>
-          </ng-container>
+          <td>{{ pedido.nombre }}</td>
+          <td>
+            <ng-container *ngFor="let ingrediente of pedido.productos; let last = last">
+              {{ ingrediente.nombre }}<span *ngIf="!last">, </span>
+            </ng-container>
+          </td>
+          <td>{{ pedido.total }}</td>
+          <td>
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm">
+              {{ pedido.estado }}
+            </span>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-hero-sm" (click)="modificarPedido(pedido._id!)">
+              ✅ Pedido Listo
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

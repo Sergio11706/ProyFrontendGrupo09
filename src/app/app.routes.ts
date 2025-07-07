@@ -15,6 +15,8 @@ import { PagarComponent } from './pages/cliente/pagar/pagar.component';
 import { PagoExitosoComponent } from './pages/cliente/pago-exitoso/pago-exitoso.component';
 import { PagoFallidoComponent } from './pages/cliente/pago-fallido/pago-fallido.component';
 import { PagoPendienteComponent } from './pages/cliente/pago-pendiente/pago-pendiente.component';
+import { ElegirPedidoComponent } from './pages/cliente/elegir-pedido/elegir-pedido.component';
+import { ListaProductosComponent } from './pages/admin/lista-productos/lista-productos.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -33,5 +35,7 @@ export const routes: Routes = [
   { path: 'pagar', component: PagarComponent },
   { path: 'pago/exitoso', component: PagoExitosoComponent },
   { path: 'pago/fallido', component: PagoFallidoComponent },
-  { path: 'pago/pendiente', component: PagoPendienteComponent }
+  { path: 'pago/pendiente', component: PagoPendienteComponent },
+  { path: 'elegir-pedido', component: ElegirPedidoComponent },
+  { path: 'lista-productos', component: ListaProductosComponent },
 ];

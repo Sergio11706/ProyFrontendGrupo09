@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router'; // <-- Importa Router
-
+import { Router } from '@angular/router'; // <-- Importa Router
+import { UsuarioService } from '../../services/usuario.service';
+import { GraficoComponent } from "../../components/grafico/grafico.component";
 
 // Definimos una interfaz para los testimonios para tener un tipado fuerte
 interface Testimonio {
@@ -13,7 +14,7 @@ interface Testimonio {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule], // <-- Solo importa CommonModule ya que RouterLink no se usa
+  imports: [CommonModule, GraficoComponent], // <-- Solo importa CommonModule ya que RouterLink no se usa
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -26,25 +27,26 @@ export class HomeComponent implements OnInit {
   // Carrusel de opiniones
   testimonios: Testimonio[] = [
     {
-      texto: '¡Las mejores pizzas que he probado en la ciudad! El servicio es rápido y siempre llegan calientes. Totalmente recomendado.',
+      texto: '¡Los mejores sanguches que he probado en la ciudad! El servicio es rápido y siempre llegan calientes. Totalmente recomendado.',
       autor: 'Ana Pérez',
-      ciudad: 'Córdoba'
+      ciudad: 'Palpala'
     },
     {
-      texto: 'Me encanta la variedad de sabores que ofrecen. La "4 Quesos" es mi favorita. ¡Sigan así!',
+      texto: 'Me encanta la variedad de sabores que ofrecen. El "Lomito" es mi favorita. ¡Sigan así!',
       autor: 'Juan García',
-      ciudad: 'Buenos Aires'
+      ciudad: 'Alto Comedero'
     },
     {
-      texto: 'Excelente atención al cliente y la app es muy fácil de usar. Pedir mi pizza favorita nunca fue tan sencillo.',
+      texto: 'Excelente atención al cliente y la app es muy fácil de usar. Pedir mi sanguche favorito nunca fue tan sencillo.',
       autor: 'María Rodríguez',
-      ciudad: 'Rosario'
+      ciudad: 'Punta Diamante'
     }
   ];
 
-  constructor(private router: Router) { } // <-- Inyecta Router
+  constructor(private router: Router, private usuarioService: UsuarioService) { } // <-- Inyecta Router
 
   ngOnInit(): void {
+
     // Simulamos un número de usuarios registrados en la última semana
     this.totalUsuarios = Math.floor(Math.random() * (350 - 150 + 1)) + 150;
     
@@ -56,6 +58,33 @@ export class HomeComponent implements OnInit {
   }
 
   irAPedir() {
-    this.router.navigate(['/pedir']);
+    const id = this.usuarioService.idLogged();
+
+    if(id !== null) {
+      if(this.usuarioService.tipoUsuario() === 'Cliente' || (this.usuarioService.tipoUsuario() === 'Administrador' && this.usuarioService.getpermisos() === 3)) {
+        this.router.navigate(['/pedir']);
+      }
+      else {
+        alert("Funcion solo disponible para clientes");
+      }
+    }
+    else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  irAElegirPedido() {
+    const id = this.usuarioService.idLogged();
+    if(id !== null) {
+      if(this.usuarioService.tipoUsuario() === 'Cliente' || (this.usuarioService.tipoUsuario() === 'Administrador' && this.usuarioService.getpermisos() === 3)) {
+        this.router.navigate(['/elegir-pedido']);
+      }
+      else {
+        alert("Funcion solo disponible para clientes");
+      }
+    }
+    else {
+      this.router.navigate(['/login']);
+    }
   }
 }

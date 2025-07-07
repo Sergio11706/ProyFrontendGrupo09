@@ -39,14 +39,13 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.login(this.userform.username!, this.userform.password!)
       .subscribe((result: any) => {
-        console.log(result);
-
-        if (result.status === 1 && result._id && result.estado) {
-          if (result.estado === 'aprobado') {
+        if (result.status === 1) {
+          if (result.estado === undefined || result.estado === 'aprobado') {
             sessionStorage.setItem("token", result.token);
             sessionStorage.setItem("user", result.username);
             sessionStorage.setItem("userid", result._id);
             sessionStorage.setItem("tipoUsuario", result.tipoUsuario || '');
+            sessionStorage.setItem("permisos", result.permisos || '');
             this.router.navigateByUrl(this.returnUrl);
           } else {
             this.msglogin = result.estado === 'pendiente'
@@ -105,10 +104,8 @@ export class LoginComponent implements OnInit {
 
   handleCredentialResponse(response: any): void { 
     this.ngZone.run(() => { 
-      console.log('Token JWT ID codificado:', response.credential); 
  
       this.decodedToken = this.decodeJwtResponse(response.credential); 
-      console.log('Información de usuario decodificada (JSON):', this.decodedToken); 
 
       if (this.showLogin) {
         alert(`¡Bienvenido, ${this.decodedToken.name || this.decodedToken.email}!`);
@@ -142,17 +139,15 @@ export class LoginComponent implements OnInit {
   }
 
   guardarUsuario(): void {
-    this.userRegister.estado = 'aprobado';
     this.userRegister.tipoUsuario = 'Cliente';
     this.userRegister.descuento = 0;
     this.userService.guardarUsuario(this.userRegister)
       .subscribe((result: any) => {
-        console.log(result);
         this.msglogin = "Usuario guardado exitosamente.";
+        this.showLogin = true;
       },
       error => {
         alert("Error de conexion");
-        console.log("error en conexion");
         console.log(error);
       });
   }

@@ -30,6 +30,26 @@ export class ProductoService {
     return this._http.post(this.hostBase, body, httpOptions);
   }
 
+  public modificarProducto(id: string, datos: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.put(this.hostBase + id, JSON.stringify(datos), httpOptions);
+  }
+
+  public eliminarProducto(id: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this._http.delete(this.hostBase + id, httpOptions);
+  }
+
   private getToken(): string {
     return sessionStorage.getItem("token") || "";
   }

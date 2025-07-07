@@ -10,7 +10,6 @@ export class PedidoService {
   constructor(private http: HttpClient) {}
 
   public crearPedido(pedido: Pedido): Observable<any> {
-    console.log(pedido);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

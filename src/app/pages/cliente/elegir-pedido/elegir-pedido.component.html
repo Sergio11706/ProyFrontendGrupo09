@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Nuestros Pedidos</h2>
+  
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div *ngFor="let pedido of pedidos" class="col">
+    <ng-container *ngIf="pedido.muestra">
+      <div class="card h-100 shadow-sm">
+        <img 
+          [src]="pedido.imagen || 'assets/images/default-pedido.jpg'" 
+          class="card-img-top" 
+          [alt]="pedido.nombre || 'Imagen del pedido'"
+          style="height: 200px; object-fit: cover;"
+        >
+        <div class="card-body">
+          <h5 class="card-title">{{ pedido.nombre || 'Pedido sin nombre' }}</h5>
+          <h6 class="card-text text-muted">
+            <div *ngFor="let producto of pedido.productos">
+              {{ producto.nombre }}
+            </div>
+          </h6>
+          <ul class="list-unstyled">
+            <li *ngIf="pedido.total"><strong>Total:</strong> ${{ pedido.total }}</li>
+          </ul>
+        </div>
+        <div class="card-footer bg-transparent">
+          <button class="btn btn-primary w-100" (click)="seleccionarPedido(pedido)">
+            Seleccionar
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    </div>
+  </div>
+
+  <!-- Mensaje cuando no hay pedidos -->
+  <div *ngIf="pedidos.length === 0" class="text-center py-5">
+    <div class="alert alert-info">
+      No hay pedidos disponibles en este momento.
+    </div>
+  </div>
+</div>
