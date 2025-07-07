@@ -144,6 +144,7 @@ export class LoginComponent implements OnInit {
   guardarUsuario(): void {
     this.userRegister.estado = 'aprobado';
     this.userRegister.tipoUsuario = 'Cliente';
+    this.userRegister.descuento = 0;
     this.userService.guardarUsuario(this.userRegister)
       .subscribe((result: any) => {
         console.log(result);

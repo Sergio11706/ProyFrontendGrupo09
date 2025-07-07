@@ -17,6 +17,6 @@ export class PagoPendienteComponent {
   }
 
   intentarNuevamente(): void {
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['/pagar']);
   }
 } 

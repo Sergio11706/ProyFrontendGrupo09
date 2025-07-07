@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -10,10 +10,26 @@ export class MercadoPagoService {
   constructor(private http: HttpClient) {}
 
   generarPago(data: any) {
-    return this.http.post(`${this.apiUrl}/payment`, data);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.post(`${this.apiUrl}/payment`, data, httpOptions);
   }
 
   generarSuscripcion(data: any) {
-    return this.http.post(`${this.apiUrl}/subscription`, data);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      })
+    };
+    return this.http.post(`${this.apiUrl}/subscription`, data, httpOptions);
+  }
+
+  private getToken(): string {
+    return sessionStorage.getItem("token") || "";
   }
 } 
