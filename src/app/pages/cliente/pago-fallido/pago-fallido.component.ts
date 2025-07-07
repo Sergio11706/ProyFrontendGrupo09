@@ -6,17 +6,18 @@ import { Router } from '@angular/router';
   selector: 'app-pago-fallido',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './pago-fallido.component.html'
+  templateUrl: './pago-fallido.component.html',
+  styleUrls: ['./pago-fallido.component.css']
 })
 export class PagoFallidoComponent {
   
   constructor(private router: Router) {}
 
-  volverAHome(): void {
-    this.router.navigate(['/home']);
+  volverAProductos(): void {
+    this.router.navigate(['/productos']);
   }
 
-  intentarNuevamente(): void {
-    this.router.navigate(['/checkout']);
+  volverAlCarrito(): void {
+    this.router.navigate(['/carrito']);
   }
 } 

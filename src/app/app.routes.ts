@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component'; 
 import { ProductosComponent } from './pages/cliente/productos/productos.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
-import { CheckoutComponent } from './pages/cliente/checkoutP/checkout.component';
+import { CheckoutComponent } from './pages/cliente/checkout/checkout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SolicitudComponent } from './pages/repartidor/solicitud/solicitud.component';
 import { ListaRepartidoresComponent } from './pages/admin/lista-repartidores/lista-repartidores.component';
@@ -12,6 +12,10 @@ import { GestionCargaComponent } from './pages/admin/gestion-carga/gestion-carga
 import { PedidosRepartidorComponent } from './pages/repartidor/pedidos-repartidor/pedidos-repartidor.component';
 import { PedirComponent } from './pages/cliente/pedir/pedir.component';
 import { ListaPedidosComponent } from './pages/admin/lista-pedidos/lista-pedidos.component';
+import { CarritoComponent } from './pages/cliente/carrito/carrito.component';
+import { PagoExitosoComponent } from './pages/cliente/pago-exitoso/pago-exitoso.component';
+import { PagoFallidoComponent } from './pages/cliente/pago-fallido/pago-fallido.component';
+import { PagoPendienteComponent } from './pages/cliente/pago-pendiente/pago-pendiente.component';
 
 
 export const routes: Routes = [
@@ -21,6 +25,10 @@ export const routes: Routes = [
   { path: 'productos', component: ProductosComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'pago-exitoso', component: PagoExitosoComponent },
+  { path: 'pago-fallido', component: PagoFallidoComponent },
+  { path: 'pago-pendiente', component: PagoPendienteComponent },
   { path: 'solicitud', component: SolicitudComponent },
   { path: 'lista-repartidores', component: ListaRepartidoresComponent },
   { path: 'crear-admin', component: CrearAdminComponent },

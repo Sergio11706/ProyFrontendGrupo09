@@ -1,22 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PagoService } from '../../../services/pago.service';
 
 @Component({
   selector: 'app-pago-exitoso',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './pago-exitoso.component.html'
+  templateUrl: './pago-exitoso.component.html',
+  styleUrls: ['./pago-exitoso.component.css']
 })
-export class PagoExitosoComponent {
-  
-  constructor(private router: Router) {}
+export class PagoExitosoComponent implements OnInit {
+  pedidoId: string = '';
+  pedido: any = null;
+  loading = true;
 
-  volverAHome(): void {
-    this.router.navigate(['/home']);
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private pagoService: PagoService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.pedidoId = params['pedido_id'] || '';
+      if (this.pedidoId) {
+        this.cargarPedido();
+      } else {
+        this.loading = false;
+      }
+    });
   }
 
-  verPedidos(): void {
-    this.router.navigate(['/pedir']);
+  cargarPedido(): void {
+    this.pagoService.getPedidoStatus(this.pedidoId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.pedido = response.pedido;
+        }
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error al cargar pedido:', error);
+        this.loading = false;
+      }
+    });
+  }
+
+  volverAProductos(): void {
+    this.router.navigate(['/productos']);
   }
 } 
