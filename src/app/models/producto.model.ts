@@ -8,7 +8,8 @@ export class Producto {
     public vencimiento?: Date,
     public disponible?: boolean,
     public tipoProducto?: 'Bebida' | 'Ingrediente',
-    public imagen?: string
+    public imagen?: string,
+    public principal?: boolean
   ) {}
 }
 
@@ -23,10 +24,11 @@ export class Bebida extends Producto {
     disponible?: boolean,
     tipoProducto?: 'Bebida' | 'Ingrediente',
     imagen?: string,
+    principal?: boolean,
     public volumen?: number,
     public tipoBebida?: string
   ) {
-    super(_id, nombre, unidadMedida, stock, precioUnitario, vencimiento, disponible, tipoProducto, imagen);
+    super(_id, nombre, unidadMedida, stock, precioUnitario, vencimiento, disponible, tipoProducto, imagen, principal);
   }
 }
 
@@ -42,9 +44,10 @@ export class Ingrediente extends Producto {
     disponible?: boolean,
     tipoProducto?: 'Bebida' | 'Ingrediente',
     imagen?: string,
+    principal?: boolean,
     public categoria?: string,
     public proveedor?: string
   ) {
-    super(_id, nombre, unidadMedida, stock, precioUnitario, vencimiento, disponible, tipoProducto, imagen);
+    super(_id, nombre, unidadMedida, stock, precioUnitario, vencimiento, disponible, tipoProducto, imagen, principal);
   }
 }

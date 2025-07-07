@@ -1,7 +1,7 @@
 <div class="container pedir-hero mt-4 mb-5 rounded-4 shadow">
   <h1 class="text-center display-5 fw-bold mb-2 pedir-title">🍔 ¡Armá tu pedido!</h1>
   <p class="lead text-center pedir-lead mb-0">
-    Elegí tus ingredientes favoritos y creá la hamburguesa perfecta.<br>
+    Elegí tus ingredientes favoritos y creá el sanguche perfecto.<br>
     <span class="pedir-highlight">¡Fácil, rápido y delicioso!</span>
   </p>
 </div>
@@ -11,8 +11,9 @@
     <div class="col-md-6">
       <select class="form-select pedir-select" (change)="ingredienteInicial($event)">
         <option value="" selected>Selecciona tu comida base</option>
-        <option [value]="'Milanesa'">Sanguche de Milanesa</option>
-        <option [value]="'Choclo'">Humita</option>
+        <option *ngFor="let producto of productosPrincipales" [value]="producto.nombre">
+          Sanguche de {{ producto.nombre }}
+        </option>
       </select>
     </div>
   </div>
@@ -68,7 +69,7 @@
 
 <div class="pedir-info text-center mt-5">
   <h5>¿Sabías?</h5>
-  <p>¡Cada hamburguesa se prepara al momento y llega caliente a tu puerta!<br>
+  <p>¡Cada sanguche se prepara al momento y llega caliente a tu puerta!<br>
     Si tenés dudas, nuestro equipo está listo para ayudarte.</p>
 </div>
 

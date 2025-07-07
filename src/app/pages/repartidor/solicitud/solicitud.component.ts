@@ -25,7 +25,6 @@ export class SolicitudComponent {
   solicitarTrabajo() {
     this.repartidor.estado = 'pendiente';
     this.repartidor.tipoUsuario = 'Repartidor';
-    this.repartidor.activo = false;
     this.repartidor.rating = 0;
 
     console.log('Solicitud de repartidor:', this.repartidor);

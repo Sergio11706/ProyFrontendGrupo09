@@ -17,7 +17,12 @@ export class PagoFallidoComponent {
     this.router.navigate(['/productos']);
   }
 
+<<<<<<< HEAD
+  intentarNuevamente(): void {
+    this.router.navigate(['/pagar']);
+=======
   volverAlCarrito(): void {
     this.router.navigate(['/carrito']);
+>>>>>>> origin/master
   }
 } 

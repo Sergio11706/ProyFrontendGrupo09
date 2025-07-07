@@ -6,6 +6,7 @@ import { Producto } from '../../../models/producto.model';
 import { Pedido } from '../../../models/pedido.model';
 import { UsuarioService } from '../../../services/usuario.service';
 import { PedidoService } from '../../../services/pedido.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedir',
@@ -16,6 +17,7 @@ import { PedidoService } from '../../../services/pedido.service';
 export class PedirComponent implements OnInit {
 
   productos: Producto[] = [];
+  productosPrincipales: Producto[] = [];
   productoSeleccionados: Producto[] = [];
   modalVisible: boolean = false;
   ingrediente: string = '';
@@ -25,10 +27,13 @@ export class PedirComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private usuarioService: UsuarioService,
-    private pedidoService: PedidoService) { }
+    private pedidoService: PedidoService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.productoSeleccionados = [];
     this.productoService.getProductos().subscribe(result => {
+      this.productosPrincipales = result.filter(p => p.principal);
       this.productos = result;
     });
   }
@@ -62,6 +67,7 @@ export class PedirComponent implements OnInit {
 
   realizarPedido(): void {
     const pedido: Pedido = {
+      nombre: 'Sanguche de ' + this.productoSeleccionados[0].nombre,
       productos: this.productoSeleccionados,
       estado: 'preparando',
       fecha: new Date(),
@@ -77,10 +83,10 @@ export class PedirComponent implements OnInit {
       return;
     }
     pedido.total = this.pedidoService.calcularTotal(pedido);
-    
+
     this.pedidoService.crearPedido(pedido).subscribe(result => {
-      alert("Pedido creado exitosamente");
-      this.productoSeleccionados = [];
+      alert("Pedido realizado exitosamente");
+      this.router.navigate(['/pagar']); 
     });
   }
 

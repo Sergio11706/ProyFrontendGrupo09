@@ -64,7 +64,6 @@ export class Repartidor extends Usuario {
     public vehiculo?: string,
     public zonaTrabajo?: string,
     public rating?: number,
-    public activo?: boolean
   ) {
     super(_id, username, password, nombre, apellido, estado, email, telefono, 'Repartidor');
   }
