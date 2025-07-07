@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PagoService } from '../../../services/pago.service';
 
 @Component({
   selector: 'app-pago-exitoso',
@@ -18,7 +17,6 @@ export class PagoExitosoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private pagoService: PagoService
   ) {}
 
   ngOnInit(): void {
@@ -33,18 +31,7 @@ export class PagoExitosoComponent implements OnInit {
   }
 
   cargarPedido(): void {
-    this.pagoService.getPedidoStatus(this.pedidoId).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.pedido = response.pedido;
-        }
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error al cargar pedido:', error);
-        this.loading = false;
-      }
-    });
+    this.loading = false;
   }
 
   volverAProductos(): void {
