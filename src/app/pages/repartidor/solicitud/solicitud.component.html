@@ -203,24 +203,48 @@
           </div>
           
           <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="zonaTrabajo.invalid && (zonaTrabajo.dirty || zonaTrabajo.touched)"
-              [class.is-valid]="zonaTrabajo.valid && (zonaTrabajo.dirty || zonaTrabajo.touched)"
-              type="text" 
-              placeholder="Zona de Trabajo" 
-              [(ngModel)]="repartidor.zonaTrabajo" 
-              name="zonaTrabajo" 
-              #zonaTrabajo="ngModel"
-              required
-              minlength="3"
-              maxlength="100"
-              pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s,.-]+$">
-            <div class="invalid-feedback" *ngIf="zonaTrabajo.invalid && (zonaTrabajo.dirty || zonaTrabajo.touched)">
-              <small *ngIf="zonaTrabajo.errors?.['required']">La zona de trabajo es requerida</small>
-              <small *ngIf="zonaTrabajo.errors?.['minlength']">Debe tener al menos 3 caracteres</small>
-              <small *ngIf="zonaTrabajo.errors?.['maxlength']">No puede tener más de 100 caracteres</small>
-              <small *ngIf="zonaTrabajo.errors?.['pattern']">Solo se permiten letras, números, espacios y signos de puntuación básicos</small>
+            <select class="form-control" name="zonaTrabajo" [(ngModel)]="repartidor.zonaTrabajo" required #zonaTrabajo="ngModel">
+              <option value="" disabled selected>Seleccione una zona de trabajo</option>
+              <option value="centro">Centro</option>
+              <option value="alto_comedero">Alto Comedero</option>
+              <option value="ciudad_de_nieva">Ciudad de Nieva</option>
+              <option value="cuyaya">Cuyaya</option>
+              <option value="gorriti">Gorriti</option>
+              <option value="san_pedrito">San Pedrito</option>
+              <option value="chijra">Chijra</option>
+              <option value="los_perales">Los Perales</option>
+              <option value="coronel_arias">Coronel Arias</option>
+              <option value="malvinas_argentinas">Malvinas Argentinas</option>
+              <option value="el_chingo">El Chingo</option>
+              <option value="mariano_moreno">Mariano Moreno</option>
+              <option value="campo_verde">Campo Verde</option>
+              <option value="san_franisco_de_alava">San Francisco de Álava</option>
+              <option value="12_de_octubre">12 de Octubre</option>
+              <option value="lujan">Luján</option>
+              <option value="san_martin">San Martín</option>
+              <option value="belgrano">Belgrano</option>
+              <option value="santa_rosa">Santa Rosa</option>
+              <option value="tupac_amaru">Tupac Amaru</option>
+              <option value="las_lomas">Las Lomas</option>
+              <option value="bajo_la_vina">Bajo La Viña</option>
+              <option value="almirante_brown">Almirante Brown</option>
+              <option value="los_huaicos">Los Huaicos</option>
+              <option value="la_vina">La Viña</option>
+              <option value="san_isidro">San Isidro</option>
+              <option value="san_guillermo">San Guillermo</option>
+              <option value="san_cayetano">San Cayetano</option>
+              <option value="tupac_amaru">Tupac Amaru</option>
+              <option value="las_lomas">Las Lomas</option>
+              <option value="bajo_la_vina">Bajo La Viña</option> 
+              <option value="almirante_brown">Almirante Brown</option>
+              <option value="los_huaicos">L os Huaicos</option>
+              <option value="la_vina">La Viña</option>
+              <option value="san_isidro">San Isidro</option> 
+              <option value="san_guillermo">San Guillermo</option>
+              <option value="san_cayetano">San Cayetano</option>
+            </select>
+            <div *ngIf="zonaTrabajo.invalid && (zonaTrabajo.dirty || zonaTrabajo.touched)" class="text-danger small mt-1">
+              <div *ngIf="zonaTrabajo.errors?.['required']">La zona de trabajo es requerida</div>
             </div>
           </div>
         </fieldset>

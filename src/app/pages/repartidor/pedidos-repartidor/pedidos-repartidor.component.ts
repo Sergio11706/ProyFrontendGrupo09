@@ -59,6 +59,7 @@ export class PedidosRepartidorComponent implements OnInit {
     }
 
     const pedidoModificado = new Pedido();
+    pedidoModificado._id = pedidoId;
     pedidoModificado.repartidor = this.repartidorId;
     pedidoModificado.estado = 'en camino';
 

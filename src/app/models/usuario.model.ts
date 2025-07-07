@@ -5,7 +5,6 @@ export class Usuario {
     public password?: string,
     public nombre?: string,
     public apellido?: string,
-    public estado?: 'aprobado' | 'pendiente' | 'rechazado',
     public email?: string,
     public telefono?: string,
     public tipoUsuario?: 'Administrador' | 'Cliente' | 'Repartidor'
@@ -19,13 +18,12 @@ export class Administrador extends Usuario {
     password?: string,
     nombre?: string,
     apellido?: string,
-    estado?: 'aprobado' | 'pendiente' | 'rechazado',
     email?: string,
     telefono?: string,
     public permisos?: number,
     public ultimaModificacion?: string
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Administrador');
+    super(_id, username, password, nombre, apellido, email, telefono, 'Administrador');
   }
 }
 
@@ -37,7 +35,6 @@ export class Cliente extends Usuario {
     password?: string,
     nombre?: string,
     apellido?: string,
-    estado?: 'aprobado' | 'pendiente' | 'rechazado',
     email?: string,
     telefono?: string,
     public barrio?: string,
@@ -45,7 +42,7 @@ export class Cliente extends Usuario {
     public numeroCalle?: number,
     public descuento?: number
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Cliente');
+    super(_id, username, password, nombre, apellido, email, telefono, 'Cliente');
   }
 }
 
@@ -56,15 +53,15 @@ export class Repartidor extends Usuario {
     password?: string,
     nombre?: string,
     apellido?: string,
-    estado?: 'aprobado' | 'pendiente' | 'rechazado',
     email?: string,
     telefono?: string,
+    public estado?: 'aprobado' | 'pendiente' | 'rechazado',
     public documento?: string,
     public numeroLicencia?: string,
     public vehiculo?: string,
     public zonaTrabajo?: string,
     public rating?: number,
   ) {
-    super(_id, username, password, nombre, apellido, estado, email, telefono, 'Repartidor');
+    super(_id, username, password, nombre, apellido, email, telefono, 'Repartidor');
   }
 }

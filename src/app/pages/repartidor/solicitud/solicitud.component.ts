@@ -27,11 +27,8 @@ export class SolicitudComponent {
     this.repartidor.tipoUsuario = 'Repartidor';
     this.repartidor.rating = 0;
 
-    console.log('Solicitud de repartidor:', this.repartidor);
-    
     this.usuarioService.guardarUsuario(this.repartidor)
       .subscribe((result: any) => {
-        console.log(result);
         alert('Solicitud recibida. Nos pondremos en contacto contigo pronto.');
         this.mensaje = 'Tu solicitud ha sido enviada y está pendiente de aprobación.';
         this.router.navigate(['/login']);

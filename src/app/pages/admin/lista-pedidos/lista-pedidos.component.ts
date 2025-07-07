@@ -8,11 +8,12 @@ declare var $: any;
   selector: 'app-lista-pedidos',
   imports: [CommonModule],
   templateUrl: './lista-pedidos.component.html',
-  styleUrl: './lista-pedidos.component.css'
+  styleUrls: ['./lista-pedidos.component.css']
 })
-export class ListaPedidosComponent {
+export class ListaPedidosComponent implements OnInit {
 
   pedidos: Pedido [] = [];
+  pedido: Pedido = new Pedido();
 
   constructor(private pedidoService: PedidoService) {}
 
@@ -22,7 +23,18 @@ export class ListaPedidosComponent {
 
   cargarPedidos(): void {
     this.pedidoService.getPedidos().subscribe(result => {
-      this.pedidos = result;
+      this.pedidos = result.filter((pedido: Pedido) => {
+        return pedido.muestra === false && pedido.estado === 'preparando';
+      }).map((pedido: Pedido) => {
+        return {
+          _id: pedido._id,
+          nombre: pedido.nombre,
+          estado: pedido.estado,
+          productos: pedido.productos,
+          total: pedido.total,
+        }
+      });
+      
       setTimeout(() => {
         $('#tablaPedidos').DataTable();
       }, 0);
@@ -30,7 +42,8 @@ export class ListaPedidosComponent {
   }
 
   modificarPedido(id: string): void {
-    this.pedidoService.modificarPedido(id, { estado: 'listo' }).subscribe(result => {
+    console.log(id);
+    this.pedidoService.modificarPedido(id, { _id: id, estado: 'listo' }).subscribe(result => {
       this.cargarPedidos();
     });
   }

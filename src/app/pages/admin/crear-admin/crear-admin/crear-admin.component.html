@@ -129,63 +129,23 @@
             </div>
             
             <div class="mb-3">
-              <label for="estado" class="form-label">Estado</label>
-              <select 
-                id="estado" 
-                name="estado" 
-                class="form-select" 
-                [(ngModel)]="admin.estado" 
-                required
-                #estado="ngModel">
-                <option value="">Seleccione un estado</option>
-                <option value="aprobado">Aprobado</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="rechazado">Rechazado</option>
-              </select>
-              <div *ngIf="estado.invalid && (estado.dirty || estado.touched)" class="text-danger small mt-1">
-                <div *ngIf="estado.errors?.['required']">El estado es requerido</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
               <label for="permisos" class="form-label">Permisos</label>
-              <input 
-                type="number" 
+              <select 
                 id="permisos" 
                 name="permisos" 
                 class="form-control" 
                 [(ngModel)]="admin.permisos" 
-                required
-                pattern="^[0-9]+$"
-                minlength="1"
-                maxlength="10"
+                required 
                 #permisos="ngModel">
-              <div *ngIf="permisos.invalid && (permisos.dirty || permisos.touched)" class="text-danger small mt-1">
-                <div *ngIf="permisos.errors?.['required']">Los permisos son requeridos</div>
-                <div *ngIf="permisos.errors?.['pattern']">Los permisos deben contener solo números</div>
-                <div *ngIf="permisos.errors?.['minlength']">Los permisos deben tener al menos 1 dígito</div>
-                <div *ngIf="permisos.errors?.['maxlength']">Los permisos no pueden tener más de 10 dígitos</div>
-              </div>
-            </div>
-            
-            <div class="mb-4">
-              <label for="rango" class="form-label">Rango</label>
-              <select 
-                id="rango" 
-                name="rango" 
-                class="form-select" 
-                [(ngModel)]="admin.ultimaModificacion" 
-                required
-                #rango="ngModel">
-                <option value="">Seleccione un rango</option>
-                <option *ngFor="let rango of rangosDisponibles" [value]="rango">
-                  {{ rango }}
-                </option>
+                <option value="" disabled selected>Seleccione un nivel</option>
+                <option [value]="1">1 - Básico</option>
+                <option [value]="2">2 - Intermedio</option>
+                <option [value]="3">3 - Administrador</option>
               </select>
-              <div *ngIf="rango.invalid && (rango.dirty || rango.touched)" class="text-danger small mt-1">
-                <div *ngIf="rango.errors?.['required']">El rango es requerido</div>
+              <div *ngIf="permisos.invalid && (permisos.dirty || permisos.touched)" class="text-danger small mt-1">
+                <div *ngIf="permisos.errors?.['required']">El nivel de permisos es requerido</div>
               </div>
-            </div>
+            </div>            
             
             <div class="d-grid">
               <button type="submit" class="btn btn-primary" [disabled]="!adminForm.form.valid">

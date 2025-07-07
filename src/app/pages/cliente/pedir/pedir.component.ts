@@ -33,8 +33,14 @@ export class PedirComponent implements OnInit {
   ngOnInit(): void {
     this.productoSeleccionados = [];
     this.productoService.getProductos().subscribe(result => {
-      this.productosPrincipales = result.filter(p => p.principal);
-      this.productos = result;
+      if(result){
+        this.productosPrincipales = result.filter(p => p.principal);
+        this.productos = result;
+      }
+      else {
+        alert("Lo sentimos, pagina en mantenimiento");
+        this.router.navigate(['/home']);
+      }
     });
   }
 
@@ -66,6 +72,7 @@ export class PedirComponent implements OnInit {
   }
 
   realizarPedido(): void {
+    
     const pedido: Pedido = {
       nombre: 'Sanguche de ' + this.productoSeleccionados[0].nombre,
       productos: this.productoSeleccionados,
@@ -80,13 +87,18 @@ export class PedirComponent implements OnInit {
     }
     else {
       alert("No se encontro el cliente");
+      this.router.navigate(['/home']);
       return;
     }
     pedido.total = this.pedidoService.calcularTotal(pedido);
 
+
     this.pedidoService.crearPedido(pedido).subscribe(result => {
       alert("Pedido realizado exitosamente");
-      this.router.navigate(['/pagar']); 
+    });
+
+    this.productoSeleccionados.forEach(p => {
+      this.productoService.modificarProducto(p._id!, { stock: p.stock! - 1 }).subscribe();
     });
   }
 

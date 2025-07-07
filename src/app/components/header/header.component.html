@@ -1,64 +1,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/']">🍔 Mi Restaurante</a>
+    <a class="navbar-brand" [routerLink]="['/']">🍔 Sangucheria Dos Pollos Hermanos</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navMain">
       <ul class="navbar-nav me-auto">
         <!-- Menú para usuarios no registrados -->
         <ng-container *ngIf="!usuarioService.userLoggedIn()">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/solicitud']">Solicitar Trabajo</a>
           </li>
         </ng-container>
 
         <!-- Menú para clientes -->
-        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.getTipoUsuario() === 'Cliente'">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
-          </li>
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.tipoUsuario() === 'Cliente'">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/pagar']">Mi Pedido</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/checkout']">Carrito</a>
           </li>
         </ng-container>
 
         <!-- Menú para repartidores -->
-        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.getTipoUsuario() === 'Repartidor'">
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.tipoUsuario() === 'Repartidor'">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/productos']">Productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/checkout']">Carrito</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Mis Entregas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/lista-pedidos']">Lista de Pedidos</a>
+            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Tomar Pedidos</a>
           </li>
         </ng-container>
 
         <!-- Menú para administradores -->
-        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.getTipoUsuario() === 'Administrador'">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/home']">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/productos']">Productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/checkout']">Carrito</a>
-          </li>
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.tipoUsuario() === 'Administrador' && usuarioService.getpermisos() === 3">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/solicitud']">Solicitud</a>
           </li>
@@ -66,19 +37,44 @@
             <a class="nav-link" [routerLink]="['/lista-repartidores']">Lista de Repartidores</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/crear-admin']">Vista</a>
+            <a class="nav-link" [routerLink]="['/crear-admin']">Crear Administrador</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/admin-usuarios']">Usuarios</a>
+            <a class="nav-link" [routerLink]="['/admin-usuarios']">Gestionar Usuarios</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/admin-gestion-carga']">Carga de Productos y Pedidos</a>
+            <a class="nav-link" [routerLink]="['/admin-gestion-carga']">Cargar Productos y Pedidos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Mis Entregas</a>
+            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Pedidos de Repartidores</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/lista-pedidos']">Lista de Pedidos</a>
+            <a class="nav-link" [routerLink]="['/lista-pedidos']">Monitorear Pedidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/pagar']">Mi Pedido</a>
+          </li>
+        </ng-container>
+
+        <!-- Menú para administradores -->
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.tipoUsuario() === 'Administrador' && usuarioService.getpermisos() === 2">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin-gestion-carga']">Cargar Productos y Pedidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/pedidos-repartidor']">Pedidos de Repartidores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/lista-pedidos']">Monitorear Pedidos</a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="usuarioService.userLoggedIn() && usuarioService.tipoUsuario() === 'Administrador' && usuarioService.getpermisos() === 1">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/lista-pedidos']">Monitorear Pedidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/lista-productos']">Lista de Productos</a>
           </li>
         </ng-container>
       </ul>
