@@ -21,6 +21,10 @@ export class PedirComponent implements OnInit {
   productoSeleccionados: Producto[] = [];
   modalVisible: boolean = false;
   ingrediente: string = '';
+  ingredientes: string[] = [];
+  bebidas: string[] = [];
+  bebida: Producto = {};
+  papasFritas: Producto = {};
   pedidoDisable: boolean = true;
   agregarDisabled: boolean = true;
 
@@ -34,8 +38,12 @@ export class PedirComponent implements OnInit {
     this.productoSeleccionados = [];
     this.productoService.getProductos().subscribe(result => {
       if(result){
-        this.productosPrincipales = result.filter(p => p.principal);
+        this.productosPrincipales = result.filter(p => p.principal === true);
         this.productos = result;
+        this.productos.forEach(p => {
+          if(p.tipoProducto === 'Ingrediente' && p.nombre !== 'Papas Fritas' && (p.principal === false || p.principal === undefined)) this.ingredientes.push(p.nombre!);
+          if(p.tipoProducto === 'Bebida') this.bebidas.push(p.nombre!);
+        });
       }
       else {
         alert("Lo sentimos, pagina en mantenimiento");
@@ -72,7 +80,7 @@ export class PedirComponent implements OnInit {
   }
 
   realizarPedido(): void {
-    
+
     const pedido: Pedido = {
       nombre: 'Sanguche de ' + this.productoSeleccionados[0].nombre,
       productos: this.productoSeleccionados,
@@ -80,6 +88,9 @@ export class PedirComponent implements OnInit {
       fecha: new Date(),
       muestra: false
     };
+
+    pedido.productos!.push(this.bebida);
+    pedido.productos!.push(this.papasFritas);
 
     const id = this.usuarioService.idLogged();
     if (id) {
@@ -92,9 +103,16 @@ export class PedirComponent implements OnInit {
     }
     pedido.total = this.pedidoService.calcularTotal(pedido);
 
-
-    this.pedidoService.crearPedido(pedido).subscribe(result => {
-      alert("Pedido realizado exitosamente");
+    this.usuarioService.modificarUsuario(id, {tienePedido: true}).subscribe({
+      next: () => {
+        this.pedidoService.crearPedido(pedido).subscribe(result => {
+          alert("Pedido realizado exitosamente");
+          this.router.navigate(['/pagar']);
+        });
+      },
+      error: () => {
+        alert("Error al actualizar el estado del usuario");
+      }
     });
 
     this.productoSeleccionados.forEach(p => {
@@ -108,5 +126,13 @@ export class PedirComponent implements OnInit {
 
   cerrarModal(): void {
     this.modalVisible = false;
+  }
+
+  agregarBebida(bebida: string): void {
+    this.bebida = this.productos.find(p => p.nombre === bebida)!;
+  }
+
+  agregarPapasFritas(): void {
+    this.papasFritas = this.productos.find(p => p.nombre === 'Papas Fritas')!;
   }
 }

@@ -141,6 +141,7 @@ export class LoginComponent implements OnInit {
   guardarUsuario(): void {
     this.userRegister.tipoUsuario = 'Cliente';
     this.userRegister.descuento = 0;
+    this.userRegister.tienePedido = false;
     this.userService.guardarUsuario(this.userRegister)
       .subscribe((result: any) => {
         this.msglogin = "Usuario guardado exitosamente.";

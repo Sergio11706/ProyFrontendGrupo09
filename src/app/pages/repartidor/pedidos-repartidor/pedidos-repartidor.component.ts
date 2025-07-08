@@ -81,6 +81,7 @@ export class PedidosRepartidorComponent implements OnInit {
       return;
     }
 
+    
     if (confirm('¿Finalizar y eliminar el pedido?')) {
       this.pedidoService.eliminarPedido(pedidoId).subscribe({
         next: () => {

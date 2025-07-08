@@ -80,6 +80,7 @@ export class UsuarioService {
     const permisos = sessionStorage.getItem("permisos");
     return Number(permisos);
   }
+
  
   public getRepartidores(): Observable<any> {
     const httpOptions = {

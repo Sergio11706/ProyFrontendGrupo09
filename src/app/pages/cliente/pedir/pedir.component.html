@@ -58,11 +58,47 @@
           <i class="bi bi-dash-circle"></i> Quitar Último
         </button>
       </div>
+
+      <div class="mt-4">
+        <h5>¿Incluir Papas Fritas?</h5>
+        <button class="btn btn-success" (click)="agregarPapasFritas()">
+          <i class="bi bi-plus-circle"></i>
+        </button>
+      </div>
+      
+      <div *ngIf="!papasFritas?.nombre" class="py-5">
+        <p class="text-muted">Sin papas fritas</p>
+      </div>
+      <div *ngIf="papasFritas?.nombre" class="ingrediente-card shadow-sm animate__animated animate__fadeInDown">
+        <img [src]="papasFritas.imagen" [alt]="papasFritas.nombre" class="ingrediente-img">
+        <span class="ingrediente-nombre-card">{{ papasFritas.nombre }}</span>
+      </div>
+
+      <div class="mt-4">
+        <select class="form-select mb-3" [(ngModel)]="ingrediente">
+        <option value="">Selecciona una bebida</option>
+        <option *ngFor="let bebida of bebidas" [value]="bebida">
+          {{ bebida }}
+        </option>
+      </select>
+      <button type="button" class="btn btn-success" (click)="agregarBebida(ingrediente)">Agregar</button>
+
+      <div *ngIf="!bebida?.nombre" class="py-5">
+        <p class="text-muted">No hay bebida seleccionada</p>
+      </div>
+      <div *ngIf="bebida?.nombre" class="ingredientes-stack my-3">
+        <div class="ingrediente-card shadow-sm animate__animated animate__fadeInDown">
+          <img [src]="bebida.imagen" [alt]="bebida.nombre" class="ingrediente-img">
+          <span class="ingrediente-nombre-card">{{ bebida.nombre }}</span>
+        </div>
+      </div>
+
       <div class="mt-4">
         <button class="btn btn-lg btn-pedir w-100" [disabled]="pedidoDisable" (click)="realizarPedido()">
           <i class="bi bi-cart-plus"></i> Confirmar Pedido
         </button>
       </div>
+
     </div>
   </div>
 </div>
@@ -84,8 +120,8 @@
       <div class="modal-body">
         <select class="form-select mb-3" [(ngModel)]="ingrediente">
           <option value="">Selecciona un ingrediente</option>
-          <option *ngFor="let producto of productos" [value]="producto.nombre">
-            {{ producto.nombre }}
+          <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente">
+            {{ ingrediente }}
           </option>
         </select>
       </div>
