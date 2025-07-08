@@ -1,167 +1,159 @@
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow-lg border-0 rounded">
-        <div class="card-header bg-dark text-white text-center">
-          <h3 class="mb-0">🛠 Crear Nuevo Administrador</h3>
-        </div>
-        
-        <div class="card-body bg-light">
-          <form (ngSubmit)="crearAdministrador()" #adminForm="ngForm">
-            
-            <div class="mb-3">
-              <label for="username" class="form-label">Nombre de Usuario</label>
-              <input 
-                type="text" 
-                id="username" 
-                name="username" 
-                class="form-control" 
-                [(ngModel)]="admin.username" 
-                required
-                minlength="3"
-                maxlength="20"
-                pattern="^[a-zA-Z0-9_]+$"
-                #username="ngModel">
-              <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger small mt-1">
-                <div *ngIf="username.errors?.['required']">El nombre de usuario es requerido</div>
-                <div *ngIf="username.errors?.['minlength']">El nombre de usuario debe tener al menos 3 caracteres</div>
-                <div *ngIf="username.errors?.['maxlength']">El nombre de usuario no puede tener más de 20 caracteres</div>
-                <div *ngIf="username.errors?.['pattern']">Solo se permiten letras, números y guiones bajos</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input 
-                type="text" 
-                id="nombre" 
-                name="nombre" 
-                class="form-control" 
-                [(ngModel)]="admin.nombre" 
-                required
-                minlength="2"
-                maxlength="50"
-                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
-                #nombre="ngModel">
-              <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger small mt-1">
-                <div *ngIf="nombre.errors?.['required']">El nombre es requerido</div>
-                <div *ngIf="nombre.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</div>
-                <div *ngIf="nombre.errors?.['maxlength']">El nombre no puede tener más de 50 caracteres</div>
-                <div *ngIf="nombre.errors?.['pattern']">Solo se permiten letras y espacios</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input 
-                type="text" 
-                id="apellido" 
-                name="apellido" 
-                class="form-control" 
-                [(ngModel)]="admin.apellido" 
-                required
-                minlength="2"
-                maxlength="50"
-                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
-                #apellido="ngModel">
-              <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="text-danger small mt-1">
-                <div *ngIf="apellido.errors?.['required']">El apellido es requerido</div>
-                <div *ngIf="apellido.errors?.['minlength']">El apellido debe tener al menos 2 caracteres</div>
-                <div *ngIf="apellido.errors?.['maxlength']">El apellido no puede tener más de 50 caracteres</div>
-                <div *ngIf="apellido.errors?.['pattern']">Solo se permiten letras y espacios</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                class="form-control" 
-                [(ngModel)]="admin.email" 
-                required
-                email
-                #email="ngModel">
-              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small mt-1">
-                <div *ngIf="email.errors?.['required']">El correo electrónico es requerido</div>
-                <div *ngIf="email.errors?.['email']">Ingrese un correo electrónico válido</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="password" class="form-label">Contraseña</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                class="form-control" 
-                [(ngModel)]="admin.password" 
-                required
-                minlength="8"
-                maxlength="100"
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                #password="ngModel">
-              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger small mt-1">
-                <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
-                <div *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</div>
-                <div *ngIf="password.errors?.['maxlength']">La contraseña no puede tener más de 100 caracteres</div>
-                <div *ngIf="password.errors?.['pattern']">La contraseña debe contener al menos: 1 minúscula, 1 mayúscula, 1 número y 1 carácter especial</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="telefono" class="form-label">Teléfono</label>
-              <input 
-                type="text" 
-                id="telefono" 
-                name="telefono" 
-                class="form-control" 
-                [(ngModel)]="admin.telefono" 
-                required
-                pattern="^[0-9]{10}$"
-                maxlength="10"
-                #telefono="ngModel">
-              <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="text-danger small mt-1">
-                <div *ngIf="telefono.errors?.['required']">El teléfono es requerido</div>
-                <div *ngIf="telefono.errors?.['pattern']">El teléfono debe tener exactamente 10 dígitos (ej: 3881234567)</div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="permisos" class="form-label">Permisos</label>
-              <select 
-                id="permisos" 
-                name="permisos" 
-                class="form-control" 
-                [(ngModel)]="admin.permisos" 
-                required 
-                #permisos="ngModel">
-                <option value="" disabled selected>Seleccione un nivel</option>
-                <option [value]="1">1 - Básico</option>
-                <option [value]="2">2 - Intermedio</option>
-                <option [value]="3">3 - Administrador</option>
-              </select>
-              <div *ngIf="permisos.invalid && (permisos.dirty || permisos.touched)" class="text-danger small mt-1">
-                <div *ngIf="permisos.errors?.['required']">El nivel de permisos es requerido</div>
-              </div>
-            </div>            
-            
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary" [disabled]="!adminForm.form.valid">
-                Crear Administrador
-              </button>
-            </div>
-          </form>
-          
-          <div *ngIf="mensaje" class="alert alert-success mt-3">
-            {{ mensaje }}
-          </div>
-          <div *ngIf="error" class="alert alert-danger mt-3">
-            {{ error }}
-          </div>
+<div class="form-container">
+  <div class="form-box animate-fade-in">
+    <h2 class="form-title">Crear Nuevo Administrador</h2>
+    <p class="form-subtitle">Completa la información del nuevo administrador</p>
+    
+    <form (ngSubmit)="crearAdministrador()" #adminForm="ngForm">
+      <div class="form-group input-with-icon">
+        <i class="bi bi-person-fill"></i>
+        <input 
+          type="text" 
+          name="username" 
+          class="form-control" 
+          placeholder="Nombre de Usuario"
+          [(ngModel)]="admin.username" 
+          required
+          minlength="3"
+          maxlength="20"
+          pattern="^[a-zA-Z0-9_]+$"
+          #username="ngModel">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback">
+          <div *ngIf="username.errors?.['required']">El nombre de usuario es requerido</div>
+          <div *ngIf="username.errors?.['minlength']">El nombre de usuario debe tener al menos 3 caracteres</div>
+          <div *ngIf="username.errors?.['maxlength']">El nombre de usuario no puede tener más de 20 caracteres</div>
+          <div *ngIf="username.errors?.['pattern']">Solo se permiten letras, números y guiones bajos</div>
         </div>
       </div>
+      
+      <div class="form-group input-with-icon">
+        <i class="bi bi-person-badge-fill"></i>
+        <input 
+          type="text" 
+          name="nombre" 
+          class="form-control" 
+          placeholder="Nombre"
+          [(ngModel)]="admin.nombre" 
+          required
+          minlength="2"
+          maxlength="50"
+          pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+          #nombre="ngModel">
+        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="invalid-feedback">
+          <div *ngIf="nombre.errors?.['required']">El nombre es requerido</div>
+          <div *ngIf="nombre.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</div>
+          <div *ngIf="nombre.errors?.['maxlength']">El nombre no puede tener más de 50 caracteres</div>
+          <div *ngIf="nombre.errors?.['pattern']">Solo se permiten letras y espacios</div>
+        </div>
+      </div>
+      
+      <div class="form-group input-with-icon">
+        <i class="bi bi-person-badge-fill"></i>
+        <input 
+          type="text" 
+          name="apellido" 
+          class="form-control" 
+          placeholder="Apellido"
+          [(ngModel)]="admin.apellido" 
+          required
+          minlength="2"
+          maxlength="50"
+          pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+          #apellido="ngModel">
+        <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="invalid-feedback">
+          <div *ngIf="apellido.errors?.['required']">El apellido es requerido</div>
+          <div *ngIf="apellido.errors?.['minlength']">El apellido debe tener al menos 2 caracteres</div>
+          <div *ngIf="apellido.errors?.['maxlength']">El apellido no puede tener más de 50 caracteres</div>
+          <div *ngIf="apellido.errors?.['pattern']">Solo se permiten letras y espacios</div>
+        </div>
+      </div>
+      
+      <div class="form-group input-with-icon">
+        <i class="bi bi-envelope-fill"></i>
+        <input 
+          type="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="Correo Electrónico"
+          [(ngModel)]="admin.email" 
+          required
+          email
+          #email="ngModel">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+          <div *ngIf="email.errors?.['required']">El correo electrónico es requerido</div>
+          <div *ngIf="email.errors?.['email']">Ingrese un correo electrónico válido</div>
+        </div>
+      </div>
+      
+      <div class="form-group input-with-icon">
+        <i class="bi bi-lock-fill"></i>
+        <input 
+          type="password" 
+          name="password" 
+          class="form-control" 
+          placeholder="Contraseña"
+          [(ngModel)]="admin.password" 
+          required
+          minlength="8"
+          maxlength="100"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          #password="ngModel">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+          <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
+          <div *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</div>
+          <div *ngIf="password.errors?.['maxlength']">La contraseña no puede tener más de 100 caracteres</div>
+          <div *ngIf="password.errors?.['pattern']">La contraseña debe contener al menos: 1 minúscula, 1 mayúscula, 1 número y 1 carácter especial</div>
+        </div>
+      </div>
+      
+      <div class="form-group input-with-icon">
+        <i class="bi bi-telephone-fill"></i>
+        <input 
+          type="text" 
+          name="telefono" 
+          class="form-control" 
+          placeholder="Teléfono"
+          [(ngModel)]="admin.telefono" 
+          required
+          pattern="^[0-9]{10}$"
+          maxlength="10"
+          #telefono="ngModel">
+        <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="invalid-feedback">
+          <div *ngIf="telefono.errors?.['required']">El teléfono es requerido</div>
+          <div *ngIf="telefono.errors?.['pattern']">El teléfono debe tener exactamente 10 dígitos (ej: 3881234567)</div>
+        </div>
+      </div>
+      
+      <div class="form-group select-with-icon">
+        <i class="bi bi-shield-fill"></i>
+        <select 
+          name="permisos" 
+          class="form-control" 
+          placeholder="Nivel de Permisos"
+          [(ngModel)]="admin.permisos" 
+          required 
+          #permisos="ngModel">
+          <option value="" disabled selected>Seleccione un nivel</option>
+          <option [value]="1">1 - Básico</option>
+          <option [value]="2">2 - Intermedio</option>
+          <option [value]="3">3 - Administrador</option>
+        </select>
+        <div *ngIf="permisos.invalid && (permisos.dirty || permisos.touched)" class="invalid-feedback">
+          <div *ngIf="permisos.errors?.['required']">El nivel de permisos es requerido</div>
+        </div>
+      </div>      
+      
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-full" [disabled]="!adminForm.form.valid">
+          Crear Administrador
+        </button>
+      </div>
+    </form>
+    
+    <div *ngIf="mensaje" class="alert alert-success mt-3">
+      {{ mensaje }}
+    </div>
+    <div *ngIf="error" class="alert alert-danger mt-3">
+      {{ error }}
     </div>
   </div>
 </div>

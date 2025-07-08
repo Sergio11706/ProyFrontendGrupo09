@@ -1,8 +1,10 @@
-<div class="login-container">
-  <div class="login-box animate-fade-in">
+<div class="form-container">
+  <div class="form-box animate-fade-in">
     <!-- LOGIN -->
     <div *ngIf="showLogin">
-      <h2 class="text-center brand-gradient-text">Iniciar Sesión</h2>
+      <h2 class="form-title">Iniciar Sesión</h2>
+      <p class="form-subtitle">Accede a tu cuenta para continuar</p>
+      
       <form name="form-login">
         <div class="form-group input-with-icon">
           <i class="bi bi-person-fill"></i>
@@ -13,23 +15,24 @@
           <input type="password" class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="userform.password" />
         </div>
         <div class="form-group">
-          <button type="button" class="btn btn-primary w-100" (click)="login()">Ingresar</button>
+          <button type="button" class="btn btn-primary btn-full" (click)="login()">Ingresar</button>
         </div>
-        <div class="alert-danger">{{msglogin}}</div>
+        <div class="alert alert-danger" *ngIf="msglogin">{{msglogin}}</div>
       </form>
 
       <div class="text-center mt-4">
-        <p class="mb-2">¿No tienes una cuenta?</p>
+        <p class="text-secondary mb-2">¿No tienes una cuenta?</p>
         <button class="btn btn-link" (click)="toggleLogin()">Regístrate aquí</button>
       </div>
     </div>
 
     <!-- REGISTRO -->
     <div *ngIf="!showLogin">
-      <h2 class="text-center brand-gradient-text">Registro</h2>
+      <h2 class="form-title">Crear Cuenta</h2>
+      <p class="form-subtitle">Únete a nuestra comunidad</p>
 
       <!-- Botón de Google -->
-      <div class="text-center my-3">
+      <div class="text-center mb-4">
         <div class="g_id_signin"
              data-type="standard"
              data-shape="rectangular"
@@ -47,7 +50,7 @@
                  [(ngModel)]="userRegister.username"
                  required minlength="3" maxlength="20" pattern="^[a-zA-Z0-9_]+$"
                  #username="ngModel" />
-          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger small mt-1">
+          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback">
             <div *ngIf="username.errors?.['required']">El nombre de usuario es requerido</div>
             <div *ngIf="username.errors?.['minlength']">Debe tener al menos 3 caracteres</div>
             <div *ngIf="username.errors?.['maxlength']">No puede tener más de 20 caracteres</div>
@@ -62,7 +65,7 @@
                  required minlength="8" maxlength="100"
                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                  #password="ngModel" />
-          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger small mt-1">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
             <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
             <div *ngIf="password.errors?.['minlength']">Debe tener al menos 8 caracteres</div>
             <div *ngIf="password.errors?.['maxlength']">No puede tener más de 100 caracteres</div>
@@ -76,7 +79,7 @@
                  [(ngModel)]="userRegister.nombre"
                  required minlength="2" maxlength="50" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"
                  #nombre="ngModel" />
-          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger small mt-1">
+          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="invalid-feedback">
             <div *ngIf="nombre.errors?.['required']">El nombre es requerido</div>
             <div *ngIf="nombre.errors?.['minlength']">Debe tener al menos 2 caracteres</div>
             <div *ngIf="nombre.errors?.['maxlength']">No puede tener más de 50 caracteres</div>
@@ -90,7 +93,7 @@
                  [(ngModel)]="userRegister.apellido"
                  required minlength="2" maxlength="50" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"
                  #apellido="ngModel" />
-          <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="text-danger small mt-1">
+          <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="invalid-feedback">
             <div *ngIf="apellido.errors?.['required']">El apellido es requerido</div>
             <div *ngIf="apellido.errors?.['minlength']">Debe tener al menos 2 caracteres</div>
             <div *ngIf="apellido.errors?.['maxlength']">No puede tener más de 50 caracteres</div>
@@ -104,7 +107,7 @@
                  [(ngModel)]="userRegister.email"
                  required email
                  #email="ngModel" />
-          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small mt-1">
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
             <div *ngIf="email.errors?.['required']">El correo es requerido</div>
             <div *ngIf="email.errors?.['email']">Formato de correo inválido</div>
           </div>
@@ -116,7 +119,7 @@
                  [(ngModel)]="userRegister.telefono"
                  required pattern="^[0-9]{10}$" maxlength="10"
                  #telefono="ngModel" />
-          <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="text-danger small mt-1">
+          <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="invalid-feedback">
             <div *ngIf="telefono.errors?.['required']">El teléfono es requerido</div>
             <div *ngIf="telefono.errors?.['pattern']">Debe tener exactamente 10 dígitos</div>
           </div>
@@ -164,7 +167,7 @@
             <option value="san_guillermo">San Guillermo</option>
             <option value="san_cayetano">San Cayetano</option>
           </select>
-          <div *ngIf="barrio.invalid && (barrio.dirty || barrio.touched)" class="text-danger small mt-1">
+          <div *ngIf="barrio.invalid && (barrio.dirty || barrio.touched)" class="invalid-feedback">
             <div *ngIf="barrio.errors?.['required']">El barrio es requerido</div>
           </div>
         </div>
@@ -173,7 +176,7 @@
           <i class="bi bi-signpost-split-fill"></i>
           <input type="text" class="form-control" placeholder="Calle" name="calle"
                  [(ngModel)]="userRegister.calle" required #calle="ngModel" />
-          <div *ngIf="calle.invalid && (calle.dirty || calle.touched)" class="text-danger small mt-1">
+          <div *ngIf="calle.invalid && (calle.dirty || calle.touched)" class="invalid-feedback">
             <div *ngIf="calle.errors?.['required']">La calle es requerida</div>
           </div>
         </div>
@@ -183,20 +186,25 @@
           <input type="text" class="form-control" placeholder="Número de Calle" name="numeroCalle"
                  [(ngModel)]="userRegister.numeroCalle" required pattern="^[0-9]+$"
                  #numeroCalle="ngModel" />
-          <div *ngIf="numeroCalle.invalid && (numeroCalle.dirty || numeroCalle.touched)" class="text-danger small mt-1">
+          <div *ngIf="numeroCalle.invalid && (numeroCalle.dirty || numeroCalle.touched)" class="invalid-feedback">
             <div *ngIf="numeroCalle.errors?.['required']">El número es requerido</div>
             <div *ngIf="numeroCalle.errors?.['pattern']">Debe contener solo números</div>
           </div>
         </div>
       
         <div class="form-group">
-          <button type="button" class="btn btn-primary w-100" [disabled]="!registerForm.form.valid" (click)="guardarUsuario()">
+          <button type="button" class="btn btn-primary btn-full" [disabled]="!registerForm.form.valid" (click)="guardarUsuario()">
             Registrarse
           </button>
         </div>
       
-        <div class="alert-danger">{{msglogin}}</div>
-      </form>      
+        <div class="alert alert-danger" *ngIf="msglogin">{{msglogin}}</div>
+      </form>
+
+      <div class="text-center mt-4">
+        <p class="text-secondary mb-2">¿Ya tienes una cuenta?</p>
+        <button class="btn btn-link" (click)="toggleLogin()">Inicia sesión aquí</button>
+      </div>
     </div>
   </div>
 </div>

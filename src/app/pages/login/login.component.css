@@ -1,3 +1,36 @@
+/* Estilos específicos para el login si son necesarios */
+/* Los estilos principales están en styles.css */
+
+/* Ajustes específicos para el botón de Google si es necesario */
+.g_id_signin {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Asegurar que el contenedor del formulario tenga el fondo correcto */
+.form-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Overlay sutil para mejorar la legibilidad */
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.form-box {
+  position: relative;
+  z-index: 2;
+}
+
 /* Contenedor general centrado con fondo */
 .login-container {
   display: flex;
@@ -107,11 +140,6 @@
   margin-top: 10px;
 }
 
-/* Google botón alineado */
-.g_id_signin {
-  margin: 0 auto;
-}
-
 /* Responsive */
 @media (max-width: 576px) {
   .login-box {
@@ -124,10 +152,15 @@
 }
 .input-with-icon i {
   position: absolute;
-  top: 15%;
+  top: 12px; /* Posición fija basada en el padding del input */
   left: 12px;
   color: #999;
   font-size: 1.1rem;
+  pointer-events: none;
+  height: 1.1rem; /* Altura fija para el icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .input-with-icon input {
   padding-left: 2.2rem;
@@ -138,10 +171,15 @@
 }
 .select-with-icon i {
   position: absolute;
-  top: 15%;
+  top: 12px; /* Posición fija basada en el padding del select */
   left: 12px;
   color: #999;
   font-size: 1.1rem;
+  pointer-events: none;
+  height: 1.1rem; /* Altura fija para el icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .select-with-icon select {
   padding-left: 2.2rem;

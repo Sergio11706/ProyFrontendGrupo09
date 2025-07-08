@@ -1,264 +1,259 @@
-<div class="solicitud-fondo position-relative">
-  <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=80" alt="Fondo hamburguesas" class="solicitud-bg-img">
-  <div class="solicitud-overlay"></div>
-  
-  <div class="solicitud-container position-relative">
-    <div class="solicitud-box">
-      <h2 class="text-center mb-4 brand-gradient-text">Solicitud para ser Repartidor</h2>
-      
-      <form #repartidorForm="ngForm" novalidate>
-        <fieldset class="mb-4">
-          <legend class="section-title">Datos de Acceso</legend>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
-              [class.is-valid]="username.valid && (username.dirty || username.touched)"
-              type="text" 
-              placeholder="Usuario" 
-              [(ngModel)]="repartidor.username" 
-              name="username" 
-              #username="ngModel"
-              required
-              minlength="3"
-              maxlength="20"
-              pattern="^[a-zA-Z0-9_]+$">
-            <div class="invalid-feedback" *ngIf="username.invalid && (username.dirty || username.touched)">
-              <small *ngIf="username.errors?.['required']">El usuario es requerido</small>
-              <small *ngIf="username.errors?.['minlength']">El usuario debe tener al menos 3 caracteres</small>
-              <small *ngIf="username.errors?.['maxlength']">El usuario no puede tener más de 20 caracteres</small>
-              <small *ngIf="username.errors?.['pattern']">Solo se permiten letras, números y guiones bajos</small>
-            </div>
+<div class="form-container">
+  <div class="form-box animate-fade-in">
+    <h2 class="form-title">Solicitud para ser Repartidor</h2>
+    <p class="form-subtitle">Completa tu información para unirte a nuestro equipo</p>
+    
+    <form #repartidorForm="ngForm" novalidate>
+      <fieldset class="mb-4">
+        <legend class="section-title">Datos de Acceso</legend>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-fill"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
+            [class.is-valid]="username.valid && (username.dirty || username.touched)"
+            type="text" 
+            placeholder="Usuario" 
+            [(ngModel)]="repartidor.username" 
+            name="username" 
+            #username="ngModel"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[a-zA-Z0-9_]+$">
+          <div class="invalid-feedback" *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors?.['required']">El usuario es requerido</div>
+            <div *ngIf="username.errors?.['minlength']">El usuario debe tener al menos 3 caracteres</div>
+            <div *ngIf="username.errors?.['maxlength']">El usuario no puede tener más de 20 caracteres</div>
+            <div *ngIf="username.errors?.['pattern']">Solo se permiten letras, números y guiones bajos</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
-              [class.is-valid]="password.valid && (password.dirty || password.touched)"
-              type="password" 
-              placeholder="Contraseña" 
-              [(ngModel)]="repartidor.password" 
-              name="password" 
-              #password="ngModel"
-              required
-              minlength="8"
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$">
-            <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)">
-              <small *ngIf="password.errors?.['required']">La contraseña es requerida</small>
-              <small *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</small>
-              <small *ngIf="password.errors?.['pattern']">Debe contener al menos una mayúscula, una minúscula y un número</small>
-            </div>
+        </div>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-lock-fill"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+            [class.is-valid]="password.valid && (password.dirty || password.touched)"
+            type="password" 
+            placeholder="Contraseña" 
+            [(ngModel)]="repartidor.password" 
+            name="password" 
+            #password="ngModel"
+            required
+            minlength="8"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$">
+          <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
+            <div *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</div>
+            <div *ngIf="password.errors?.['pattern']">Debe contener al menos una mayúscula, una minúscula y un número</div>
           </div>
-        </fieldset>
+        </div>
+      </fieldset>
 
-        <fieldset class="mb-4">
-          <legend class="section-title">Información Personal</legend>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="nombre.invalid && (nombre.dirty || nombre.touched)"
-              [class.is-valid]="nombre.valid && (nombre.dirty || nombre.touched)"
-              type="text" 
-              placeholder="Nombre" 
-              [(ngModel)]="repartidor.nombre" 
-              name="nombre" 
-              #nombre="ngModel"
-              required
-              minlength="2"
-              maxlength="50"
-              pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$">
-            <div class="invalid-feedback" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-              <small *ngIf="nombre.errors?.['required']">El nombre es requerido</small>
-              <small *ngIf="nombre.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</small>
-              <small *ngIf="nombre.errors?.['maxlength']">El nombre no puede tener más de 50 caracteres</small>
-              <small *ngIf="nombre.errors?.['pattern']">Solo se permiten letras y espacios</small>
-            </div>
+      <fieldset class="mb-4">
+        <legend class="section-title">Información Personal</legend>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="nombre.invalid && (nombre.dirty || nombre.touched)"
+            [class.is-valid]="nombre.valid && (nombre.dirty || nombre.touched)"
+            type="text" 
+            placeholder="Nombre" 
+            [(ngModel)]="repartidor.nombre" 
+            name="nombre" 
+            #nombre="ngModel"
+            required
+            minlength="2"
+            maxlength="50"
+            pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$">
+          <div class="invalid-feedback" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors?.['required']">El nombre es requerido</div>
+            <div *ngIf="nombre.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</div>
+            <div *ngIf="nombre.errors?.['maxlength']">El nombre no puede tener más de 50 caracteres</div>
+            <div *ngIf="nombre.errors?.['pattern']">Solo se permiten letras y espacios</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="apellido.invalid && (apellido.dirty || apellido.touched)"
-              [class.is-valid]="apellido.valid && (apellido.dirty || apellido.touched)"
-              type="text" 
-              placeholder="Apellido" 
-              [(ngModel)]="repartidor.apellido" 
-              name="apellido" 
-              #apellido="ngModel"
-              required
-              minlength="2"
-              maxlength="50"
-              pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$">
-            <div class="invalid-feedback" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
-              <small *ngIf="apellido.errors?.['required']">El apellido es requerido</small>
-              <small *ngIf="apellido.errors?.['minlength']">El apellido debe tener al menos 2 caracteres</small>
-              <small *ngIf="apellido.errors?.['maxlength']">El apellido no puede tener más de 50 caracteres</small>
-              <small *ngIf="apellido.errors?.['pattern']">Solo se permiten letras y espacios</small>
-            </div>
+        </div>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="apellido.invalid && (apellido.dirty || apellido.touched)"
+            [class.is-valid]="apellido.valid && (apellido.dirty || apellido.touched)"
+            type="text" 
+            placeholder="Apellido" 
+            [(ngModel)]="repartidor.apellido" 
+            name="apellido" 
+            #apellido="ngModel"
+            required
+            minlength="2"
+            maxlength="50"
+            pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$">
+          <div class="invalid-feedback" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+            <div *ngIf="apellido.errors?.['required']">El apellido es requerido</div>
+            <div *ngIf="apellido.errors?.['minlength']">El apellido debe tener al menos 2 caracteres</div>
+            <div *ngIf="apellido.errors?.['maxlength']">El apellido no puede tener más de 50 caracteres</div>
+            <div *ngIf="apellido.errors?.['pattern']">Solo se permiten letras y espacios</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
-              [class.is-valid]="email.valid && (email.dirty || email.touched)"
-              type="email" 
-              placeholder="Email" 
-              [(ngModel)]="repartidor.email" 
-              name="email" 
-              #email="ngModel"
-              required
-              email>
-            <div class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
-              <small *ngIf="email.errors?.['required']">El email es requerido</small>
-              <small *ngIf="email.errors?.['email']">Ingresa un email válido</small>
-            </div>
+        </div>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-envelope-fill"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+            [class.is-valid]="email.valid && (email.dirty || email.touched)"
+            type="email" 
+            placeholder="Email" 
+            [(ngModel)]="repartidor.email" 
+            name="email" 
+            #email="ngModel"
+            required
+            email>
+          <div class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors?.['required']">El email es requerido</div>
+            <div *ngIf="email.errors?.['email']">Ingresa un email válido</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="telefono.invalid && (telefono.dirty || telefono.touched)"
-              [class.is-valid]="telefono.valid && (telefono.dirty || telefono.touched)"
-              type="tel" 
-              placeholder="Teléfono (ej: +54 9 11 1234-5678)" 
-              [(ngModel)]="repartidor.telefono" 
-              name="telefono" 
-              #telefono="ngModel"
-              required
-              pattern="^(\+54\s?)?(\d{1,4}\s?)?(\d{4}\s?-?\s?\d{4})$">
-            <div class="invalid-feedback" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
-              <small *ngIf="telefono.errors?.['required']">El teléfono es requerido</small>
-              <small *ngIf="telefono.errors?.['pattern']">Formato válido: +54 9 11 1234-5678 o similar</small>
-            </div>
+        </div>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-telephone-fill"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="telefono.invalid && (telefono.dirty || telefono.touched)"
+            [class.is-valid]="telefono.valid && (telefono.dirty || telefono.touched)"
+            type="tel" 
+            placeholder="Teléfono (ej: +54 9 11 1234-5678)" 
+            [(ngModel)]="repartidor.telefono" 
+            name="telefono" 
+            #telefono="ngModel"
+            required
+            pattern="^(\+54\s?)?(\d{1,4}\s?)?(\d{4}\s?-?\s?\d{4})$">
+          <div class="invalid-feedback" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+            <div *ngIf="telefono.errors?.['required']">El teléfono es requerido</div>
+            <div *ngIf="telefono.errors?.['pattern']">Formato válido: +54 9 11 1234-5678 o similar</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="documento.invalid && (documento.dirty || documento.touched)"
-              [class.is-valid]="documento.valid && (documento.dirty || documento.touched)"
-              type="text" 
-              placeholder="Documento (DNI)" 
-              [(ngModel)]="repartidor.documento" 
-              name="documento" 
-              #documento="ngModel"
-              required
-              minlength="7"
-              maxlength="8"
-              pattern="^[0-9]{7,8}$">
-            <div class="invalid-feedback" *ngIf="documento.invalid && (documento.dirty || documento.touched)">
-              <small *ngIf="documento.errors?.['required']">El documento es requerido</small>
-              <small *ngIf="documento.errors?.['minlength'] || documento.errors?.['maxlength']">El DNI debe tener entre 7 y 8 dígitos</small>
-              <small *ngIf="documento.errors?.['pattern']">Solo se permiten números</small>
-            </div>
+        </div>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-card-text"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="documento.invalid && (documento.dirty || documento.touched)"
+            [class.is-valid]="documento.valid && (documento.dirty || documento.touched)"
+            type="text" 
+            placeholder="Documento (DNI)" 
+            [(ngModel)]="repartidor.documento" 
+            name="documento" 
+            #documento="ngModel"
+            required
+            minlength="7"
+            maxlength="8"
+            pattern="^[0-9]{7,8}$">
+          <div class="invalid-feedback" *ngIf="documento.invalid && (documento.dirty || documento.touched)">
+            <div *ngIf="documento.errors?.['required']">El documento es requerido</div>
+            <div *ngIf="documento.errors?.['minlength'] || documento.errors?.['maxlength']">El DNI debe tener entre 7 y 8 dígitos</div>
+            <div *ngIf="documento.errors?.['pattern']">Solo se permiten números</div>
           </div>
-        </fieldset>
+        </div>
+      </fieldset>
 
-        <fieldset class="mb-4">
-          <legend class="section-title">Información de Reparto</legend>
-          
-          <div class="solicitud-form-group">
-            <input 
-              class="form-control"
-              [class.is-invalid]="numeroLicencia.invalid && (numeroLicencia.dirty || numeroLicencia.touched)"
-              [class.is-valid]="numeroLicencia.valid && (numeroLicencia.dirty || numeroLicencia.touched)"
-              type="text" 
-              placeholder="Número de Licencia" 
-              [(ngModel)]="repartidor.numeroLicencia" 
-              name="numeroLicencia" 
-              #numeroLicencia="ngModel"
-              required
-              minlength="5"
-              maxlength="15"
-              pattern="^[A-Za-z0-9]+$">
-            <div class="invalid-feedback" *ngIf="numeroLicencia.invalid && (numeroLicencia.dirty || numeroLicencia.touched)">
-              <small *ngIf="numeroLicencia.errors?.['required']">El número de licencia es requerido</small>
-              <small *ngIf="numeroLicencia.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
-              <small *ngIf="numeroLicencia.errors?.['maxlength']">No puede tener más de 15 caracteres</small>
-              <small *ngIf="numeroLicencia.errors?.['pattern']">Solo se permiten letras y números</small>
-            </div>
+      <fieldset class="mb-4">
+        <legend class="section-title">Información de Reparto</legend>
+        
+        <div class="form-group input-with-icon">
+          <i class="bi bi-card-heading"></i>
+          <input 
+            class="form-control"
+            [class.is-invalid]="numeroLicencia.invalid && (numeroLicencia.dirty || numeroLicencia.touched)"
+            [class.is-valid]="numeroLicencia.valid && (numeroLicencia.dirty || numeroLicencia.touched)"
+            type="text" 
+            placeholder="Número de Licencia" 
+            [(ngModel)]="repartidor.numeroLicencia" 
+            name="numeroLicencia" 
+            #numeroLicencia="ngModel"
+            required
+            minlength="5"
+            maxlength="15"
+            pattern="^[A-Za-z0-9]+$">
+          <div class="invalid-feedback" *ngIf="numeroLicencia.invalid && (numeroLicencia.dirty || numeroLicencia.touched)">
+            <div *ngIf="numeroLicencia.errors?.['required']">El número de licencia es requerido</div>
+            <div *ngIf="numeroLicencia.errors?.['minlength']">Debe tener al menos 5 caracteres</div>
+            <div *ngIf="numeroLicencia.errors?.['maxlength']">No puede tener más de 15 caracteres</div>
+            <div *ngIf="numeroLicencia.errors?.['pattern']">Solo se permiten letras y números</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <select 
-              class="form-control"
-              [class.is-invalid]="vehiculo.invalid && (vehiculo.dirty || vehiculo.touched)"
-              [class.is-valid]="vehiculo.valid && (vehiculo.dirty || vehiculo.touched)"
-              [(ngModel)]="repartidor.vehiculo" 
-              name="vehiculo" 
-              #vehiculo="ngModel"
-              required>
-              <option value="" disabled>Selecciona un vehículo</option>
-              <option value="moto">Moto</option>
-              <option value="bicicleta">Bicicleta</option>
-              <option value="auto">Auto</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="vehiculo.invalid && (vehiculo.dirty || vehiculo.touched)">
-              <small *ngIf="vehiculo.errors?.['required']">Debe seleccionar un vehículo</small>
-            </div>
+        </div>
+        
+        <div class="form-group select-with-icon">
+          <i class="bi bi-bicycle"></i>
+          <select 
+            class="form-control"
+            [class.is-invalid]="vehiculo.invalid && (vehiculo.dirty || vehiculo.touched)"
+            [class.is-valid]="vehiculo.valid && (vehiculo.dirty || vehiculo.touched)"
+            [(ngModel)]="repartidor.vehiculo" 
+            name="vehiculo" 
+            #vehiculo="ngModel"
+            required>
+            <option value="" disabled>Selecciona un vehículo</option>
+            <option value="moto">Moto</option>
+            <option value="bicicleta">Bicicleta</option>
+            <option value="auto">Auto</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="vehiculo.invalid && (vehiculo.dirty || vehiculo.touched)">
+            <div *ngIf="vehiculo.errors?.['required']">El vehículo es requerido</div>
           </div>
-          
-          <div class="solicitud-form-group">
-            <select class="form-control" name="zonaTrabajo" [(ngModel)]="repartidor.zonaTrabajo" required #zonaTrabajo="ngModel">
-              <option value="" disabled selected>Seleccione una zona de trabajo</option>
-              <option value="centro">Centro</option>
-              <option value="alto_comedero">Alto Comedero</option>
-              <option value="ciudad_de_nieva">Ciudad de Nieva</option>
-              <option value="cuyaya">Cuyaya</option>
-              <option value="gorriti">Gorriti</option>
-              <option value="san_pedrito">San Pedrito</option>
-              <option value="chijra">Chijra</option>
-              <option value="los_perales">Los Perales</option>
-              <option value="coronel_arias">Coronel Arias</option>
-              <option value="malvinas_argentinas">Malvinas Argentinas</option>
-              <option value="el_chingo">El Chingo</option>
-              <option value="mariano_moreno">Mariano Moreno</option>
-              <option value="campo_verde">Campo Verde</option>
-              <option value="san_franisco_de_alava">San Francisco de Álava</option>
-              <option value="12_de_octubre">12 de Octubre</option>
-              <option value="lujan">Luján</option>
-              <option value="san_martin">San Martín</option>
-              <option value="belgrano">Belgrano</option>
-              <option value="santa_rosa">Santa Rosa</option>
-              <option value="tupac_amaru">Tupac Amaru</option>
-              <option value="las_lomas">Las Lomas</option>
-              <option value="bajo_la_vina">Bajo La Viña</option>
-              <option value="almirante_brown">Almirante Brown</option>
-              <option value="los_huaicos">Los Huaicos</option>
-              <option value="la_vina">La Viña</option>
-              <option value="san_isidro">San Isidro</option>
-              <option value="san_guillermo">San Guillermo</option>
-              <option value="san_cayetano">San Cayetano</option>
-              <option value="tupac_amaru">Tupac Amaru</option>
-              <option value="las_lomas">Las Lomas</option>
-              <option value="bajo_la_vina">Bajo La Viña</option> 
-              <option value="almirante_brown">Almirante Brown</option>
-              <option value="los_huaicos">L os Huaicos</option>
-              <option value="la_vina">La Viña</option>
-              <option value="san_isidro">San Isidro</option> 
-              <option value="san_guillermo">San Guillermo</option>
-              <option value="san_cayetano">San Cayetano</option>
-            </select>
-            <div *ngIf="zonaTrabajo.invalid && (zonaTrabajo.dirty || zonaTrabajo.touched)" class="text-danger small mt-1">
-              <div *ngIf="zonaTrabajo.errors?.['required']">La zona de trabajo es requerida</div>
-            </div>
+        </div>
+        
+        <div class="form-group select-with-icon">
+          <i class="bi bi-geo-alt-fill"></i>
+          <select class="form-control" name="zonaTrabajo" [(ngModel)]="repartidor.zonaTrabajo" required #zonaTrabajo="ngModel">
+            <option value="" disabled selected>Selecciona una zona de trabajo</option>
+            <option value="centro">Centro</option>
+            <option value="alto_comedero">Alto Comedero</option>
+            <option value="ciudad_de_nieva">Ciudad de Nieva</option>
+            <option value="cuyaya">Cuyaya</option>
+            <option value="gorriti">Gorriti</option>
+            <option value="san_pedrito">San Pedrito</option>
+            <option value="chijra">Chijra</option>
+            <option value="los_perales">Los Perales</option>
+            <option value="coronel_arias">Coronel Arias</option>
+            <option value="malvinas_argentinas">Malvinas Argentinas</option>
+            <option value="el_chingo">El Chingo</option>
+            <option value="mariano_moreno">Mariano Moreno</option>
+            <option value="campo_verde">Campo Verde</option>
+            <option value="san_franisco_de_alava">San Francisco de Álava</option>
+            <option value="12_de_octubre">12 de Octubre</option>
+            <option value="lujan">Luján</option>
+            <option value="san_martin">San Martín</option>
+            <option value="belgrano">Belgrano</option>
+            <option value="santa_rosa">Santa Rosa</option>
+            <option value="tupac_amaru">Tupac Amaru</option>
+            <option value="las_lomas">Las Lomas</option>
+            <option value="bajo_la_vina">Bajo La Viña</option>
+            <option value="almirante_brown">Almirante Brown</option>
+            <option value="los_huaicos">Los Huaicos</option>
+            <option value="la_vina">La Viña</option>
+            <option value="san_isidro">San Isidro</option>
+            <option value="san_guillermo">San Guillermo</option>
+            <option value="san_cayetano">San Cayetano</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="zonaTrabajo.invalid && (zonaTrabajo.dirty || zonaTrabajo.touched)">
+            <div *ngIf="zonaTrabajo.errors?.['required']">La zona de trabajo es requerida</div>
           </div>
-        </fieldset>
+        </div>
+      </fieldset>
 
-        <div class="text-center">
-          <button 
-            type="button" 
-            class="btn btn-hero w-100" 
-            (click)="solicitarTrabajo()" 
-            [disabled]="!repartidorForm.form.valid">
-            🚲 Enviar Solicitud
+              <div class="form-group">
+          <button type="button" class="btn btn-primary btn-full" 
+                  (click)="solicitarTrabajo()" 
+                  [disabled]="!repartidorForm.form.valid">
+            Enviar Solicitud
           </button>
         </div>
-      </form>
-    </div>
+    </form>
   </div>
 </div>
