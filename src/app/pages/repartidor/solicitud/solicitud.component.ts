@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 export class SolicitudComponent {
   repartidor: Repartidor = new Repartidor();
   mensaje: string = '';
-  solicitudAprobada: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -25,7 +24,6 @@ export class SolicitudComponent {
   solicitarTrabajo() {
     this.repartidor.estado = 'pendiente';
     this.repartidor.tipoUsuario = 'Repartidor';
-    this.repartidor.rating = 0;
 
     this.usuarioService.guardarUsuario(this.repartidor)
       .subscribe((result: any) => {

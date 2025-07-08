@@ -21,7 +21,6 @@ export class PedidosRepartidorComponent implements OnInit {
   }[] = [];
 
   repartidorId: string = '';
-  pedidoTomado: boolean = false;
 
   constructor(
     private pedidoService: PedidoService,
@@ -66,7 +65,6 @@ export class PedidosRepartidorComponent implements OnInit {
     this.pedidoService.modificarPedido(pedidoId, pedidoModificado).subscribe({
       next: () => {
         alert('Pedido tomado correctamente.');
-        this.pedidoTomado = true;
         this.cargarPedidos();
       },
       error: () => {
