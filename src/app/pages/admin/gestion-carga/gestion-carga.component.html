@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <h3>Cargar nuevo producto</h3>
-  <form (ngSubmit)="guardarProducto()">
+  <form #form="ngForm" (ngSubmit)="guardarProducto(form)">
     <div class="row g-3">
       <div class="col-md-6">
         <label>Nombre</label>
@@ -99,6 +99,31 @@
       </div>
     </div>
 
+    <div class="mb-3">
+      <label>¿Principal?</label>
+      <div class="form-check">
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          id="principalSi" 
+          name="principal" 
+          [value]="true" 
+          [(ngModel)]="esPrincipal"
+          required>
+        <label class="form-check-label" for="principalSi">Sí</label>
+      </div>
+      <div class="form-check">
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          id="principalNo" 
+          name="principal" 
+          [value]="false" 
+          [(ngModel)]="esPrincipal">
+        <label class="form-check-label" for="principalNo">No</label>
+      </div>
+    </div>
+
     <!-- Tipo de producto -->
     <div class="col-md-6">
       <label>Tipo de producto</label>
@@ -173,7 +198,7 @@
   </div>
 
     <div class="mt-3">
-      <button type="submit" class="btn btn-success">Guardar producto</button>
+      <button type="submit" class="btn btn-success" [disabled]="!form.form.valid">Guardar producto</button>
     </div>
   </form>
 
@@ -181,7 +206,7 @@
 
   <hr>
     <h3>Cargar Pedido Pre-Cargado</h3>
-<form (ngSubmit)="crearPedido()" #pedidoForm="ngForm">
+<form (ngSubmit)="crearPedido(pedidoForm)" #pedidoForm="ngForm">
 
   <!-- Campo Nombre (ya estaba con validaciones) -->
   <div class="mb-3">

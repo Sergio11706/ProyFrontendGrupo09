@@ -40,7 +40,8 @@ export class Cliente extends Usuario {
     public barrio?: string,
     public calle?: string,
     public numeroCalle?: number,
-    public descuento?: number
+    public descuento?: number,
+    public tienePedido?: boolean
   ) {
     super(_id, username, password, nombre, apellido, email, telefono, 'Cliente');
   }

@@ -22,7 +22,7 @@ export class PagarComponent {
   id: string = '';
   isLoading: boolean = true;
   precioFinal: number = 0;
-
+  arrayAuxiliar: Pedido[] = [];
 
   constructor(
     private pedidoService: PedidoService,
@@ -40,8 +40,8 @@ export class PagarComponent {
           cliente: this.usuarioService.getCliente(this.id)
         }).subscribe({
           next: ({pedidos, cliente}) => {
-            console.log(pedidos);
-            this.pedido = pedidos.find((p: any) => p.muestra === false && p.cliente._id === this.id) || new Pedido();
+            this.arrayAuxiliar = pedidos.filter((p: any) => p.muestra === false && p.cliente);
+            this.pedido = this.arrayAuxiliar.find((p: any) => p.cliente._id === this.id)!;
             this.cliente = cliente;
             this.precioFinal = this.pedido.total! - (this.pedido.total! * (this.cliente.descuento! / 100));
             this.isLoading = false;

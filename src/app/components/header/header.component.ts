@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.usuarioService.modificarUsuario(this.usuarioService.idLogged()!, {tienePedido: false}).subscribe();
     this.usuarioService.logout();
     this.router.navigate(['/login']);
   }
