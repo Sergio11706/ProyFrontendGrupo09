@@ -44,20 +44,35 @@ export class ElegirPedidoComponent implements OnInit {
   }
 
   seleccionarPedido(pedido: Pedido): void {
-    const pedidoSeleccionado = pedido;
+    const pedidoSeleccionado = { ...pedido };
     pedidoSeleccionado._id = undefined;
     pedidoSeleccionado.muestra = false;
     pedidoSeleccionado.cliente = this.usuarioService.idLogged()!;
     pedidoSeleccionado.estado = 'preparando';
     pedidoSeleccionado.fecha = new Date();
-    this.pedidoService.crearPedido(pedidoSeleccionado).subscribe(result => {
-      if(result){
-        alert("Pedido realizado exitosamente");
-        this.router.navigate(['/pagar']);
-      }
-      else {
-        alert("Error al realizar el pedido");
-      }
-    });
+    
+    // Primero actualizamos el usuario
+    this.usuarioService.modificarUsuario(pedidoSeleccionado.cliente!, { tienePedido: true })
+      .subscribe({
+        next: () => {
+          // Una vez que el usuario se actualizó, creamos el pedido
+          this.pedidoService.crearPedido(pedidoSeleccionado).subscribe({
+            next: (result) => {
+              if (result) {
+                alert("Pedido realizado exitosamente");
+                this.router.navigate(['/pagar']);
+              } else {
+                alert("Error al realizar el pedido");
+              }
+            },
+            error: () => {
+              alert("Error al realizar el pedido");
+            }
+          });
+        },
+        error: () => {
+          alert("Error al actualizar el estado del usuario");
+        }
+      });
   }
 }

@@ -59,31 +59,45 @@ export class HomeComponent implements OnInit {
 
   irAPedir() {
     const id = this.usuarioService.idLogged();
+  
+    if (id !== null) {
+      const tipo = this.usuarioService.tipoUsuario();
+      const permisos = this.usuarioService.getpermisos();
 
-    if(id !== null) {
-      if(this.usuarioService.tipoUsuario() === 'Cliente' || (this.usuarioService.tipoUsuario() === 'Administrador' && this.usuarioService.getpermisos() === 3)) {
-        this.router.navigate(['/pedir']);
-      }
-      else {
-        alert("Funcion solo disponible para clientes");
-      }
-    }
-    else {
+      this.usuarioService.getCliente(id).subscribe((result: any) => {
+        const esClienteSinPedido = tipo === 'Cliente' && !result.tienePedido;
+        const esAdminConPermisos = tipo === 'Administrador' && permisos === 3;
+      
+        if (esClienteSinPedido || esAdminConPermisos) {
+          this.router.navigate(['/pedir']);
+        } 
+        else {
+          alert("Función no disponible");
+        }
+      });
+    } else {
       this.router.navigate(['/login']);
     }
   }
 
   irAElegirPedido() {
     const id = this.usuarioService.idLogged();
-    if(id !== null) {
-      if(this.usuarioService.tipoUsuario() === 'Cliente' || (this.usuarioService.tipoUsuario() === 'Administrador' && this.usuarioService.getpermisos() === 3)) {
-        this.router.navigate(['/elegir-pedido']);
-      }
-      else {
-        alert("Funcion solo disponible para clientes");
-      }
-    }
-    else {
+    if (id !== null) {
+      const tipo = this.usuarioService.tipoUsuario();
+      const permisos = this.usuarioService.getpermisos();
+
+      this.usuarioService.getCliente(id).subscribe((result: any) => {
+        const esClienteConPedido = tipo === 'Cliente' && !result.tienePedido;
+        const esAdminConPermisos = tipo === 'Administrador' && permisos === 3;
+      
+        if (esClienteConPedido || esAdminConPermisos) {
+          this.router.navigate(['/elegir-pedido']);
+        } 
+        else {
+          alert("Función no disponible");
+        }
+      });
+    } else {
       this.router.navigate(['/login']);
     }
   }

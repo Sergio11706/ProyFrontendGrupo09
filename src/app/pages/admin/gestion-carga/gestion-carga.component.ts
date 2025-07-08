@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ProductoService } from '../../../services/producto.service';
 import { PedidoService } from '../../../services/pedido.service';
 import { Bebida, Ingrediente, Producto } from '../../../models/producto.model';
@@ -28,6 +28,7 @@ export class GestionCargaComponent implements OnInit {
   cantidad: number = 1;
   arrayAuxiliar!: number[];
   tipoProducto!: string;
+  esPrincipal: boolean = false;
 
   constructor(
     private productoService: ProductoService,
@@ -49,19 +50,27 @@ export class GestionCargaComponent implements OnInit {
     });
   }
 
-  guardarProducto(): void {
+  guardarProducto(form: NgForm): void {
     if (this.tipoProducto === 'Bebida'){
       this.bebida.tipoProducto = 'Bebida';
       this.bebida.disponible = true;
+      this.bebida.principal = this.esPrincipal;
       this.productoService.crearProducto(this.bebida).subscribe(result => {
         alert("Producto creado exitosamente");
+        form.reset();
+        this.bebida = new Bebida();
+        this.esPrincipal = false;
       });
     }
     else {
       this.ingrediente.tipoProducto = 'Ingrediente';
       this.ingrediente.disponible = true;
+      this.ingrediente.principal = this.esPrincipal;
       this.productoService.crearProducto(this.ingrediente).subscribe(result => {
         alert("Producto creado exitosamente");
+        form.reset();
+        this.ingrediente = new Ingrediente();
+        this.esPrincipal = false;
       });
     }
   }
@@ -71,11 +80,12 @@ export class GestionCargaComponent implements OnInit {
     this.pedido.productos?.length != this.cantidad;
   }
 
-  crearPedido(): void {
+  crearPedido(form: NgForm): void {
     this.pedido.total = this.calcularTotal();
     this.pedidoService.crearPedido(this.pedido).subscribe((result: any) => {
       alert("Pedido realizado exitosamente");
     });
+    form.reset();
   }
 
   calcularTotal(): number {
