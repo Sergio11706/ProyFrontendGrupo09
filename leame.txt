@@ -1,0 +1,95 @@
+# Guía de Instalación - proyFrontendGrupo09
+
+Este documento proporciona instrucciones detalladas para configurar y ejecutar el proyecto proyFrontendGrupo09 en un entorno de desarrollo local.
+
+## URL App Deployada
+
+https://proyfrontendgrupo09.onrender.com/
+
+## Requisitos Previos
+
+- Node.js (versión 18 o superior)
+- npm (incluido con Node.js)
+- Angular CLI (se instalará en los pasos siguientes)
+- Git (opcional, solo si vas a clonar el repositorio)
+
+## Pasos de Instalación
+
+### 1. Clonar el Repositorio (si aplica)
+
+Si tienes acceso al repositorio Git, clónalo con el siguiente comando:
+
+```bash
+git clone https://github.com/Sergio11706/ProyFrontendGrupo09
+cd ProyFrontendGrupo09
+```
+
+### 2. Instalar Dependencias
+
+Ejecuta el siguiente comando para instalar todas las dependencias del proyecto:
+
+```bash
+npm install
+```
+
+### 3. Instalar Angular CLI (si no lo tienes instalado)
+
+```bash
+npm install -g @angular/cli@19.2.9
+```
+
+### 4. Configuración del Entorno
+
+Asegúrate de que todas las variables de entorno necesarias estén configuradas. Revisa el archivo `.env` o la documentación del proyecto para las variables específicas requeridas.
+
+### 5. Ejecutar la Aplicación en Modo Desarrollo
+
+Para iniciar el servidor de desarrollo, ejecuta:
+
+```bash
+ng serve
+```
+
+O alternativamente:
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en: [http://localhost:4200/]
+
+### 6. Construir para Producción
+
+Para crear una versión optimizada para producción:
+
+```bash
+ng build --configuration production
+```
+
+Los archivos compilados se guardarán en la carpeta `dist/`.
+
+## Solución de Problemas Comunes
+
+### Error de Versión de Node.js
+Si encuentras errores relacionados con la versión de Node.js, asegúrate de tener instalada la versión 18 o superior. Puedes verificar tu versión con:
+
+```bash
+node --version
+```
+
+### Error de Dependencias
+Si hay problemas con las dependencias, intenta:
+
+```bash
+rm -rf node_modules/
+rm package-lock.json
+npm cache clean --force
+npm install
+```
+
+## Estructura del Proyecto
+
+- `/src`: Contiene el código fuente de la aplicación Angular
+- `/public`: Archivos estáticos
+- `/node_modules`: Dependencias del proyecto (se crea al ejecutar `npm install`)
+- `/dist`: Archivos de compilación para producción (se crea al ejecutar `ng build`)
