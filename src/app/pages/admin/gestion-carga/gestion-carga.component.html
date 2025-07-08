@@ -3,7 +3,7 @@
     <h2 class="form-title">Cargar Nuevo Producto</h2>
     <p class="form-subtitle">Agrega nuevos productos al inventario</p>
     
-    <form (ngSubmit)="guardarProducto()">
+    <form #productoForm="ngForm" (ngSubmit)="guardarProducto(productoForm)">
       <div class="form-group input-with-icon">
         <i class="bi bi-box-seam"></i>
         <input 
@@ -217,7 +217,7 @@
     <h2 class="form-title">Cargar Pedido Pre-Cargado</h2>
     <p class="form-subtitle">Crea pedidos predefinidos para agilizar el proceso</p>
     
-    <form (ngSubmit)="crearPedido()" #pedidoForm="ngForm">
+    <form (ngSubmit)="crearPedido(pedidoForm)" #pedidoForm="ngForm">
       <div class="form-group input-with-icon">
         <i class="bi bi-box-seam"></i>
         <input 
