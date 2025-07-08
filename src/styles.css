@@ -144,12 +144,16 @@ main {
 .input-with-icon i {
   position: absolute;
   left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0.875rem; /* Posición fija basada en el padding del input */
   color: var(--text-light);
   font-size: 1.125rem;
   z-index: 1;
   transition: var(--transition);
+  pointer-events: none;
+  height: 1.125rem; /* Altura fija para el icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-with-icon .form-control {
@@ -168,12 +172,15 @@ main {
 .select-with-icon i {
   position: absolute;
   left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0.875rem; /* Posición fija basada en el padding del select */
   color: var(--text-light);
   font-size: 1.125rem;
   z-index: 1;
   pointer-events: none;
+  height: 1.125rem; /* Altura fija para el icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .select-with-icon select {
@@ -606,7 +613,12 @@ fieldset {
   
   .input-with-icon i {
     left: 0.875rem;
+    top: 0.75rem; /* Posición fija para pantallas pequeñas */
     font-size: 1rem;
+    height: 1rem; /* Altura fija para pantallas pequeñas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .modal-dialog {

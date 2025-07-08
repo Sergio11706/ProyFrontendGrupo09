@@ -152,10 +152,15 @@
 }
 .input-with-icon i {
   position: absolute;
-  top: 15%;
+  top: 12px; /* Posición fija basada en el padding del input */
   left: 12px;
   color: #999;
   font-size: 1.1rem;
+  pointer-events: none;
+  height: 1.1rem; /* Altura fija para el icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .input-with-icon input {
   padding-left: 2.2rem;
@@ -166,10 +171,15 @@
 }
 .select-with-icon i {
   position: absolute;
-  top: 15%;
+  top: 12px; /* Posición fija basada en el padding del select */
   left: 12px;
   color: #999;
   font-size: 1.1rem;
+  pointer-events: none;
+  height: 1.1rem; /* Altura fija para el icono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .select-with-icon select {
   padding-left: 2.2rem;
