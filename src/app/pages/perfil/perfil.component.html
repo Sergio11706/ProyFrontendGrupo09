@@ -1,161 +1,176 @@
-<div class="container mt-5 perfil-container">
-  <h2 class="text-center brand-gradient-text mb-4">Mi Perfil</h2>
+<div class="form-container">
+  <div class="form-box animate-fade-in">
+    <h2 class="form-title">Mi Perfil</h2>
+    <p class="form-subtitle">Gestiona tu información personal</p>
 
-  <!-- CLIENTE -->
-  <div *ngIf="cliente" class="card perfil-card mb-4">
-    <div class="card-body">
-      <h4 class="text-primary">Cliente</h4>
+    <!-- CLIENTE -->
+    <div *ngIf="cliente" class="mb-4">
+      <h4 class="section-title">Cliente</h4>
       <div *ngIf="!editando">
-        <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
-        <p><strong>Apellido:</strong> {{ cliente.apellido }}</p>
-        <p><strong>Username:</strong> {{ cliente.username }}</p>
-        <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
-        <p><strong>Correo:</strong> {{ cliente.email }}</p>
-        <p><strong>Barrio:</strong> {{ cliente.barrio }}</p>
-        <p><strong>Calle:</strong> {{ cliente.calle }}</p>
-        <p><strong>Número:</strong> {{ cliente.numeroCalle }}</p>
-        <button class="btn btn-primary mt-3" (click)="editarPerfil()">Editar</button>
+        <div class="card">
+          <div class="card-body">
+            <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ cliente.apellido }}</p>
+            <p><strong>Username:</strong> {{ cliente.username }}</p>
+            <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+            <p><strong>Correo:</strong> {{ cliente.email }}</p>
+            <p><strong>Barrio:</strong> {{ cliente.barrio }}</p>
+            <p><strong>Calle:</strong> {{ cliente.calle }}</p>
+            <p><strong>Número:</strong> {{ cliente.numeroCalle }}</p>
+            <button class="btn btn-primary mt-3" (click)="editarPerfil()">Editar</button>
+          </div>
+        </div>
       </div>
       <div *ngIf="editando">
-        <div class="form-group mb-2">
-          <label>Nombre</label>
-          <input class="form-control" [(ngModel)]="cliente.nombre">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input class="form-control" placeholder="Nombre" [(ngModel)]="cliente.nombre">
         </div>
-        <div class="form-group mb-2">
-          <label>Apellido</label>
-          <input class="form-control" [(ngModel)]="cliente.apellido">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input class="form-control" placeholder="Apellido" [(ngModel)]="cliente.apellido">
         </div>
-        <div class="form-group mb-2">
-          <label>Username</label>
-          <input class="form-control" [(ngModel)]="cliente.username">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-fill"></i>
+          <input class="form-control" placeholder="Username" [(ngModel)]="cliente.username">
         </div>
-        <div class="form-group mb-2">
-          <label>Teléfono</label>
-          <input class="form-control" [(ngModel)]="cliente.telefono">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-telephone-fill"></i>
+          <input class="form-control" placeholder="Teléfono" [(ngModel)]="cliente.telefono">
         </div>
-        <div class="form-group mb-2">
-          <label>Correo</label>
-          <input class="form-control" [(ngModel)]="cliente.email">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-envelope-fill"></i>
+          <input class="form-control" placeholder="Correo" [(ngModel)]="cliente.email">
         </div>
-        <div class="form-group mb-2">
-          <label>Barrio</label>
-          <input class="form-control" [(ngModel)]="cliente.barrio">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-geo-alt-fill"></i>
+          <input class="form-control" placeholder="Barrio" [(ngModel)]="cliente.barrio">
         </div>
-        <div class="form-group mb-2">
-          <label>Calle</label>
-          <input class="form-control" [(ngModel)]="cliente.calle">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-signpost-split-fill"></i>
+          <input class="form-control" placeholder="Calle" [(ngModel)]="cliente.calle">
         </div>
-        <div class="form-group mb-3">
-          <label>Número</label>
-          <input class="form-control" [(ngModel)]="cliente.numeroCalle">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-123"></i>
+          <input class="form-control" placeholder="Número" [(ngModel)]="cliente.numeroCalle">
         </div>
-        <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
-        <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        <div class="d-flex">
+          <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
+          <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- ADMIN -->
-  <div *ngIf="admin" class="card perfil-card mb-4">
-    <div class="card-body">
-      <h4 class="text-danger">Administrador</h4>
+    <!-- ADMIN -->
+    <div *ngIf="admin" class="mb-4">
+      <h4 class="section-title">Administrador</h4>
       <div *ngIf="!editando">
-        <p><strong>Nombre:</strong> {{ admin.nombre }}</p>
-        <p><strong>Apellido:</strong> {{ admin.apellido }}</p>
-        <p><strong>Username:</strong> {{ admin.username }}</p>
-        <p><strong>Teléfono:</strong> {{ admin.telefono }}</p>
-        <p><strong>Correo:</strong> {{ admin.email }}</p>
-        <p><strong>Permisos:</strong> {{ admin.permisos }}</p>
-        <p><strong>Última Modificación:</strong> {{ admin.ultimaModificacion }}</p>
-        <button class="btn btn-primary mt-3" (click)="editarPerfil()">Editar</button>
+        <div class="card">
+          <div class="card-body">
+            <p><strong>Nombre:</strong> {{ admin.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ admin.apellido }}</p>
+            <p><strong>Username:</strong> {{ admin.username }}</p>
+            <p><strong>Teléfono:</strong> {{ admin.telefono }}</p>
+            <p><strong>Correo:</strong> {{ admin.email }}</p>
+            <p><strong>Permisos:</strong> {{ admin.permisos }}</p>
+            <p><strong>Última Modificación:</strong> {{ admin.ultimaModificacion }}</p>
+            <button class="btn btn-primary mt-3" (click)="editarPerfil()">Editar</button>
+          </div>
+        </div>
       </div>
       <div *ngIf="editando">
-        <div class="form-group mb-2">
-          <label>Nombre</label>
-          <input class="form-control" [(ngModel)]="admin.nombre">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input class="form-control" placeholder="Nombre" [(ngModel)]="admin.nombre">
         </div>
-        <div class="form-group mb-2">
-          <label>Apellido</label>
-          <input class="form-control" [(ngModel)]="admin.apellido">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input class="form-control" placeholder="Apellido" [(ngModel)]="admin.apellido">
         </div>
-        <div class="form-group mb-2">
-          <label>Username</label>
-          <input class="form-control" [(ngModel)]="admin.username">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-fill"></i>
+          <input class="form-control" placeholder="Username" [(ngModel)]="admin.username">
         </div>
-        <div class="form-group mb-2">
-          <label>Teléfono</label>
-          <input class="form-control" [(ngModel)]="admin.telefono">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-telephone-fill"></i>
+          <input class="form-control" placeholder="Teléfono" [(ngModel)]="admin.telefono">
         </div>
-        <div class="form-group mb-2">
-          <label>Correo</label>
-          <input class="form-control" [(ngModel)]="admin.email">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-envelope-fill"></i>
+          <input class="form-control" placeholder="Correo" [(ngModel)]="admin.email">
         </div>
-        <div class="form-group mb-3">
-          <label>Permisos</label>
-          <input class="form-control" [(ngModel)]="admin.permisos">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-shield-fill"></i>
+          <input class="form-control" placeholder="Permisos" [(ngModel)]="admin.permisos">
         </div>
-        <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
-        <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        <div class="d-flex">
+          <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
+          <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- REPARTIDOR -->
-  <div *ngIf="repartidor" class="card perfil-card mb-4">
-    <div class="card-body">
-      <h4 class="text-warning">Repartidor</h4>
+    <!-- REPARTIDOR -->
+    <div *ngIf="repartidor" class="mb-4">
+      <h4 class="section-title">Repartidor</h4>
       <div *ngIf="!editando">
-        <p><strong>Nombre:</strong> {{ repartidor.nombre }}</p>
-        <p><strong>Apellido:</strong> {{ repartidor.apellido }}</p>
-        <p><strong>Username:</strong> {{ repartidor.username }}</p>
-        <p><strong>Teléfono:</strong> {{ repartidor.telefono }}</p>
-        <p><strong>Correo:</strong> {{ repartidor.email }}</p>
-        <p><strong>Documento:</strong> {{ repartidor.documento }}</p>
-        <p><strong>Licencia:</strong> {{ repartidor.numeroLicencia }}</p>
-        <p><strong>Vehículo:</strong> {{ repartidor.vehiculo }}</p>
-        <p><strong>Zona de trabajo:</strong> {{ repartidor.zonaTrabajo }}</p>
-        <p><strong>Rating:</strong> {{ repartidor.rating }}</p>
-        <button class="btn btn-primary mt-3" (click)="editarPerfil()">Editar</button>
+        <div class="card">
+          <div class="card-body">
+            <p><strong>Nombre:</strong> {{ repartidor.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ repartidor.apellido }}</p>
+            <p><strong>Username:</strong> {{ repartidor.username }}</p>
+            <p><strong>Teléfono:</strong> {{ repartidor.telefono }}</p>
+            <p><strong>Correo:</strong> {{ repartidor.email }}</p>
+            <p><strong>Documento:</strong> {{ repartidor.documento }}</p>
+            <p><strong>Licencia:</strong> {{ repartidor.numeroLicencia }}</p>
+            <p><strong>Vehículo:</strong> {{ repartidor.vehiculo }}</p>
+            <p><strong>Zona de trabajo:</strong> {{ repartidor.zonaTrabajo }}</p>
+            <p><strong>Rating:</strong> {{ repartidor.rating }}</p>
+            <button class="btn btn-primary mt-3" (click)="editarPerfil()">Editar</button>
+          </div>
+        </div>
       </div>
       <div *ngIf="editando">
-        <div class="form-group mb-2">
-          <label>Nombre</label>
-          <input class="form-control" [(ngModel)]="repartidor.nombre">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input class="form-control" placeholder="Nombre" [(ngModel)]="repartidor.nombre">
         </div>
-        <div class="form-group mb-2">
-          <label>Apellido</label>
-          <input class="form-control" [(ngModel)]="repartidor.apellido">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-badge-fill"></i>
+          <input class="form-control" placeholder="Apellido" [(ngModel)]="repartidor.apellido">
         </div>
-        <div class="form-group mb-2">
-          <label>Username</label>
-          <input class="form-control" [(ngModel)]="repartidor.username">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-person-fill"></i>
+          <input class="form-control" placeholder="Username" [(ngModel)]="repartidor.username">
         </div>
-        <div class="form-group mb-2">
-          <label>Teléfono</label>
-          <input class="form-control" [(ngModel)]="repartidor.telefono">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-telephone-fill"></i>
+          <input class="form-control" placeholder="Teléfono" [(ngModel)]="repartidor.telefono">
         </div>
-        <div class="form-group mb-2">
-          <label>Correo</label>
-          <input class="form-control" [(ngModel)]="repartidor.email">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-envelope-fill"></i>
+          <input class="form-control" placeholder="Correo" [(ngModel)]="repartidor.email">
         </div>
-        <div class="form-group mb-2">
-          <label>Documento</label>
-          <input class="form-control" [(ngModel)]="repartidor.documento">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-card-text"></i>
+          <input class="form-control" placeholder="Documento" [(ngModel)]="repartidor.documento">
         </div>
-        <div class="form-group mb-2">
-          <label>Licencia</label>
-          <input class="form-control" [(ngModel)]="repartidor.numeroLicencia">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-card-heading"></i>
+          <input class="form-control" placeholder="Licencia" [(ngModel)]="repartidor.numeroLicencia">
         </div>
-        <div class="form-group mb-2">
-          <label>Vehículo</label>
-          <input class="form-control" [(ngModel)]="repartidor.vehiculo">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-bicycle"></i>
+          <input class="form-control" placeholder="Vehículo" [(ngModel)]="repartidor.vehiculo">
         </div>
-        <div class="form-group mb-3">
-          <label>Zona de trabajo</label>
-          <input class="form-control" [(ngModel)]="repartidor.zonaTrabajo">
+        <div class="form-group input-with-icon">
+          <i class="bi bi-geo-alt-fill"></i>
+          <input class="form-control" placeholder="Zona de trabajo" [(ngModel)]="repartidor.zonaTrabajo">
         </div>
-        <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
-        <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        <div class="d-flex">
+          <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
+          <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        </div>
       </div>
     </div>
   </div>

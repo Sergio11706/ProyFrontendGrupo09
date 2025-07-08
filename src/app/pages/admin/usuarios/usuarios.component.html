@@ -33,21 +33,21 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" id="nombre" class="form-control" [(ngModel)]="usuarioEditado.nombre" name="nombre">
+            <div class="form-group input-with-icon">
+                <i class="bi bi-person-badge-fill"></i>
+                <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="usuarioEditado.nombre" name="nombre">
             </div>
-            <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" id="apellido" class="form-control" [(ngModel)]="usuarioEditado.apellido" name="apellido">
+            <div class="form-group input-with-icon">
+                <i class="bi bi-person-badge-fill"></i>
+                <input type="text" class="form-control" placeholder="Apellido" [(ngModel)]="usuarioEditado.apellido" name="apellido">
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control" [(ngModel)]="usuarioEditado.email" name="email">
+            <div class="form-group input-with-icon">
+                <i class="bi bi-envelope-fill"></i>
+                <input type="email" class="form-control" placeholder="Email" [(ngModel)]="usuarioEditado.email" name="email">
             </div>
-            <div class="mb-3">
-                <label for="rol" class="form-label">Rol</label>
-                <input type="text" id="rol" class="form-control" [value]="usuarioEditado.tipoUsuario" disabled>
+            <div class="form-group input-with-icon">
+                <i class="bi bi-shield-fill"></i>
+                <input type="text" class="form-control" placeholder="Rol" [value]="usuarioEditado.tipoUsuario" disabled>
             </div>
             </div>
             <div class="modal-footer">

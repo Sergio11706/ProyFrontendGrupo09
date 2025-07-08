@@ -1,3 +1,36 @@
+/* Estilos específicos para el login si son necesarios */
+/* Los estilos principales están en styles.css */
+
+/* Ajustes específicos para el botón de Google si es necesario */
+.g_id_signin {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Asegurar que el contenedor del formulario tenga el fondo correcto */
+.form-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Overlay sutil para mejorar la legibilidad */
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.form-box {
+  position: relative;
+  z-index: 2;
+}
+
 /* Contenedor general centrado con fondo */
 .login-container {
   display: flex;
@@ -105,11 +138,6 @@
   color: red;
   text-align: center;
   margin-top: 10px;
-}
-
-/* Google botón alineado */
-.g_id_signin {
-  margin: 0 auto;
 }
 
 /* Responsive */
