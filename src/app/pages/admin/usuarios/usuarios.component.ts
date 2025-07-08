@@ -34,12 +34,6 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  editarUsuario(usuario: any): void {
-    this.usuarioEditado = { ...usuario };
-    const modal = new bootstrap.Modal(document.getElementById('editarModal')!);
-    modal.show();
-  }
-
   guardarEdicion(): void {
     this.usuarioService.modificarUsuario(this.usuarioEditado._id, this.usuarioEditado).subscribe({
       next: (res) => {
